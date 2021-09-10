@@ -1,0 +1,13 @@
+ID,Password,Users Type,Username,1st Vaccine Status,2nd Vaccine Status,1st Appointment Date,2nd Appointment Date
+admin,admin,admin,MOH,None,None,,
+vcadmin01,vcadmin,vcadmin,VCSelangor,None,None,,
+vcadmin02,vcadmin,vcadmin,VCKL,None,None,,
+ID001,A1234,recipient,Anas,Not Vaccinated,Not Vaccinated,,
+ID002,A1234,recipient,Katia,Not Vaccinated,Not Vaccinated,,
+ID003,A1234,recipient,Lee,Not Vaccinated,Not Vaccinated,,
+ID004,A1234,recipient,Mohamed,Not Vaccinated,Not Vaccinated,,
+ID005,A1234,recipient,Mona,Not Vaccinated,Not Vaccinated,,
+ID006,A1234,recipient,Hamza,Not Vaccinated,Not Vaccinated,,
+ID007,A1234,recipient,Noor,Not Vaccinated,Not Vaccinated,,
+ID008,A1234,recipient,Yassin,Not Vaccinated,Not Vaccinated,,
+ID009,A1234,recipient,Mustafa,Not Vaccinated,Not Vaccinated,,
