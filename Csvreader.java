@@ -16,7 +16,8 @@ public class Csvreader {
 
     public void ReadFileLine(){
         try{
-            UsersInfo = Files.readAllLines(Paths.get("D:/uni/OOPDS/JAVA/Assignment_one/users.csv"));     // read users.csv into a list of lines.
+            String currentPath = System.getProperty("user.dir");  // to get path of current directory 
+            UsersInfo = Files.readAllLines(Paths.get(currentPath + "/users.csv"));     // read users.csv into a list of lines.
         }catch(IOException ie) {
             ie.printStackTrace();
         }   
