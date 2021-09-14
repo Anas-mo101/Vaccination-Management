@@ -9,29 +9,26 @@ public class User {
     private final int ID_INDEX = 0;
     private final int PASS_INDEX = 1;
     private final int USERTYPE_INDEX = 2;
-    private final int USERNAME_INDEX = 3;
-    private final int FIRSTVAC_INDEX = 4;
+    private final int USERNAME_INDEX = 3;       // items[0] is id, items[1] is password, items[2] is usertype,
+    private final int FIRSTVAC_INDEX = 4;      //  items[3] is username , items[4] is 1st vac status, items[5] is 2nd vac status 
     private final int SCNDVAC_INDEX = 5;
 
     User() {}
 
-    User(String ID, String Password)                // items[0] is id, items[1] is password, items[2] is usertype,
-    {                                              //  items[3] is username , items[4] is 1st vac status, items[5] is 2nd vac status 
-        this.ID = ID;
-        this.Password = Password;
-        if(login()){
+    User(String ID_in, String Pass_in)                
+    {                                             
+        if(login(ID_in, Password_in)){
             System.out.println(toString());
         }
     }
 
-    public Boolean login(){
-        if(UsersData.CheckLoginDetails(ID, Password)){
-            UserType = UsersData.GetUserData(USERTYPE_INDEX);
-            Username = UsersData.GetUserData(USERNAME_INDEX);
+    public Boolean login(String ID_in, String Pass_in){
+        if(UsersData.CheckLoginDetails(ID_in, Pass_in)){
+            ID = ID_in;
+            UserType = UsersData.GetUserData(USERTYPE_INDEX); 
+            Username = UsersData.GetUserData(USERNAME_INDEX); 
             return true;
         }else{
-            ID = null;
-            Password = null;
             return false;
         }
     }
