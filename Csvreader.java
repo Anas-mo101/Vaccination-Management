@@ -42,6 +42,12 @@ public class Csvreader {
         String[] items = UsersInfo.get(UserLocatedInLine).split(","); 
         return  items[index];
     }
+    
+    
+    public List<String> getUserInfo(){
+        return UsersInfo;
+    }
+
 
 }
 
