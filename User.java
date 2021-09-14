@@ -17,7 +17,7 @@ public class User {
 
     User(String ID_in, String Pass_in)                
     {                                             
-        if(login(ID_in, Password_in)){
+        if(login(ID_in, Pass_in)){
             System.out.println(toString());
         }
     }
