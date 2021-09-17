@@ -35,8 +35,6 @@ public class VaccinationCenter extends User {
                     items[5] = "Appointment Made";
                     System.out.println("An appointment has been made successfuly!!!");
                 }
-                else
-                    System.out.println("There is no such person in the list. Please try again.");
             }
             else
                 System.out.println("This Vaccination Center has reached the max capacity at this date. Please select another Vaccination Center.");
@@ -54,8 +52,6 @@ public class VaccinationCenter extends User {
                     items[6] = "Appointment Made";
                     System.out.println("An appointment has been made successfuly!!!");
                 }
-                else
-                    System.out.println("There is no such person in the list. Please try again.");
             }
             else
                 System.out.println("This Vaccination Center has reached the max capacity at this date. Please select another Vaccination Center.");
@@ -70,8 +66,6 @@ public class VaccinationCenter extends User {
                 items[5] = Status;               
                 System.out.println("1st appointment status has been updated successfuly!!!");
             }
-            else
-                System.out.println("There is no such person in the list. Please try again.");
         }
     }
 
@@ -83,8 +77,6 @@ public class VaccinationCenter extends User {
                 items[6] = Status;               
                 System.out.println("2nd appointment status has been updated successfuly!!!");
             }
-            else
-                System.out.println("There is no such person in the list. Please try again.");
         }
     }
     
@@ -127,7 +119,6 @@ public class VaccinationCenter extends User {
 
     
 }
-
 
 
 
