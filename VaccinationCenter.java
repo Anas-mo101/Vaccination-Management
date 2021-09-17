@@ -1,42 +1,39 @@
 import java.util.List;
 
+// Remaider:        
+// need to add "vaccination location" into the csv file
+// don't have the save file function
+
 public class VaccinationCenter extends User {
-    private int capacityOfVCPerHour = 10;
-    private int capacityOfVCPerHourNow = 0;
-    private int capacityOfVCPerDay = 100;
-    private int capacityOfVCPerDayNow = 0;
+    
     List<String> userInfo = UsersData.getUserInfo();
 
     VaccinationCenter() {}
 
-    VaccinationCenter(String ID, String Username, String Password, int capacityOfVCPerHour, int capacityOfVCPerDay) {
-        super(ID, Password);
-        this.capacityOfVCPerHour = capacityOfVCPerHour;
-        this.capacityOfVCPerDay = capacityOfVCPerDay;
-        //userInfo.add(new user(ID, Username, Password, capacityOfVCPerHour, capacityOfVCPerDay));           
-    }
+    /*    Not sure this overloaded constructor is needed or not
 
-    public void PrintRecipientList() {
+    VaccinationCenter(String ID, String Username, String Password, int capacityOfVCPerDay) {
+        super(ID, Password);
+        this.capacityOfVCPerDay = capacityOfVCPerDay;
+        //userInfo.add(new user(ID, Username, Password, capacityOfVCPerDay));           
+    }
+    */
+
+    public void PrintRecipientList() {                  // This function is to print the recipient list
         for(int i = 4; i < userInfo.size(); i++) {
            System.out.println(userInfo.get(i));
         }
     }
 
-    public void set1stAppointmentDate(String Username, String  date, String Location) {      // need to add "vaccination location" into the csv file
-        for (int i = 0; i<userInfo.size(); i++) {                                            // don't have the save file function
+    public void set1stAppointmentDate(String Username, String  date, String VCLocation) {      // set the 1st appoinment date for recipient
+        for (int i = 4; i<userInfo.size(); i++) {                                            
             String[] items = userInfo.get(i).split(",");                    
             String name = items[3];
-            if(checkCapacity(Location)){
+            if(checkCapacityFull(VCLocation,date)){       // check the capacity of VC is full or not
                 if(Username.equals(name)){
-                    if(capacityOfVCPerDayNow < capacityOfVCPerDay){
                     items[7] = date;
                     items[5] = "Appointment Made";
-                    capacityOfVCPerHourNow = capacityOfVCPerHourNow + 1;
-                    capacityOfVCPerDayNow  = capacityOfVCPerDayNow  + 1;
                     System.out.println("An appointment has been made successfuly!!!");
-                    }
-                    else
-                        System.out.println("The date that you choose is already full. Please try again.");
                 }
                 else
                     System.out.println("There is no such person in the list. Please try again.");
@@ -46,22 +43,16 @@ public class VaccinationCenter extends User {
         }
     }
     
-    public void set2ndAppointmentDate(String Username, String  date, String Location) {
-        for (int i = 0; i<userInfo.size(); i++) {
+    public void set2ndAppointmentDate(String Username, String  date, String VCLocation) {    // set the 2nd appoinment date for recipient
+        for (int i = 4; i<userInfo.size(); i++) {
             String[] items = userInfo.get(i).split(",");
             String name = items[3];
-            if(checkCapacity(Location)){
+            if(checkCapacityFull(VCLocation,date)){      // check the capacity of VC is full or not
                 if(Username.equals(name)){
-                    if(capacityOfVCPerDayNow < capacityOfVCPerDay){
                     items[8] = date;
                     items[5] = "Completed";
                     items[6] = "Appointment Made";
-                    capacityOfVCPerHourNow = capacityOfVCPerHourNow + 1;
-                    capacityOfVCPerDayNow  = capacityOfVCPerDayNow  + 1;
                     System.out.println("An appointment has been made successfuly!!!");
-                    }
-                    else
-                        System.out.println("The date that you choose is already full. Please try again.");
                 }
                 else
                     System.out.println("There is no such person in the list. Please try again.");
@@ -71,8 +62,8 @@ public class VaccinationCenter extends User {
         }
     }
 
-    public void set1stVaccineStatus(String Username, String Status) {
-        for (int i = 0; i<userInfo.size(); i++) {
+    public void set1stVaccineStatus(String Username, String Status) {           // to change status for 1st vaccination
+        for (int i = 4; i<userInfo.size(); i++) {
             String[] items = userInfo.get(i).split(",");
             String name = items[3];
             if(Username.equals(name)){
@@ -84,8 +75,8 @@ public class VaccinationCenter extends User {
         }
     }
 
-    public void set2ndVaccineStatus(String Username, String Status) {
-        for (int i = 0; i<userInfo.size(); i++) {
+    public void set2ndVaccineStatus(String Username, String Status) {           // to change status for 2nd vaccination
+        for (int i = 4; i<userInfo.size(); i++) {
             String[] items = userInfo.get(i).split(",");
             String name = items[3];
             if(Username.equals(name)){
@@ -96,23 +87,45 @@ public class VaccinationCenter extends User {
                 System.out.println("There is no such person in the list. Please try again.");
         }
     }
-
-    public boolean checkCapacity(String Location) {
-        for (int i = 0; i<userInfo.size(); i++) {
+    
+    public boolean checkCapacityFull(String  VCLocation, String date) {                          // to check capacity reached or not 
+                                                                                                 // (not sure this function works or not)
+        for (int i = 2; i<userInfo.size(); i++) {
+            int capacity = getCapacity(VCLocation);
+            int numOfPeopleinQueue = 0;
             String[] items = userInfo.get(i).split(",");
-            String location = items[3];
-            String capcityNow = items[11];
-            String capacityDay = items[12];
-            if(Location.equals(location)){
-                if(capcityNow.equals(capacityDay)){               
-                return false;
-                }
+            String F_Location = items[7];
+            String F_AppointDate = items [6];
+            String S_Location = items[9];
+            String S_AppointDate = items [8];
+            if(F_Location.equals(VCLocation)) {
+                if(F_AppointDate.equals(date))
+                    numOfPeopleinQueue++;
+            }else if(S_Location.equals(VCLocation)) {
+                if(S_AppointDate.equals(date))
+                    numOfPeopleinQueue++;
             }
+            if(numOfPeopleinQueue <= capacity)
+            return true;
         }
-        return true;
+        System.out.println("The date that you choose is already full. Please try again.");
+        return false;
     }
 
+    public int getCapacity(String VCLocation) {             // Checked, this function worked
+        int capacity=0;
+        for (int i = 2; i<4; i++) {
+            String[] items = userInfo.get(i).split(",");
+            String vclocation = items[3];
+            if(VCLocation.equals(vclocation)){              // get the capacity of VC from the CSV file
+                capacity= Integer.parseInt(items[10]);
+                return capacity;
+            }
+        }
+        return capacity;
+    }
 
+    
 }
 
 
