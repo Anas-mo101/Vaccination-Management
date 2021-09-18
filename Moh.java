@@ -35,14 +35,6 @@ public class Moh extends User{
         csv.addUser(password, usertype, Name, false, false, Phone);
     }
 
-    // public Customer getRecipient() {                  //fx overload ???
-    //     return getRecipient(0);
-    // }
-    
-    // public Customer getRecipient(int index) {
-    //     return Recipients.get(index);
-    // }
-
     public void searchRecipientData() {  // Unique Primary Key
         System.out.print("Enter User ID: ");
         String ID_in = input.nextLine();
@@ -63,8 +55,15 @@ public class Moh extends User{
         System.out.print("To Be Continued");
     }
 
-    public void setReceipientVC(){
-        System.out.print("To Be Continued");
+    public void distributeVaccine(int Vac) {
+        System.out.print("Vaccination center doesn't have the vaccine count");
+    }
+
+    public void distributeRecipient(){
+        System.out.print("Don't know how to get specific VC");
+        // while (!checkCapacity("Some Date")) {
+        //     ; // keep assigning recipient to that vc while its not full
+        // }
     }
 
 }
