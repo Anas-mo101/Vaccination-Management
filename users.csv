@@ -1,0 +1,13 @@
+ID,PASS,USERTYPE,USERNAME,1st Vaccine Status,2nd Vaccine Status,1st Vaccine Date,2nd Vaccine Status,Phone,ASSGINED VC,CAP/HOUR
+10001,admin,admin,MOH,FALSE,FALSE,none,none,1000000001,none,
+10002,vcadmin,vcadmin,VCSelangor,FALSE,FALSE,none,none,1000000001,none,5
+10003,vcadmin,vcadmin,VCKL,FALSE,FALSE,none,none,1000000001,none,10
+10004,A1234,recipient,Anas,FALSE,FALSE,none,none,1234567890,none,
+10005,A1234,recipient,Katia,FALSE,FALSE,none,none,1234567890,none,
+10006,A1234,recipient,Lee,FALSE,FALSE,none,none,1234567890,none,
+10007,A1234,recipient,Mohamed,FALSE,FALSE,none,none,1234567890,none,
+10008,A1234,recipient,Mona,FALSE,FALSE,none,none,1234567890,none,
+10009,A1234,recipient,Hamza,FALSE,FALSE,none,none,1234567890,none,
+10010,A1234,recipient,Noor,FALSE,FALSE,none,none,1234567890,none,
+10011,A1234,recipient,Zizo,FALSE,FALSE,none,none,1234567890,none,
+10012,A1234,recipient,Mustafa,FALSE,FALSE,none,none,1234567890,none,
