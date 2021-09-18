@@ -147,7 +147,9 @@ public class AllMenus{
                 System.out.println("\nMOH Menu");
                 System.out.println("1. Add User");
                 System.out.println("2. Search Recipient");
-                System.out.println("3. Set Vaccine Status");
+                System.out.println("3. View Table");
+                System.out.println("4. N/A");
+                System.out.println("5. N/A");
                 System.out.println("0. Exit");
                 System.out.print("Enter a choice: ");
 
@@ -164,7 +166,7 @@ public class AllMenus{
                         moh.searchRecipientData();
                         break;
                     case 3:
-                        moh.viewData();
+                        showTable();
                         break;
                     case 4:
                         moh.viewStatistic();
@@ -185,4 +187,27 @@ public class AllMenus{
 
     }
 
+    public static String center(String text, int len){
+        String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
+        float mid = (out.length()/2);
+        float start = mid - (len/2);
+        float end = start + len; 
+        return out.substring((int)start, (int)end);
+    }
+
+    public static void showTable() {
+        Csvreader csv = new Csvreader();  // to handle all csv actions
+        int ROW = csv.getUserInfo().size(), COL = 11;
+        String HOR_LINE = "========================================================================================================================================================================================================================================";
+        for (int i = 0; i<ROW; i++) {
+            System.out.println(HOR_LINE);
+            System.out.print("| ");
+            for (int j = 0; j<COL; j++){
+                System.out.printf(center(csv.GetUserData(j, i), 18));
+                System.out.print(" | ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println(HOR_LINE);
+    }
 }
