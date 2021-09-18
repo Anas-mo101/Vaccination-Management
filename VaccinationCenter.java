@@ -29,7 +29,7 @@ public class VaccinationCenter extends User {
         for (int i = 4; i<userInfo.size(); i++) {                                            
             String[] items = userInfo.get(i).split(",");                    
             String name = items[3];
-            if(checkCapacityFull(VCLocation,date)){       // check the capacity of VC is full or not
+            if(getCapacityNow(VCLocation,date) < getCapacity(VCLocation)){       // check the capacity of VC is full or not
                 if(Username.equals(name)){
                     items[7] = date;
                     items[5] = "Appointment Made";
@@ -45,7 +45,7 @@ public class VaccinationCenter extends User {
         for (int i = 4; i<userInfo.size(); i++) {
             String[] items = userInfo.get(i).split(",");
             String name = items[3];
-            if(checkCapacityFull(VCLocation,date)){      // check the capacity of VC is full or not
+            if(getCapacityNow(VCLocation,date) < getCapacity(VCLocation)){      // check the capacity of VC is full or not
                 if(Username.equals(name)){
                     items[8] = date;
                     items[5] = "Completed";
@@ -80,11 +80,10 @@ public class VaccinationCenter extends User {
         }
     }
     
-    public boolean checkCapacityFull(String  VCLocation, String date) {                          // to check capacity reached or not 
-                                                                                                 // (not sure this function works or not)
-        for (int i = 2; i<userInfo.size(); i++) {
-            int capacity = getCapacity(VCLocation);
-            int numOfPeopleinQueue = 0;
+    public int getCapacityNow(String  VCLocation, String date) {                          // to get the capacity of date 
+                                                                                          // (not sure this function works or not)
+        int CapacityNow = 0;
+        for (int i = 4; i<userInfo.size(); i++) {
             String[] items = userInfo.get(i).split(",");
             String F_Location = items[7];
             String F_AppointDate = items [6];
@@ -92,16 +91,13 @@ public class VaccinationCenter extends User {
             String S_AppointDate = items [8];
             if(F_Location.equals(VCLocation)) {
                 if(F_AppointDate.equals(date))
-                    numOfPeopleinQueue++;
+                    CapacityNow++;
             }else if(S_Location.equals(VCLocation)) {
                 if(S_AppointDate.equals(date))
-                    numOfPeopleinQueue++;
-            }
-            if(numOfPeopleinQueue <= capacity)
-            return true;
+                    CapacityNow++;
+            }  
         }
-        System.out.println("The date that you choose is already full. Please try again.");
-        return false;
+        return CapacityNow;
     }
 
     public int getCapacity(String VCLocation) {             // Checked, this function worked
@@ -119,8 +115,6 @@ public class VaccinationCenter extends User {
 
     
 }
-
-
 
 
 
