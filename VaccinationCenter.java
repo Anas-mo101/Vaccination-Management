@@ -26,7 +26,8 @@ public class VaccinationCenter extends User {
     }
 
     public void set1stAppointmentDate(String Username, String  date, String VCLocation) {      // set the 1st appoinment date for recipient
-        for (int i = 4; i<userInfo.size(); i++) {                                            
+        boolean stop = false;
+        for (int i = 4; i<userInfo.size() && stop==false; i++) {                                            
             String[] items = userInfo.get(i).split(",");                    
             String name = items[3];
             if(getCapacityNow(VCLocation,date) < getCapacity(VCLocation)){       // check the capacity of VC is full or not
@@ -34,15 +35,18 @@ public class VaccinationCenter extends User {
                     items[7] = date;
                     items[5] = "Appointment Made";
                     System.out.println("An appointment has been made successfuly!!!");
+                    stop = true;                                                 // stop the for loop, if the appointment is made
                 }
             }
             else
                 System.out.println("This Vaccination Center has reached the max capacity at this date. Please select another Vaccination Center.");
+                stop = true;                                                      // stop the for loop, if the appointment date reached the max capacity
         }
     }
     
     public void set2ndAppointmentDate(String Username, String  date, String VCLocation) {    // set the 2nd appoinment date for recipient
-        for (int i = 4; i<userInfo.size(); i++) {
+        boolean stop = false;
+        for (int i = 4; i<userInfo.size() && stop==false; i++) {
             String[] items = userInfo.get(i).split(",");
             String name = items[3];
             if(getCapacityNow(VCLocation,date) < getCapacity(VCLocation)){      // check the capacity of VC is full or not
@@ -51,10 +55,12 @@ public class VaccinationCenter extends User {
                     items[5] = "Completed";
                     items[6] = "Appointment Made";
                     System.out.println("An appointment has been made successfuly!!!");
+                    stop = true;                                               // stop the for loop, if the appointment is made
                 }
             }
             else
                 System.out.println("This Vaccination Center has reached the max capacity at this date. Please select another Vaccination Center.");
+                stop = true;                                                   // stop the for loop, if the appointment date reached the max capacity
         }
     }
 
@@ -80,7 +86,7 @@ public class VaccinationCenter extends User {
         }
     }
     
-    public int getCapacityNow(String  VCLocation, String date) {                          // to get the capacity of date 
+    public int getCapacityNow(String  VCLocation, String date) {                          // to get the capacity of date  
                                                                                           // (not sure this function works or not)
         int CapacityNow = 0;
         for (int i = 4; i<userInfo.size(); i++) {
