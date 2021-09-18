@@ -1,45 +1,72 @@
 import java.util.ArrayList;
+import java.util.*;
 
-public class Moh {
-    private ArrayList<Customer> Recipients = new ArrayList<>();
-    // private ArrayList<VC> VCs = new VC<>();
+public class Moh extends User{
+    Csvreader csv = new Csvreader();
+    Scanner input = new Scanner(System.in);
+    private final int USERTYPE_INDEX = 2;
 
-    Moh() {
-        System.out.println("Welcome but sorry it seems like you dont have access to this point"); 
+    Moh(String usertype) {
+        super(usertype);
     }
 
-    Moh(User admin) {
-        System.out.println("Welcome " + admin); 
-        Recipients.add(new Customer());
-        System.out.println("Recipient in check: " + Recipients.size()); 
+
+    public void addUser() { 
+        System.out.println("Enter name:  ");
+        String Name = input.nextLine();
+
+        System.out.println("Enter your phone number: ");
+        String Phone = input.nextLine();
+
+        System.out.println("Enter a password: ");
+        String password = input.nextLine();
+
+        String usertype;
+        while(true){ 
+            System.out.println("Enter a UserType (VC, Recipient): ");           // check if usertype is enter correctlty
+            usertype = input.nextLine();
+            if(usertype.equals("VC") || usertype.equals("Recipient")){
+                break;
+            }else{
+                System.out.println("Invalid Entery");
+            }
+            
+        }
+        csv.addUser(password, usertype, Name, false, false, Phone);
     }
 
-    public void addData(Customer data) {
-        Recipients.add(data);
-    }
-
-    public Customer getRecipient() {                  //fx overload
-        return getRecipient(0);
-    }
+    // public Customer getRecipient() {                  //fx overload ???
+    //     return getRecipient(0);
+    // }
     
-    public Customer getRecipient(int index) {
-        return Recipients.get(index);
+    // public Customer getRecipient(int index) {
+    //     return Recipients.get(index);
+    // }
+
+    public void searchRecipientData() {  // Unique Primary Key
+        System.out.print("Enter User ID: ");
+        String ID_in = input.nextLine();
+        if(csv.GetUserDataByID(ID_in,USERTYPE_INDEX).equals("recipient")){
+            csv.GetUserInfoByID(ID_in);
+        }else{
+            System.out.print("User is not Recipient");
+        }
     }
 
-    public Customer searchData(String name) {  // Unique Primary Key
-        if (name=="found") {
-            System.out.println("Supposed to loop this function till found and return the customer");
-            throw new NullPointerException("Customer Class no accessor");
-        }
-        else {
-            System.out.println ("name not found");
-            throw new NullPointerException("Receipient Not Found");  
+    public void viewData(){
+        for(int i = 4; i < csv.getUserInfo().size(); i++) {
+            System.out.println(csv.getUserInfo().get(i));
         }
     }
 
-    public void viewData() {}
-    public void viewStatistic() {}
-    public void setReceipientVC(int VCid, int id) {}
+    public void viewStatistic() { 
+        System.out.print("To Be Continued");
+    }
+
+    public void setReceipientVC(){
+        System.out.print("To Be Continued");
+    }
 
 }
+
 
