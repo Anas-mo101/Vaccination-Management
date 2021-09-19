@@ -33,7 +33,7 @@ public class Customer extends User {
         System.out.println("SUCCESSFULLY REGISTERED!!");
 
         // writes to the file "customer.csv"
-        csv.addUser(password, "Recipient", custName, false, false, custPhone);
+        csv.addUser(password, "recipient", custName, false, false, custPhone);
         AllMenus.RoleMenu();
     }
 
