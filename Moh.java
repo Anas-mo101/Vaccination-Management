@@ -55,7 +55,7 @@ public class Moh extends User{
         System.out.print("To Be Continued");
     }
 
-    public void distributeVaccine(int Vac) {
+    public void distributeVaccine() {
         System.out.print("Vaccination center doesn't have the vaccine count");
     }
 
