@@ -64,7 +64,7 @@ public class VaccinationCenter extends User {
             WhichVac = SCNDSTATUS_INDEX;
         }
 
-        System.out.println("Set Vaccine Status (False/Appointment made/Done): ");
+        System.out.println("Set Vaccine Status (Pending/Appointment made/Done): ");
         String status = input.nextLine();
         
         csv.setUserData(ID,status,WhichVac);
