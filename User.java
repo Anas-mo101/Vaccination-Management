@@ -23,10 +23,13 @@ public class User {
     public void login(String usertype) {
         System.out.println("---------------\n  LOGIN \n---------------");
         while (true) {
-            System.out.print("Name: ");
+            System.out.print("Name (0 to exit): ");
             String Username_in = input.nextLine();
-            System.out.print("Password: ");
+            if(Username_in.equals("0")) {AllMenus.RoleMenu();} // to exit to main menu
+
+            System.out.print("Password (0 to exit): ");
             String Pass_in = input.nextLine();
+            if(Pass_in.equals("0")) {AllMenus.RoleMenu();}  // to exit to main menu
 
             if (UsersData.CheckLoginDetails(Username_in, Pass_in, usertype)) {
                 ID = UsersData.GetUserData(ID_INDEX);
