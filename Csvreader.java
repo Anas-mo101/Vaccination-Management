@@ -47,15 +47,16 @@ public class Csvreader {
         return false;
     }
 
-    public void addUser(String Pass, String Usertype, String Username, Boolean FstVac, Boolean ScndVac, String Phone) { // adds
-                                                                                                                        // new
-                                                                                                                        // user
+    public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac,
+            String Phone) { // adds
+        // new
+        // user
         int Last_ID = Integer.parseInt(GetUserData(0, UsersInfo.size() - 1));
         ++Last_ID; // get the last ID in csv and increaments it to next ID
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", true));
-            writer.append("\n" + Last_ID + "," + Pass + "," + Usertype + "," + Username + "," + FstVac + "," + ScndVac
-                    + ",none,none," + Phone + ",none,");
+            writer.append("\n" + Last_ID + "," + Password + "," + Usertype + "," + Username + "," + FstVac + ","
+                    + ScndVac + "," + Phone + ",");
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
