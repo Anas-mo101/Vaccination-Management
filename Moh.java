@@ -45,27 +45,55 @@ public class Moh extends User{
             System.out.print("User is not Recipient");
         }
     }
-
-    public void viewData(){
-        userInfo = csv.getUserInfo();   // to update list
-        for(int i = 4; i < userInfo.size(); i++) {
-           System.out.println(userInfo.get(i));
-        }
+    
+    public static String center(String text, int len){
+        String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
+        float mid = (out.length()/2);
+        float start = mid - (len/2);
+        float end = start + len; 
+        return out.substring((int)start, (int)end);
     }
 
+
+    public static void viewData() {
+        Csvreader csv = new Csvreader();  // to handle all csv actions
+        int ROW = csv.getUserInfo().size(), COL = 11;
+        String HOR_LINE = "========================================================================================================================================================================================================================================";
+        for (int i = 0; i<ROW; i++) {
+            System.out.println(HOR_LINE);
+            System.out.print("| ");
+            for (int j = 0; j<COL; j++){
+                System.out.printf(center(csv.GetUserData(j, i), 18));
+                System.out.print(" | ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println(HOR_LINE);
+    }
+
+    // public void viewData(){
+    //     userInfo = csv.getUserInfo();   // to update list
+    //     for(int i = 4; i < userInfo.size(); i++) {
+    //        System.out.println(userInfo.get(i));
+    //     }
+    // }
+
     public void viewStatistic() { 
-        System.out.print("To Be Continued");
+        System.out.println("\tVaccination Stats:\n");
+        System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+(204-csv.ComparenCountField(6, "none")));
+        System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(4, "made"));
+        System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (204-csv.ComparenCountField(7, "none")));
+        System.out.println("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(5, "made"));
+        System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(5, "made"));
+        
     }
 
     public void distributeVaccine() {
         System.out.print("Vaccination center doesn't have the vaccine count");
     }
 
-    public void distributeRecipient(){
-        System.out.print("Don't know how to get specific VC");
-        // while (!checkCapacity("Some Date")) {
-        //     ; // keep assigning recipient to that vc while its not full
-        // }
+    public void setRecipientVC(String UserID , String VaccinationID) {
+        csv.setUserData(UserID,csv.GetUserDataByID(VaccinationID,4),9);
     }
 
 }
