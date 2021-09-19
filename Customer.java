@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Random;
+import java.util.Arrays;
 
 public class Customer extends User {
     Csvreader csv = new Csvreader(); // to handle all csv actions
@@ -17,9 +19,27 @@ public class Customer extends User {
     }
 
     public void saveCustomertoFile() { // recipient regiesteration
-        Scanner input = new Scanner(System.in);
 
         System.out.println("---------------\n REGISTRATION \n---------------");
+
+        String[] status = { "Pending", "1st dose complete", "2nd dose complete" };
+
+        StringBuilder sb = new StringBuilder(); // create random string builder
+        Random random = new Random();
+        int length = 3;
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(status.length); // generate random index number
+
+            // add Character one by one in end of sb
+            sb.append(status.length);
+        }
+
+        String randomString = sb.toString();
+        String custFstVac = randomString;
+        String custScndVac = randomString;
+
+        Scanner input = new Scanner(System.in);
 
         System.out.println("Enter your name:  ");
         String custName = input.nextLine();
@@ -33,7 +53,7 @@ public class Customer extends User {
         System.out.println("SUCCESSFULLY REGISTERED!!");
 
         // writes to the file "customer.csv"
-        csv.addUser(password, "recipient", custName, false, false, custPhone);
+        csv.addUser(password, "recipient", custName, custFstVac, custScndVac, custPhone);
         AllMenus.RoleMenu();
     }
 
