@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Random;
 
 public class Customer extends User {
     Csvreader csv = new Csvreader(); // to handle all csv actions
@@ -18,25 +17,9 @@ public class Customer extends User {
     }
 
     public void saveCustomertoFile() { // recipient regiesteration
-
-        String[] status = { "Pending", "1st dose complete", "2nd dose complete" };
-        StringBuilder sb = new StringBuilder(); // create random string builder
-        Random random = new Random();
-
-        for (int i = 0; i < status.length; i++) {
-            random.nextInt(status.length); // generate random index number
-
-            // add Character one by one in end of sb
-            sb.append(status.length);
-        }
-
-        String randomString = sb.toString();
-        String FstVac = randomString;
-        String ScndVac = randomString;
+        Scanner input = new Scanner(System.in);
 
         System.out.println("---------------\n REGISTRATION \n---------------");
-
-        Scanner input = new Scanner(System.in);
 
         System.out.println("Enter your name:  ");
         String custName = input.nextLine();
@@ -46,13 +29,14 @@ public class Customer extends User {
 
         System.out.println("Enter a password: ");
         String password = input.nextLine();
+
         System.out.println("SUCCESSFULLY REGISTERED!!");
 
         // writes to the file "customer.csv"
-        csv.addUser(password, "recipient", custName, FstVac, ScndVac, custPhone);
+        csv.addUser(password, "recipient", custName, false, false, custPhone);
         AllMenus.RoleMenu();
-
     }
+
 
     public void ViewCustomerStatus() {
         System.out.println("Name: " + csv.GetUserData(NAME_INDEX, getUserLine()));
