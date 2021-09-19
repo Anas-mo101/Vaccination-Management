@@ -176,7 +176,7 @@ public class AllMenus {
                         moh.viewStatistic();
                         break;
                     case 5:
-                        moh.setReceipientVC();
+                        moh.distributeVaccine();
                         break;
                     default:
                         System.out.println("Invalid input. Please enter again: ");
