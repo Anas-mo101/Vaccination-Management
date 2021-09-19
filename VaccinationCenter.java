@@ -1,9 +1,5 @@
 import java.util.List;
 
-// Remaider:        
-// need to add "vaccination location" into the csv file
-// don't have the save file function
-
 public class VaccinationCenter extends User {
     Csvreader csv = new Csvreader();
     private final int CAPACITY_INDEX = 10;
@@ -11,6 +7,7 @@ public class VaccinationCenter extends User {
     private final int SCNDSTATUS_INDEX = 5;
     private final int FSTVACDATE_INDEX = 6;
     private final int SCNDVACDATE_INDEX = 7;
+    private final int VCASSIGNED_INDEX = 9;
     private int CapacityPerHour;
     List<String> userInfo = UsersData.getUserInfo();
 
@@ -26,7 +23,7 @@ public class VaccinationCenter extends User {
         }
     }
 
-    public void setAppointmentDate() {      // set the 1st appoinment date for recipient
+    public void setAppointmentDate() {      // set the appoinment date for recipient
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();
 
@@ -38,22 +35,24 @@ public class VaccinationCenter extends User {
             WhichVac = SCNDVACDATE_INDEX;
         }
         
-        System.out.println("Enter Vaccination Date (DD/MM/YYYY): ");
+        System.out.println("Enter Vaccination Date(DD/MM/YYYY) & Time (08:00-18:00): ");
         String Date = input.nextLine();
+        String vcAssigned = getUsername();
 
         while(true){
-            if(checkCapacity(Date)){
+            if(checkCapacityDay(Date) && checkCapacityHour(Date)){
+                csv.setUserData(ID,Date,WhichVac);                       //set date & time
+                csv.setUserData(ID,vcAssigned,VCASSIGNED_INDEX);         //set VC assigned
                 break;
             }else{
                 System.out.println("Max Capacity Reached");
+                break;
             }
         }
-        
-        csv.setUserData(ID,Date,WhichVac);
     }
     
 
-    public void setVaccineStatus() {           // to change status for 1st vaccination
+    public void setVaccineStatus() {           // to change vaccination status
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();
 
@@ -72,8 +71,18 @@ public class VaccinationCenter extends User {
     }
 
     
-    public Boolean checkCapacity(String Date) {                          // to check capacity reached or not 
-        int maxCapacity = CapacityPerHour * 24;                    // calculate max capacity through whole day
+    public Boolean checkCapacityDay(String Date) {                          // to check capacity reached or not 
+        int maxCapacity = CapacityPerHour * 10;                    // calculate max capacity through whole day (From 8am - 6pm, total 10 hours)
+        int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
+        if(CurrentCapaicty < maxCapacity){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean checkCapacityHour(String Date) {                          // to check capacity reached or not 
+        int maxCapacity = CapacityPerHour;                    // calculate max capacity per hour
         int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
         if(CurrentCapaicty < maxCapacity){
             return true;
@@ -84,7 +93,6 @@ public class VaccinationCenter extends User {
 
 
 }
-
 
 
 
