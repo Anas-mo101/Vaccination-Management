@@ -7,6 +7,8 @@ public class User {
     private String Password;
     private String Username;
     private String UserType;
+    private String FstVac;
+    private String ScndVac;
     private int UserLocatedInLine;
     private final int USERTYPE_INDEX = 2;
     private final int USERNAME_INDEX = 3; // items[0] is id, items[1] is password, items[2] is usertype
@@ -44,10 +46,6 @@ public class User {
         }
     }
 
-    public void resigter() {
-
-    }
-
     public String getID() {
         return ID;
     }
@@ -62,6 +60,14 @@ public class User {
 
     public String getUserType() {
         return UserType;
+    }
+
+    public String getFstVac() {
+        return FstVac;
+    }
+
+    public String getScndVac() {
+        return ScndVac;
     }
 
     public int getUserLine() {
