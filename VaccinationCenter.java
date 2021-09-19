@@ -9,7 +9,7 @@ public class VaccinationCenter extends User {
     private final int SCNDVACDATE_INDEX = 7;
     private final int VCASSIGNED_INDEX = 9;
     private int CapacityPerHour;
-    List<String> userInfo = UsersData.getUserInfo();
+    List<String> userInfo = csv.getUserInfo();
 
     VaccinationCenter(String usertype){
         super(usertype);
@@ -18,6 +18,7 @@ public class VaccinationCenter extends User {
 
 
     public void PrintRecipientList() {                  // This function is to print the recipient list
+        userInfo = csv.getUserInfo();   // to update list everytime function is called
         for(int i = 4; i < userInfo.size(); i++) {
            System.out.println(userInfo.get(i));
         }
