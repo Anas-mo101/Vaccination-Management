@@ -19,8 +19,6 @@ public class Customer extends User {
 
     public void saveCustomertoFile() { // recipient regiesteration
 
-        System.out.println("---------------\n REGISTRATION \n---------------");
-
         String[] status = { "Pending", "1st dose complete", "2nd dose complete" };
         StringBuilder sb = new StringBuilder(); // create random string builder
         Random random = new Random();
@@ -33,8 +31,10 @@ public class Customer extends User {
         }
 
         String randomString = sb.toString();
-        String custFstVac = randomString;
-        String custScndVac = randomString;
+        String FstVac = randomString;
+        String ScndVac = randomString;
+
+        System.out.println("---------------\n REGISTRATION \n---------------");
 
         Scanner input = new Scanner(System.in);
 
@@ -46,12 +46,12 @@ public class Customer extends User {
 
         System.out.println("Enter a password: ");
         String password = input.nextLine();
-
         System.out.println("SUCCESSFULLY REGISTERED!!");
 
         // writes to the file "customer.csv"
-        csv.addUser(password, "recipient", custName, custFstVac, custScndVac, custPhone);
+        csv.addUser(password, "recipient", custName, FstVac, ScndVac, custPhone);
         AllMenus.RoleMenu();
+
     }
 
     public void ViewCustomerStatus() {
