@@ -33,7 +33,7 @@ public class User {
                 UserType = UsersData.GetUserData(USERTYPE_INDEX);
                 Username = UsersData.GetUserData(USERNAME_INDEX);
                 Password = UsersData.GetUserData(PASSWORD_INDEX);
-                // UserLocatedInLine = UsersData.getUserLineLocation();
+                UserLocatedInLine = UsersData.getUserLineLocation();
                 System.out.println("SUCCESSFULLY LOGIN!!");
                 break;
             } else {
