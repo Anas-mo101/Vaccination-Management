@@ -1,7 +1,7 @@
 ID,PASS,USERTYPE,USERNAME,1st Vaccine Status,2nd Vaccine Status,1st Vaccine Date,2nd Vaccine Status,Phone,ASSGINED VC,CAP/HOUR
-10001,admin,admin,MOH,FALSE,FALSE,none,none,0380008000,none,none
-10002,vcadmin,vcadmin,VCSelangor,FALSE,FALSE,none,none,0382508330,none,5
-10003,vcadmin,vcadmin,VCKL,FALSE,FALSE,none,none,0385215640,none,10
+10001,admin,admin,MOH,none,none,none,none,0380008000,none,none
+10002,vcadmin,vcadmin,VCSelangor,none,none,none,none,0382508330,none,5
+10003,vcadmin,vcadmin,VCKL,none,none,none,none,0385215640,none,10
 10004,A1234,recipient,Anas,FALSE,FALSE,01/01/2021 15:00,none,0125694822,none,none
 10005,A1234,recipient,Katia,FALSE,FALSE,01/01/2021 15:00,none,0145976585,none,none
 10006,A1234,recipient,Lee,FALSE,FALSE,01/01/2021 15:00,none,0127887969,none,none
