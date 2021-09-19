@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.Random;
-import java.util.Arrays;
 
 public class Customer extends User {
     Csvreader csv = new Csvreader(); // to handle all csv actions
@@ -23,13 +22,11 @@ public class Customer extends User {
         System.out.println("---------------\n REGISTRATION \n---------------");
 
         String[] status = { "Pending", "1st dose complete", "2nd dose complete" };
-
         StringBuilder sb = new StringBuilder(); // create random string builder
         Random random = new Random();
-        int length = 3;
 
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(status.length); // generate random index number
+        for (int i = 0; i < status.length; i++) {
+            random.nextInt(status.length); // generate random index number
 
             // add Character one by one in end of sb
             sb.append(status.length);
