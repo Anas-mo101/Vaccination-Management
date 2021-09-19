@@ -9,7 +9,7 @@ public class User {
     private String UserType;
     private int UserLocatedInLine;
     private final int USERTYPE_INDEX = 2;
-    private final int USERNAME_INDEX = 3; // items[0] is id, items[1] is password, items[2] is usertype
+    private final int USERNAME_INDEX = 3; 
     private final int PASSWORD_INDEX = 4;
 
     public User() {
@@ -23,7 +23,6 @@ public class User {
         System.out.println("---------------\n  LOGIN \n---------------");
         while (true) {
             System.out.print("Name: ");
-            // String ID_in = input.nextLine();
             String Username_in = input.nextLine();
             System.out.print("Password: ");
             String Pass_in = input.nextLine();
