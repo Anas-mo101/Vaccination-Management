@@ -56,7 +56,7 @@ public class Csvreader {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", true));
             writer.append("\n" + Last_ID + "," + Pass + "," + Usertype + "," + Username + "," + FstVac + "," + ScndVac
-                    + ",none,none" + Phone + ",none");
+                    + ",none,none," + Phone + ",none");
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
