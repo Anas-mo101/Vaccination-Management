@@ -7,7 +7,7 @@ ID,PASS,USERTYPE,USERNAME,1st Vaccine Status,2nd Vaccine Status,1st Vaccine Date
 10006,A1234,recipient,Lee,FALSE,FALSE,01/01/2021 15:00,none,0127887969,none,
 10007,A1234,recipient,Mohamed,FALSE,FALSE,01/01/2021 15:00,none,0169988253,none,
 10008,A1234,recipient,Mona,FALSE,FALSE,01/01/2021 15:00,none,0123678552,none,
-10009,A1234,recipient,Hamza,FALSE,FALSE,02/02/2021 15:00,none,0125454861,VCSelangor
+10009,A1234,recipient,Hamza,FALSE,FALSE,02/02/2021 15:00,none,0125454861,VCSelangor,
 10010,A1234,recipient,Noor,FALSE,FALSE,none,none,0121645958,none,
 10011,A1234,recipient,Zizo,FALSE,FALSE,none,none,0105497852,none,
 10012,A1234,recipient,Mustafa,FALSE,FALSE,none,none,0113344998,none,
