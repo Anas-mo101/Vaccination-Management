@@ -1,9 +1,10 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
 
 public class Moh extends User{
     Csvreader csv = new Csvreader();
     Scanner input = new Scanner(System.in);
+    List<String> userInfo = csv.getUserInfo();
     private final int USERTYPE_INDEX = 2;
 
     Moh(String usertype) {
@@ -46,8 +47,9 @@ public class Moh extends User{
     }
 
     public void viewData(){
-        for(int i = 4; i < csv.getUserInfo().size(); i++) {
-            System.out.println(csv.getUserInfo().get(i));
+        userInfo = csv.getUserInfo();   // to update list
+        for(int i = 4; i < userInfo.size(); i++) {
+           System.out.println(userInfo.get(i));
         }
     }
 
