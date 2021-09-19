@@ -47,7 +47,7 @@ public class Csvreader {
         return false;
     }
 
-    public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac,
+    public void addUser(String Password, String Usertype, String Username, Boolean FstVac, Boolean ScndVac,
             String Phone) { // adds
         // new
         // user
