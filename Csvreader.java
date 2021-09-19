@@ -55,8 +55,8 @@ public class Csvreader {
         ++Last_ID; // get the last ID in csv and increaments it to next ID
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", true));
-            writer.append("\n" + Last_ID + "," + Password + "," + Usertype + "," + Username + "," + FstVac + ","
-                    + ScndVac + "," + Phone + ",");
+            writer.append("\n" + Last_ID + "," + Pass + "," + Usertype + "," + Username + "," + FstVac + "," + ScndVac
+                    + ",none,none" + Phone + ",none");
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
