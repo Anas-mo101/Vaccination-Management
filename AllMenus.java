@@ -105,6 +105,7 @@ public class AllMenus {
                 System.out.println("1. Print Recipient List");
                 System.out.println("2. Set Appointment Date");
                 System.out.println("3. Set Vaccine Status");
+                System.out.println("4. View Total Vaccination");
                 System.out.println("0. Log out");
                 System.out.print("Enter a choice: ");
 
@@ -122,6 +123,9 @@ public class AllMenus {
                         break;
                     case "3":
                         vc.setVaccineStatus();
+                        break;
+                    case "4":
+                        vc.viewTotalVaccination();
                         break;
                     default:
                         System.out.println("Invalid input. Please enter again: ");
