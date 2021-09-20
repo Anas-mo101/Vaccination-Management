@@ -2,12 +2,12 @@ ID,PASS,USERTYPE,USERNAME,1st Vaccine Status,2nd Vaccine Status,1st Vaccine Date
 10001,admin,admin,MOH,none,none,none,none,0380008000,none,none
 10002,vcadmin,vcadmin,VCSelangor,none,none,none,none,0382508330,none,5
 10003,vcadmin,vcadmin,VCKL,none,none,none,none,0385215640,none,10
-10004,A1234,recipient,Anas,Appoinment made,Pending,01/01/2021 15:00,none,0125694822,none,none
-10005,A1234,recipient,Katia,Appoinment made,Pending,01/01/2021 15:00,none,0145976585,none,none
-10006,A1234,recipient,Lee,Appoinment made,Pending,01/01/2021 15:00,none,0127887969,none,none
-10007,A1234,recipient,Mohamed,Appoinment made,Pending,01/01/2021 15:00,none,0169988253,none,none
-10008,A1234,recipient,Mona,Appoinment made,Pending,01/01/2021 15:00,none,0123678552,none,none
-10009,A1234,recipient,Hamza,Appoinment made,Pending,02/02/2021 15:00,none,0125454861,VCSelangor,none
+10004,A1234,recipient,Anas,Appointment made,Pending,01/01/2021 15:00,none,0125694822,none,none
+10005,A1234,recipient,Katia,Appointment made,Pending,01/01/2021 15:00,none,0145976585,none,none
+10006,A1234,recipient,Lee,Appointment made,Pending,01/01/2021 15:00,none,0127887969,none,none
+10007,A1234,recipient,Mohamed,Appointment made,Pending,01/01/2021 15:00,none,0169988253,none,none
+10008,A1234,recipient,Mona,Appointment made,Pending,01/01/2021 15:00,none,0123678552,none,none
+10009,A1234,recipient,Hamza,Appointment made,Pending,02/02/2021 15:00,none,0125454861,VCSelangor,none
 10010,A1234,recipient,Noor,Pending,Pending,none,none,0121645958,none,none
 10011,A1234,recipient,Zizo,Pending,Pending,none,none,0105497852,none,none
 10012,A1234,recipient,Mustafa,Pending,Pending,none,none,0113344998,none,none
