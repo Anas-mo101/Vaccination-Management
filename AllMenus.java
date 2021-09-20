@@ -63,9 +63,9 @@ public class AllMenus {
 
         do {
             System.out.println();
-            System.out.println("------------------------------\n  CUSTOMER MENU \n------------------------------");
+            System.out.println("------------------------------\n  RECIPIENT MENU \n------------------------------");
 
-            System.out.println("1. View Customer Status");
+            System.out.println("1. View Recipient Status");
             System.out.println("2. View Appointment Date");
             System.out.println("0. Exit");
             System.out.print("Enter a choice: ");
@@ -142,7 +142,8 @@ public class AllMenus {
                 System.out.println("1. Add User");
                 System.out.println("2. Search Recipient");
                 System.out.println("3. View Recipient List");
-                System.out.println("4. Set Vaccine Status");
+                System.out.println("4. View Vaccination Static");
+                System.out.println("5. Distribute Vaccine");
                 System.out.println("0. Exit");
                 System.out.print("Enter a choice: ");
 
@@ -176,3 +177,4 @@ public class AllMenus {
     
     
 }
+
