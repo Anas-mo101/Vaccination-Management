@@ -25,6 +25,15 @@ public class VaccinationCenter extends User {
     }
 
     public void setAppointmentDate() {      // set the appoinment date for recipient
+        
+//         String ID = "";                                                              // Checks if Recipient is assigned to current vaccination center (Works well)
+//         while(!csv.GetUserDataByID(ID, 9).equals(getUsername())){
+//             System.out.println("Enter Recipient ID (0 to return): ");
+//             ID = input.nextLine();
+//             if(!csv.GetUserDataByID(ID, 9).equals(getUsername())){System.out.println("recipent is not assgined to this vc ");}
+//             if(ID.equals("0")) {AllMenus.RoleMenu();} // returns to main menu (not most suitable)
+//         }
+       
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();
 
