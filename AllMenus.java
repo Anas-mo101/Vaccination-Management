@@ -12,7 +12,7 @@ public class AllMenus {
         int choice;
         try {
             do {
-                System.out.println("\n+==========================================================================+");
+                System.out.println("\n+============================================================================+");
                 System.out.println("|               WELCOME TO JAVA COVID-19 VACCINATION PROGRAM                 |");
                 System.out.println("+============================================================================+");
 
