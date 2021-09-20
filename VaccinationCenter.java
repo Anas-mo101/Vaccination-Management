@@ -45,14 +45,14 @@ public class VaccinationCenter extends User {
             WhichVac = SCNDVACDATE_INDEX;
         }
         
-        System.out.println("Enter Vaccination Date(DD/MM/YYYY) & Time (08:00-18:00): ");
+        System.out.println("Enter Vaccination Date(DD/MM/YYYY): ");
         String Date = input.nextLine();
-        String vcAssigned = getUsername();
+        System.out.println("Enter Vaccination Time (08:00-18:00): ");
+        String time = input.nextLine();
 
         while(true){
             if(checkCapacityDay(Date) && checkCapacityHour(Date)){
-                csv.setUserData(ID,Date,WhichVac);                       //set date & time
-                csv.setUserData(ID,vcAssigned,VCASSIGNED_INDEX);         //set VC assigned
+                csv.setUserData(ID, Date + " - " + time,WhichVac);                       //set date & time
                 break;
             }else{
                 System.out.println("Max Capacity Reached");
