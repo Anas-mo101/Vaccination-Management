@@ -94,7 +94,7 @@ public class VaccinationCenter extends User {
     
     public void viewTotalVaccination() {                     // calculate the Total Vaccination taken
         String vcAssigned = getUsername();
-        System.out.println("\tTotal Vaccination taken:\n"+ (csv.ComparenCountField(VCASSIGNED_INDEX, vcAssigned)));
+        System.out.println("\tTotal Vaccination taken: "+ (csv.ComparenCountField(VCASSIGNED_INDEX, vcAssigned)));
 
     }
 
