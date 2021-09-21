@@ -12,16 +12,18 @@ public class AllMenus {
         int choice;
         try {
             do {
-                System.out.println("\n+============================================================================+");
+                System.out.println("\n+----------------------------------------------------------------------------+");
                 System.out.println("|               WELCOME TO JAVA COVID-19 VACCINATION PROGRAM                 |");
-                System.out.println("+============================================================================+");
-
-                System.out.println("1. Register");
-                System.out.println("2. Receipient");
-                System.out.println("3. MOH");
-                System.out.println("4. VC");
-                System.out.println("0. Exit");
-                System.out.print("Enter a choice: ");
+                System.out.println("|----------------------------------------------------------------------------|");
+                System.out.println("|                            - MAIN MENU -                                   |");
+                System.out.println("|----------------------------------------------------------------------------|");
+                System.out.println("|                            [1] Register                                    |");
+                System.out.println("|                            [2] Receipient                                  |");
+                System.out.println("|                            [3] MOH                                         |");
+                System.out.println("|                            [4] VC                                          |");
+                System.out.println("|                            [0] Exit                                        |");
+                System.out.println("+----------------------------------------------------------------------------+");
+                System.out.print("  Enter a choice:  ");
 
                 Scanner input = new Scanner(System.in);
                 choice = input.nextInt();
@@ -63,12 +65,14 @@ public class AllMenus {
 
         do {
             System.out.println();
-            System.out.println("------------------------------\n  RECIPIENT MENU \n------------------------------");
-
-            System.out.println("1. View Recipient Status");
-            System.out.println("2. View Appointment Date");
-            System.out.println("0. Log out");
-            System.out.print("Enter a choice: ");
+            System.out.println("+----------------------------------------------------------------------------+");
+            System.out.println("|                           - RECIPIENT MENU -                               |");
+            System.out.println("|----------------------------------------------------------------------------|");
+            System.out.println("|                            [1] View Recipient Status                       |");
+            System.out.println("|                            [2] View Appointment Date                       |");
+            System.out.println("|                            [0] Log out                                     |");
+            System.out.println("+----------------------------------------------------------------------------+");
+            System.out.print(" Enter a choice:  ");
 
             choice = input.nextLine();
 
@@ -98,16 +102,19 @@ public class AllMenus {
 
             do {
                 System.out.println();
-                System.out.println(vc.getID());
-                System.out.println(vc.getUsername());
-                System.out.println("------------------------------\n  VACCINATION CENTER MENU \n------------------------------");
-
-                System.out.println("1. Print Recipient List");
-                System.out.println("2. Set Appointment Date");
-                System.out.println("3. Set Vaccine Status");
-                System.out.println("4. View Total Vaccination");
-                System.out.println("0. Log out");
-                System.out.print("Enter a choice: ");
+            System.out.println("+----------------------------------------------------------------------------+");
+            System.out.println("|                           - VACCINATION CENTER MENU -                      |");
+            System.out.println(
+                    "|                                  > " + vc.getID() + " <                                 |");
+            System.out.println(
+                    "|                                > " + vc.getUsername() + " <                              |");
+            System.out.println("|----------------------------------------------------------------------------|");
+            System.out.println("|                            [1] Print Recipient List                        |");
+            System.out.println("|                            [2] Set Appointment Date                        |");
+            System.out.println("|                            [3] Set Vaccine Status                          |");
+            System.out.println("|                            [0] Log out                                     |");
+            System.out.println("+----------------------------------------------------------------------------+");
+            System.out.print(" Enter a choice:  ");
 
                 choice = input.nextLine();
 
@@ -141,15 +148,17 @@ public class AllMenus {
 
             do {
                 System.out.println();
-                System.out.println("------------------------------\n  MOH MENU \n------------------------------");
-
-                System.out.println("1. Add User");
-                System.out.println("2. Search Recipient");
-                System.out.println("3. View Recipient List");
-                System.out.println("4. View Vaccination Static");
-                System.out.println("5. Distribute Vaccine");
-                System.out.println("0. Log out");
-                System.out.print("Enter a choice: ");
+            System.out.println("+----------------------------------------------------------------------------+");
+            System.out.println("|                               - MOH MENU -                           	     |");
+            System.out.println("|----------------------------------------------------------------------------|");
+            System.out.println("|                            [1] Add User                      	             |");
+            System.out.println("|                            [2] Search Recipient                            |");
+            System.out.println("|                            [3] View Recipient List                         |");
+            System.out.println("|                            [4] View Vaccination Static                     |");
+            System.out.println("|                            [5] Distribute Vaccine                          |");
+            System.out.println("|                            [0] Log out                                     |");
+            System.out.println("+----------------------------------------------------------------------------+");
+            System.out.print(" Enter a choice:  ");
 
                 choice = input.nextLine();
 
