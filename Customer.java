@@ -19,7 +19,9 @@ public class Customer extends User {
     public void saveCustomertoFile() { // recipient regiesteration
         Scanner input = new Scanner(System.in);
 
-        System.out.println("---------------\n REGISTRATION \n---------------");
+        System.out.println("+----------------------------------------------------------------------------+");
+        System.out.println("|                           - REGISTRATION -                                 |");
+        System.out.println("+----------------------------------------------------------------------------+");
 
         System.out.println("Enter your name:  ");
         String custName = input.nextLine();
@@ -30,7 +32,7 @@ public class Customer extends User {
         System.out.println("Enter a password: ");
         String password = input.nextLine();
 
-        System.out.println("SUCCESSFULLY REGISTERED!!");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>> ACCOUNT SUCCESSFULLY REGISTERED!! <<<<<<<<<<<<<<<<<<<<<");
 
         // writes to the file "customer.csv"
         csv.addUser(password, "recipient", custName, false, false, custPhone);
