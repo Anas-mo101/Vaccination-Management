@@ -21,7 +21,10 @@ public class User {
     }
 
     public void login(String usertype) {
-        System.out.println("---------------\n  LOGIN \n---------------");
+        System.out.println("+----------------------------------------------------------------------------+");
+        System.out.println("|                           - LOGIN -                                        |");
+        System.out.println("+----------------------------------------------------------------------------+");
+        
         while (true) {
             System.out.print("Name (0 to exit): ");
             String Username_in = input.nextLine();
@@ -37,7 +40,7 @@ public class User {
                 Username = UsersData.GetUserData(USERNAME_INDEX);
                 Password = UsersData.GetUserData(PASSWORD_INDEX);
                 UserLocatedInLine = UsersData.getUserLineLocation();
-                System.out.println("SUCCESSFULLY LOGIN!!");
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> SUCCESSFULLY LOGIN!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
                 break;
             } else {
                 System.out.println("Invalid user ID or Password");
