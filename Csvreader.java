@@ -49,7 +49,7 @@ public class Csvreader {
     }
 
     public void addUser(String Password, String Usertype, String Username, Boolean FstVac, Boolean ScndVac,
-            String Phone) { // adds
+            String Phone, String CapPerHr) { // adds
         // new
         // user
         int Last_ID = Integer.parseInt(GetUserData(0, UsersInfo.size() - 1));
@@ -57,7 +57,7 @@ public class Csvreader {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", true));
             writer.append("\n" + Last_ID + "," + Password + "," + Usertype + "," + Username + "," + FstVac + "," + ScndVac
-                    + ",none,none," + Phone + ",none,none");
+                    + ",none,none," + Phone + ",none," + CapPerHr);
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
