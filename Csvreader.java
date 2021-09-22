@@ -14,7 +14,8 @@ public class Csvreader {
     private final int FIRSTVAC_INDEX = 6;
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
-
+    private final int VCASSIGNED_INDEX = 9;
+    
     Csvreader() {
         ReadFileLine();
     }
@@ -159,4 +160,48 @@ public class Csvreader {
         return c;
     }
 
+    public String center(String text, int len){                             // to set the format for "viewData" function
+        String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
+        float mid = (out.length()/2);
+        float start = mid - (len/2);
+        float end = start + len; 
+        return out.substring((int)start, (int)end);
+    }
+
+    public void printList(int i) {                                  // print list function
+        String HOR_LINE = "=======================================================================================================================================================================================================";
+        System.out.println(HOR_LINE);
+        System.out.print("| ");
+        int COL=11;
+        for (int j = 0; j<COL; j++){
+            System.out.printf(center(GetUserData(j, i), 15));
+            System.out.print(" | ");
+        }
+        System.out.print("\n");
+        System.out.println(HOR_LINE);
+    }
+
+    public void viewDataByVC(String Location) {        // To view user's data which from the same VC only          // for Vaccination Center use  
+        int ROW = getUserInfo().size();
+        int count=0;      // "count" is to check there is recipient assigned to the VC or not
+        for (int i = 0; i<1; i++) {
+                printList(i);
+        }
+        for (int i = 4; i<ROW; i++) {
+            if(GetUserData(VCASSIGNED_INDEX,i).equals(Location)) {
+                printList(i);
+                count++;
+            }
+        }
+        if(count ==0)                     // If no recipient , "No recipient is assigned to this Vaccination Center!!" will be print out
+        System.out.println("No recipient is assigned to this Vaccination Center!!");
+    }
+
+    public  void viewData() {              // To view every user's data in a list form                  // for MOH use
+        int ROW = getUserInfo().size();
+        for (int i = 0; i<ROW; i++) {
+            printList(i);
+        }
+    }
+    
 }
