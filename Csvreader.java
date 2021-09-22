@@ -118,11 +118,53 @@ public class Csvreader {
                         newLine += "," + items[x];
                     }
                 }
+                UsersInfo.remove(LineToBeEdited);
+                UsersInfo.add(LineToBeEdited, newLine);
+                break;
             }
         }
 
-        UsersInfo.remove(LineToBeEdited);
-        UsersInfo.add(LineToBeEdited, newLine);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", false));
+            for (int i = 0; i < UsersInfo.size(); i++) {
+                if (i == 0) {
+                    writer.write(UsersInfo.get(i));
+                } else {
+                    writer.write('\n' + UsersInfo.get(i));
+                }
+            }
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("No file found.");
+        }
+    }
+                                                           // searches and sets multiple users data by ID
+     public void setMultipleUserData(String Start, String End, String Data, int index) { 
+        int LineToBeEdited = 0;
+        String[] items;
+        String currentID = Start;
+
+        for (int i = 0; i < UsersInfo.size(); i++) {
+            String newLine = "";
+            items = UsersInfo.get(i).split(",");
+            String id = items[0];
+
+            if (currentID.equals(id)) {
+                LineToBeEdited = i;
+                items[index] = Data;
+                for (int x = 0; x < items.length; x++) {
+                    if (x == 0) {
+                        newLine += items[x];
+                    } else {
+                        newLine += "," + items[x];
+                    }
+                }
+                UsersInfo.remove(LineToBeEdited);
+                UsersInfo.add(LineToBeEdited, newLine);
+                currentID = Integer.toString(Integer.parseInt(currentID) + 1);
+                if(currentID.equals(End)) break;
+            }
+        }
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", false));
