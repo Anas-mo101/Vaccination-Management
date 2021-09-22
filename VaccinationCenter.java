@@ -103,7 +103,7 @@ public class VaccinationCenter extends User {
         }
     }
 
-    public static void countVaccinationTaken(ArrayList<String> list) {           // count the appointment date 
+    public static void countVaccinationRegistered(ArrayList<String> list) {           // count the appointment date 
         Map<String,Integer> table = new HashMap<String, Integer>();
         for (String i : list) {
             Integer j = table.get(i);
@@ -118,7 +118,7 @@ public class VaccinationCenter extends User {
         System.out.println("\tTotal Vaccination taken: "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done") + csv.ComparenCountField(SCNDSTATUS_INDEX, "Done")));
         System.out.println("\tNumber of Vaccination that registered (by day):");
         System.out.println();
-        countVaccinationTaken(dateList);
+        countVaccinationRegistered(dateList);
     }
 
 }
