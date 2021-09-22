@@ -67,12 +67,14 @@ public class Moh extends User{
     }
 
     public void distributeVaccine() {
-        System.out.print("Vaccination center doesn't have the vaccine count");
+        // int v = input.nextInt()
+        // csv.setMultipleUserData("10002","10003",v, ?????); 
+        System.out.print("Vaccination center doesn't have the vaccine count, the collumn of vaccine amount in vc dne");
     }
 
-    public void setRecipientVC(String UserID , String VaccinationID) {
-        csv.setUserData(UserID,csv.GetUserDataByID(VaccinationID,4),9);
-    }
+    //public void setRecipientVC(String UserID , String VaccinationID) {
+    //    csv.setUserData(UserID,csv.GetUserDataByID(VaccinationID,4),9);
+    //}
 
 }
 
