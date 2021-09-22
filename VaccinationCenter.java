@@ -10,6 +10,7 @@ public class VaccinationCenter extends User {
     private final int SCNDSTATUS_INDEX = 5;
     private final int FSTVACDATE_INDEX = 6;
     private final int SCNDVACDATE_INDEX = 7;
+    private final int VCASSINGED_INDEX = 9;
     private int CapacityPerHour;
     List<String> userInfo = csv.getUserInfo();
     ArrayList<String> dateList = new ArrayList<String>();
@@ -19,18 +20,15 @@ public class VaccinationCenter extends User {
         CapacityPerHour = Integer.parseInt(csv.GetUserDataByID(getID(),CAPACITY_INDEX));
     }
 
-
     public void PrintRecipientList() {                  // This function is to print the recipient list which all the recipients are from the same VC
         userInfo = csv.getUserInfo();                // to update list everytime function is called
         csv.viewDataByVC(getUsername());
     }
-
    
     public void setAppointmentDate() {                 // set the appoinment date for recipient
-        
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();                                             
-        while(csv.GetUserDataByID(ID, 9).equals(getUsername())){                      // Checks if Recipient is assigned to current vaccination center 
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(getUsername())){                      // Checks if Recipient is assigned to current vaccination center 
             System.out.println("Enter either first or second vaccination (1/2): ");
             int WhichVac = Integer.parseInt(input.nextLine());
             int WhichStatus = 0;
@@ -48,7 +46,7 @@ public class VaccinationCenter extends User {
             String Time = input.nextLine();
     
             if(checkCapacityDay(Date) && checkCapacityHour(Date)){
-                csv.setUserData(ID,Date + " - " + Time,WhichVac);                       //set date & time
+                csv.setUserData(ID,Date + "-" + Time,WhichVac);                       //set date & time
                 csv.setUserData(ID,"AppointmentMade",WhichStatus);                     //automatically set the vaccination status
                 dateList.add(Date);                                         // add the appointment date that made successfully to array list
                 System.out.println("Appointment made Successfully!!"); 
@@ -67,21 +65,25 @@ public class VaccinationCenter extends User {
     public void setVaccineStatus() {           // to change vaccination status
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(getUsername())) {
+            System.out.println("Enter either first or second vaccination (1/2): ");
+            int WhichVac = Integer.parseInt(input.nextLine());
+            if(WhichVac == 1){
+                WhichVac = FSTSTATUS_INDEX;
+            }if(WhichVac == 2){
+                WhichVac = SCNDSTATUS_INDEX;
+            }
 
-        System.out.println("Enter either first or second vaccination (1/2): ");
-        int WhichVac = Integer.parseInt(input.nextLine());
-        if(WhichVac == 1){
-            WhichVac = FSTSTATUS_INDEX;
-        }if(WhichVac == 2){
-            WhichVac = SCNDSTATUS_INDEX;
+            System.out.println("Set Vaccine Status (Pending/AppointmentMade/Done): ");
+            String status = input.nextLine();
+            csv.setUserData(ID,status,WhichVac);
+            System.out.println("Vaccine Status is set Successfully!!"); 
+            break;  
         }
-
-        System.out.println("Set Vaccine Status (Pending/AppointmentMade/Done): ");
-        String status = input.nextLine();
-        
-        csv.setUserData(ID,status,WhichVac);
+        if(!csv.GetUserDataByID(ID, 9).equals(getUsername())){
+            System.out.println("This recipient is not assgined to this Vaccination Center!! Please try again!!");
+        }
     }
-
     
     public Boolean checkCapacityDay(String Date) {                          // to check capacity reached or not 
         int maxCapacity = CapacityPerHour * 10;                    // calculate max capacity through whole day (From 8am - 6pm, total 10 hours)
@@ -122,7 +124,6 @@ public class VaccinationCenter extends User {
     }
 
 }
-
 
 
 
