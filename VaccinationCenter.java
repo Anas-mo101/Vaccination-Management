@@ -49,7 +49,7 @@ public class VaccinationCenter extends User {
     
             if(checkCapacityDay(Date) && checkCapacityHour(Date)){
                 csv.setUserData(ID,Date + " - " + Time,WhichVac);                       //set date & time
-                csv.setUserData(ID,"Appointment made",WhichStatus);                     //automatically set the vaccination status
+                csv.setUserData(ID,"AppointmentMade",WhichStatus);                     //automatically set the vaccination status
                 dateList.add(Date);                                         // add the appointment date that made successfully to array list
                 System.out.println("Appointment made Successfully!!"); 
                 break;
@@ -76,7 +76,7 @@ public class VaccinationCenter extends User {
             WhichVac = SCNDSTATUS_INDEX;
         }
 
-        System.out.println("Set Vaccine Status (Pending/Appointment made/Done): ");
+        System.out.println("Set Vaccine Status (Pending/AppointmentMade/Done): ");
         String status = input.nextLine();
         
         csv.setUserData(ID,status,WhichVac);
@@ -122,7 +122,6 @@ public class VaccinationCenter extends User {
     }
 
 }
-
 
 
 
