@@ -173,7 +173,7 @@ public class AllMenus {
                         moh.searchRecipientData();
                         break;
                     case "3":
-                        moh.viewData();
+                        moh.viewAllData();
                         break;
                     case "4":
                         moh.viewStatistic();
