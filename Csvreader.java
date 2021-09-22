@@ -169,12 +169,12 @@ public class Csvreader {
     }
 
     public void printList(int i) {                                  // print list function
-        String HOR_LINE = "=======================================================================================================================================================================================================";
+        String HOR_LINE = "===========================================================================================================================================================================================================";
         System.out.println(HOR_LINE);
         System.out.print("| ");
         int COL=11;
         for (int j = 0; j<COL; j++){
-            System.out.printf(center(GetUserData(j, i), 15));
+            System.out.printf(center(GetUserData(j, i), 16));
             System.out.print(" | ");
         }
         System.out.print("\n");
