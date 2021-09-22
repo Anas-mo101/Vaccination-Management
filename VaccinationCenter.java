@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VaccinationCenter extends User {
     Csvreader csv = new Csvreader();
@@ -7,9 +10,9 @@ public class VaccinationCenter extends User {
     private final int SCNDSTATUS_INDEX = 5;
     private final int FSTVACDATE_INDEX = 6;
     private final int SCNDVACDATE_INDEX = 7;
-    private final int VCASSIGNED_INDEX = 9;
     private int CapacityPerHour;
     List<String> userInfo = csv.getUserInfo();
+    ArrayList<String> dateList = new ArrayList<String>();
 
     VaccinationCenter(String usertype){
         super(usertype);
@@ -17,48 +20,47 @@ public class VaccinationCenter extends User {
     }
 
 
-    public void PrintRecipientList() {                  // This function is to print the recipient list
-        userInfo = csv.getUserInfo();   // to update list everytime function is called
-        for(int i = 4; i < userInfo.size(); i++) {
-           System.out.println(userInfo.get(i));
-        }
+    public void PrintRecipientList() {                  // This function is to print the recipient list which all the recipients are from the same VC
+        userInfo = csv.getUserInfo();                // to update list everytime function is called
+        csv.viewDataByVC(getUsername());
     }
 
-    public void setAppointmentDate() {      // set the appoinment date for recipient
+   
+    public void setAppointmentDate() {                 // set the appoinment date for recipient
         
-//         String ID = "";                                                              // Checks if Recipient is assigned to current vaccination center (Works well)
-//         while(!csv.GetUserDataByID(ID, 9).equals(getUsername())){
-//             System.out.println("Enter Recipient ID (0 to return): ");
-//             ID = input.nextLine();
-//             if(!csv.GetUserDataByID(ID, 9).equals(getUsername())){System.out.println("recipent is not assgined to this vc ");}
-//             if(ID.equals("0")) {AllMenus.RoleMenu();} // returns to main menu (not most suitable)
-//         }
-       
         System.out.println("Enter Recipient ID: ");
-        String ID = input.nextLine();
-
-        System.out.println("Enter either first or second vaccination (1/2): ");
-        int WhichVac = Integer.parseInt(input.nextLine());
-        if(WhichVac == 1){
-            WhichVac = FSTVACDATE_INDEX;
-        }if(WhichVac == 2){
-            WhichVac = SCNDVACDATE_INDEX;
-        }
+        String ID = input.nextLine();                                             
+        while(csv.GetUserDataByID(ID, 9).equals(getUsername())){                      // Checks if Recipient is assigned to current vaccination center 
+            System.out.println("Enter either first or second vaccination (1/2): ");
+            int WhichVac = Integer.parseInt(input.nextLine());
+            int WhichStatus = 0;
+            if(WhichVac == 1){
+                WhichVac = FSTVACDATE_INDEX;
+                WhichStatus = FSTSTATUS_INDEX;
+            }if(WhichVac == 2){
+                WhichVac = SCNDVACDATE_INDEX;
+                WhichStatus = SCNDSTATUS_INDEX;
+            }
         
-        System.out.println("Enter Vaccination Date(DD/MM/YYYY): ");
-        String Date = input.nextLine();
-        System.out.println("Enter Vaccination Time (08:00-18:00): ");
-        String time = input.nextLine();
-
-        while(true){
+            System.out.println("Enter Appointment Date(DD/MM/YYYY): ");
+            String Date = input.nextLine();
+            System.out.println("Enter Appointment Time (08:00-18:00): ");
+            String Time = input.nextLine();
+    
             if(checkCapacityDay(Date) && checkCapacityHour(Date)){
-                csv.setUserData(ID, Date + " - " + time,WhichVac);                       //set date & time
+                csv.setUserData(ID,Date + " - " + Time,WhichVac);                       //set date & time
+                csv.setUserData(ID,"Appointment made",WhichStatus);                     //automatically set the vaccination status
+                dateList.add(Date);                                         // add the appointment date that made successfully to array list
+                System.out.println("Appointment made Successfully!!"); 
                 break;
             }else{
-                System.out.println("Max Capacity Reached");
+                System.out.println("Max Capacity Reached!!");
                 break;
             }
         }
+        if(!csv.GetUserDataByID(ID, 9).equals(getUsername())){
+            System.out.println("This recipient is not assgined to this Vaccination Center!! Please try again!!");
+        }      
     }
     
 
@@ -100,16 +102,26 @@ public class VaccinationCenter extends User {
             return false;
         }
     }
-    
-    public void viewTotalVaccination() {                     // calculate the Total Vaccination taken
-        String vcAssigned = getUsername();
-        System.out.println("\tTotal Vaccination taken: "+ (csv.ComparenCountField(VCASSIGNED_INDEX, vcAssigned)));
 
+    public static void countVaccinationTaken(ArrayList<String> list) {           // count the appointment date 
+        Map<String,Integer> table = new HashMap<String, Integer>();
+        for (String i : list) {
+            Integer j = table.get(i);
+            table.put(i, (j == null) ? 1 : j + 1);
+        }
+        for (Map.Entry<String, Integer> val : table.entrySet()) {
+            System.out.println( val.getKey() + " ==> " + val.getValue());
+        }
+    }
+
+    public void viewTotalVaccination() {                    // calculate the Total Vaccination
+        System.out.println("\tTotal Vaccination taken: "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done") + csv.ComparenCountField(SCNDSTATUS_INDEX, "Done")));
+        System.out.println("\tTotal Vaccination by day:");
+        System.out.println();
+        countVaccinationTaken(dateList);
     }
 
 }
-
-
 
 
 
