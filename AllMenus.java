@@ -112,6 +112,7 @@ public class AllMenus {
             System.out.println("|                            [1] Print Recipient List                        |");
             System.out.println("|                            [2] Set Appointment Date                        |");
             System.out.println("|                            [3] Set Vaccine Status                          |");
+            System.out.println("|                            [4] View Vaccination Static                     |");    
             System.out.println("|                            [0] Log out                                     |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
