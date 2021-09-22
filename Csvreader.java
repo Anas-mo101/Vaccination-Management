@@ -138,7 +138,7 @@ public class Csvreader {
             System.out.println("No file found.");
         }
     }
-                                                           // searches and sets multiple users data by ID
+                                                        // searches and sets multiple users data by ID
      public void setMultipleUserData(String Start, String End, String Data, int index) { 
         int LineToBeEdited = 0;
         String[] items;
@@ -211,7 +211,7 @@ public class Csvreader {
     }
 
     public void printList(int i) {                                  // print list function
-        String HOR_LINE = "===========================================================================================================================================================================================================";
+        String HOR_LINE = "==================================================================================================================================================================================================================";
         System.out.println(HOR_LINE);
         System.out.print("| ");
         int COL=11;
