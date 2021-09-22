@@ -26,14 +26,19 @@ public class Moh extends User{
         while(true){ 
             System.out.println("Enter a UserType (VC, Recipient): ");           // check if usertype is enter correctlty
             usertype = input.nextLine();
-            if(usertype.equals("VC") || usertype.equals("Recipient")){
+            if(usertype.equals("Recipient")){
+                csv.addUser(password, usertype, Name, false, false, Phone,"none");
+                break;
+            }if(usertype.equals("VC")){
+                System.out.println("Enter a Capacity per hour: ");
+                String Capa = input.nextLine();
+                csv.addUser(password, "vcadmin", Name, false, false, Phone, Capa);
                 break;
             }else{
                 System.out.println("Invalid Entery");
             }
             
         }
-        csv.addUser(password, usertype, Name, false, false, Phone);
     }
 
     public void searchRecipientData() {  // Unique Primary Key
