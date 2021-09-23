@@ -67,9 +67,17 @@ public class Moh extends User{
     }
 
     public void distributeVaccine() {
-        // int v = input.nextInt()
-        // csv.setMultipleUserData("10002","10003",v, ?????); 
-        System.out.print("Vaccination center doesn't have the vaccine count, the collumn of vaccine amount in vc dne");
+        System.out.print("Enter User ID from: ");
+        String v = input.next();
+
+        System.out.print("Enter User ID to: ");
+        String q = input.next();
+
+        System.out.print("Enter Assigned VC: ");
+        String r = input.next();
+
+         csv.setMultipleUserData(v,q,r,9); 
+        System.out.print("Data Vaccination Updated!");
     }
 
     //public void setRecipientVC(String UserID , String VaccinationID) {
