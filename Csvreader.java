@@ -201,6 +201,21 @@ public class Csvreader {
         }
         return c;
     }
+    
+    public int ComparenCountFieldByVC(int index, String Compare, String Location) { // finds and counts user data from speicifed data fields according to the VC assigned                                                      
+        int c = 0;
+        for (int i = 0; i < UsersInfo.size(); i++) {
+            String[] items = UsersInfo.get(i).split(",");
+            String Comparedto = items[index];
+            String vcAssigned = items[VCASSIGNED_INDEX];
+            if(Location.equals(vcAssigned)){
+                if (Comparedto.equals(Compare) && Comparedto != null) {
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
 
     public String center(String text, int len){                             // to set the format for "viewData" function
         String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
