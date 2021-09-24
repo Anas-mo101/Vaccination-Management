@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.*;
 
 public class Customer extends User {
     Csvreader csv = new Csvreader(); // to handle all csv actions
@@ -8,6 +9,7 @@ public class Customer extends User {
     private final int FIRSTVAC_INDEX = 6;
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
+    private String custPhone;
 
     public Customer() {
     }
@@ -26,8 +28,16 @@ public class Customer extends User {
         System.out.println("Enter your name:  ");
         String custName = input.nextLine();
 
-        System.out.println("Enter your phone number: ");
-        String custPhone = input.nextLine();
+        while (true) {
+            System.out.print("Enter your phone number: ");
+            String custPhone = input.nextLine();
+            if (valPhone(custPhone) == false)
+                System.out.println("Invalid number phone. Please enter back");
+            else {
+                System.out.println("Valid number phone");
+                break;
+            }
+        }
 
         System.out.println("Enter a password: ");
         String password = input.nextLine();
@@ -52,5 +62,9 @@ public class Customer extends User {
         System.out.println("First Vaccine Appointment -> " + csv.GetUserData(FIRSTVAC_INDEX, getUserLine()));
         System.out.println("Second Vaccine Appointment -> " + csv.GetUserData(SCNDVAC_INDEX, getUserLine()));
     }
+    
+    public boolean valPhone(String custPhone) {
+        return custPhone.charAt(0) == '0' && custPhone.charAt(1) == '1' && custPhone.length() == 10;
 
+    }
 }
