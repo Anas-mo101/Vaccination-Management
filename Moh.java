@@ -7,8 +7,8 @@ public class Moh extends User{
     List<String> userInfo = csv.getUserInfo();
     private final int USERTYPE_INDEX = 2;
 
-    Moh(String usertype) {
-        super(usertype);
+    Moh() {
+        super();
     }
 
 
