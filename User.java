@@ -13,39 +13,16 @@ public class User {
     private final int USERNAME_INDEX = 3; // items[0] is id, items[1] is password, items[2] is usertype
     private final int PASSWORD_INDEX = 4;
 
-    public User() {
+    User(){
+
     }
 
-    User(String usertype) {
-        login(usertype);
-    }
-
-    public void login(String usertype) {
-        System.out.println("+----------------------------------------------------------------------------+");
-        System.out.println("|                           - LOGIN -                                        |");
-        System.out.println("+----------------------------------------------------------------------------+");
-        
-        while (true) {
-            System.out.print("Name (0 to exit): ");
-            String Username_in = input.nextLine();
-            if(Username_in.equals("0")) {AllMenus.RoleMenu();} // to exit to main menu
-
-            System.out.print("Password (0 to exit): ");
-            String Pass_in = input.nextLine();
-            if(Pass_in.equals("0")) {AllMenus.RoleMenu();}  // to exit to main menu
-
-            if (UsersData.CheckLoginDetails(Username_in, Pass_in, usertype)) {
-                ID = UsersData.GetUserData(ID_INDEX);
-                UserType = UsersData.GetUserData(USERTYPE_INDEX);
-                Username = UsersData.GetUserData(USERNAME_INDEX);
-                Password = UsersData.GetUserData(PASSWORD_INDEX);
-                UserLocatedInLine = UsersData.getUserLineLocation();
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> SUCCESSFULLY LOGIN!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-                break;
-            } else {
-                System.out.println("Invalid user ID or Password");
-            }
-        }
+    User(int i) {
+        UserLocatedInLine = i;
+        ID = UsersData.GetUserData(ID_INDEX, getUserLine());
+        UserType = UsersData.GetUserData(USERTYPE_INDEX, getUserLine());
+        Username = UsersData.GetUserData(USERNAME_INDEX, getUserLine());
+        Password = UsersData.GetUserData(PASSWORD_INDEX, getUserLine());
     }
 
     public String getID() {
