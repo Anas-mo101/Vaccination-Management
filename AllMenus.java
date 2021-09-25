@@ -7,7 +7,7 @@ public class AllMenus {
         RoleMenu();
     }
 
-    // Displays the selection menu for roles to choose a role. (Customer, MOH, VC)
+    
     public static void RoleMenu() {
         int choice;
         try {
@@ -18,9 +18,7 @@ public class AllMenus {
                 System.out.println("|                            - MAIN MENU -                                   |");
                 System.out.println("|----------------------------------------------------------------------------|");
                 System.out.println("|                            [1] Register                                    |");
-                System.out.println("|                            [2] Receipient                                  |");
-                System.out.println("|                            [3] MOH                                         |");
-                System.out.println("|                            [4] VC                                          |");
+                System.out.println("|                            [2] Login                                       |");                               
                 System.out.println("|                            [0] Exit                                        |");
                 System.out.println("+----------------------------------------------------------------------------+");
                 System.out.print("  Enter a choice:  ");
@@ -29,27 +27,19 @@ public class AllMenus {
                 choice = input.nextInt();
 
                 switch (choice) {
-                    case 0:
-                        System.exit(0);
-                        break;
-                    case 1:
-                        // customer.saveCustomertoFile();
-                        Customer obj = new Customer();
-                        obj.saveCustomertoFile();
-                        break;
-                    case 2:
-                        CustomerMenu();
-                        break;
-                    case 3:
-                        MOH();
-                        break;
-                    case 4:
-                        VC();
-                        break;
+                    case 0: System.out.println("Thank you. Bye!"); 
+                            System.exit(0);
+                            break;
+                    case 1: Customer obj = new Customer();
+                            obj.saveCustomertoFile();
+                            break;
+                    case 2: Login.main(args);
+                            break;    
                     default:
                         System.out.println("Wrong input! Please enter again: \n");
-
+                        break;
                 }
+
             } while ((choice != 1) || (choice != 2));
         } catch (InputMismatchException ex) {
             System.out.println("Only numbers 0 to 4 are permitted. Try Again. \n");
@@ -58,27 +48,28 @@ public class AllMenus {
 
     }
 
-    public static void CustomerMenu() {
-        Customer customer = new Customer("recipient");
+    public static void CustomerMenu(int i) {
+        Customer customer = new Customer(i);
         Scanner input = new Scanner(System.in);
         String choice;
 
         do {
             System.out.println();
+             System.out.println("-----> ID: " + customer.getID() + " -  Username: "+ customer.getUsername() + " <-----");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.println("|                           - RECIPIENT MENU -                               |");
             System.out.println("|----------------------------------------------------------------------------|");
             System.out.println("|                            [1] View Recipient Status                       |");
             System.out.println("|                            [2] View Appointment Date                       |");
-            System.out.println("|                            [0] Log out                                     |");
+            System.out.println("|                            [0] Exit                                        |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
 
             choice = input.nextLine();
 
             switch (choice) {
-                case "0":
-                    RoleMenu();
+                case case "0": System.out.println("Thank you. Bye!"); 
+                    System.exit(0);
                     break;
                 case "1":
                     customer.ViewCustomerStatus();
@@ -94,35 +85,32 @@ public class AllMenus {
         } while (!choice.equals("0"));
     }
 
-    public static void VC() {
-        VaccinationCenter vc = new VaccinationCenter("vcadmin");
+    
+    public static void VC(int i) {
+        VaccinationCenter vc = new VaccinationCenter(i);
         Scanner input = new Scanner(System.in);
         String choice;
 
-
             do {
                 System.out.println();
+            System.out.println("-----> ID: " + customer.getID() + " -  Username: "+ customer.getUsername() + " <-----");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.println("|                           - VACCINATION CENTER MENU -                      |");
-            System.out.println(
-                    "|                                  > " + vc.getID() + " <                                 |");
-            System.out.println(
-                    "|                                > " + vc.getUsername() + " <                              |");
             System.out.println("|----------------------------------------------------------------------------|");
             System.out.println("|                            [1] Print Recipient List                        |");
             System.out.println("|                            [2] Set Appointment Date                        |");
             System.out.println("|                            [3] Set Vaccine Status                          |");
             System.out.println("|                            [4] View Vaccination Static                     |");    
-            System.out.println("|                            [0] Log out                                     |");
+            System.out.println("|                            [0] Exit                                        |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
 
                 choice = input.nextLine();
 
                 switch (choice) {
-                    case "0":
-                        RoleMenu();
-                        break;
+                    case "0": System.out.println("Thank you. Bye!"); 
+                            System.exit(0);
+                            break;
                     case "1":
                         vc.PrintRecipientList();
                         break;
@@ -143,7 +131,7 @@ public class AllMenus {
     }
 
     public static void MOH() {
-        Moh moh = new Moh("admin");
+        Moh moh = new Moh();
         Scanner input = new Scanner(System.in);
         String choice;
 
@@ -157,16 +145,16 @@ public class AllMenus {
             System.out.println("|                            [3] View Recipient List                         |");
             System.out.println("|                            [4] View Vaccination Static                     |");
             System.out.println("|                            [5] Distribute Vaccine                          |");
-            System.out.println("|                            [0] Log out                                     |");
+            System.out.println("|                            [0] Exit                                        |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
 
                 choice = input.nextLine();
 
                 switch (choice) {
-                    case "0":
-                        RoleMenu();
-                        break;
+                    case "0": System.out.println("Thank you. Bye!"); 
+                              System.exit(0);
+                              break;
                     case "1":
                         moh.addUser();
                         break;
