@@ -74,7 +74,7 @@ public class Moh extends User{
             
         while(csv.GetUserDataByID(v,0).equals("NOT FOUND")){
             System.out.println("User ID Not Found");
-            System.out.println("Re-enter User ID from: ");
+            System.out.print("Re-enter User ID from: ");
             v = input.next();
         }
 
