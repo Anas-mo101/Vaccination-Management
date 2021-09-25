@@ -30,22 +30,36 @@ public class Csvreader {
         }
     }
 
-    public Boolean CheckLoginDetails(String Username, String Password, String Usertype) {
+    public void CheckLoginDetails(String Username, String Password) {    // check login details and return usertype
+        String UserType = "none";
+
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(","); // split a line by comma
-            String password = items[1]; // items[0] is id, items[1] is password, items[2] is usertype,
-            String usertype = items[2];
-            String username = items[3]; // items[3] is username , items[4] is 1st vac status, items[5] is 2nd vac status
+            String password = items[1];                    // items[0] is id, items[1] is password, items[2] is usertype,
+            String username = items[3];                       // items[3] is username , items[4] is 1st vac status, items[5] is 2nd vac status
             if (Username.equals(username)) {
                 if (Password.equals(password)) {
-                    if (Usertype.equals(usertype)) {
-                        UserLocatedInLine = i;
-                        return true;
-                    }
+                    UserLocatedInLine = i;
+                    UserType = items[2];
                 }
             }
         }
-        return false;
+
+        switch(UserType){  
+            case "admin": AllMenus.MOH();
+                          break;
+
+            case "vcadmin": AllMenus.VC(UserLocatedInLine);
+                            break;
+
+           case "recipient": AllMenus.CustomerMenu(UserLocatedInLine);
+                            break;
+
+           default: System.out.println("Invalid user ID or Password");
+                    System.out.println("Thank you. Bye!"); 
+                    System.exit(0);
+                    break;
+          }   
     }
 
     public void addUser(String Password, String Usertype, String Username, Boolean FstVac, Boolean ScndVac,
@@ -162,7 +176,7 @@ public class Csvreader {
                 UsersInfo.remove(LineToBeEdited);
                 UsersInfo.add(LineToBeEdited, newLine);
                 currentID = Integer.toString(Integer.parseInt(currentID) + 1);
-                if(currentID.equals(End)) break;
+                if(currentID.equals(Integer.toString(Integer.parseInt(End) + 1))) break;
             }
         }
 
