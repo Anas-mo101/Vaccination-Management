@@ -11,11 +11,11 @@ public class Customer extends User {
     private final int PHONE_INDEX = 8;
     private String custPhone;
 
-    public Customer() {
+    Customer() {
     }
 
-    Customer(String usertype) {
-        super(usertype);
+    Customer(int i) {
+        super(i);
     }
 
     public void saveCustomertoFile() { // recipient regiesteration
