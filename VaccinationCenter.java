@@ -15,8 +15,8 @@ public class VaccinationCenter extends User {
     List<String> userInfo = csv.getUserInfo();
     ArrayList<String> dateList = new ArrayList<String>();
 
-    VaccinationCenter(String usertype){
-        super(usertype);
+    VaccinationCenter(int i){
+        super(i);
         CapacityPerHour = Integer.parseInt(csv.GetUserDataByID(getID(),CAPACITY_INDEX));
     }
 
