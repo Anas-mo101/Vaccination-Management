@@ -89,7 +89,7 @@ public class Moh extends User{
         do {
             System.out.print("Enter Assigned VC: ");
             r = input.next();
-        }while(!r.toLowerCase().equals("vcselangor")||!r.toLowerCase().equals("vckl"));
+        }while(!r.toLowerCase().equals("vcselangor")&&!r.toLowerCase().equals("vckl"));
 
         csv.setMultipleUserData(v,q,r,9); 
         System.out.print("Data Vaccination Updated!");
