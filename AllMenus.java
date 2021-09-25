@@ -6,7 +6,8 @@ public class AllMenus {
     AllMenus() {
         RoleMenu();
     }
-
+    
+    private static String[] args;
     
     public static void RoleMenu() {
         int choice;
@@ -68,7 +69,7 @@ public class AllMenus {
             choice = input.nextLine();
 
             switch (choice) {
-                case case "0": System.out.println("Thank you. Bye!"); 
+                case "0": System.out.println("Thank you. Bye!"); 
                     System.exit(0);
                     break;
                 case "1":
@@ -93,7 +94,7 @@ public class AllMenus {
 
             do {
                 System.out.println();
-            System.out.println("-----> ID: " + customer.getID() + " -  Username: "+ customer.getUsername() + " <-----");
+            System.out.println("-----> ID: " + vc.getID() + " -  Username: "+ vc.getUsername() + " <-----");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.println("|                           - VACCINATION CENTER MENU -                      |");
             System.out.println("|----------------------------------------------------------------------------|");
