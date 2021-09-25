@@ -67,16 +67,31 @@ public class Moh extends User{
     }
 
     public void distributeVaccine() {
+        String v,q,r;
+        
         System.out.print("Enter User ID from: ");
-        String v = input.next();
+        v = input.next();
+            
+        while(csv.GetUserDataByID(v,0).equals("NOT FOUND")){
+            System.out.println("User ID Not Found");
+            System.out.println("Re-enter User ID from: ");
+            v = input.next();
+        }
 
         System.out.print("Enter User ID to: ");
-        String q = input.next();
+        q = input.next();
+        while(csv.GetUserDataByID(q,0).equals("NOT FOUND")){
+            System.out.println("User ID Not Found");
+            System.out.print("Re-enter User ID to: ");
+            q = input.next();
 
-        System.out.print("Enter Assigned VC: ");
-        String r = input.next();
+        }
+        do {
+            System.out.print("Enter Assigned VC: ");
+            r = input.next();
+        }while(!r.toLowerCase().equals("vcselangor")||!r.toLowerCase().equals("vckl"));
 
-         csv.setMultipleUserData(v,q,r,9); 
+        csv.setMultipleUserData(v,q,r,9); 
         System.out.print("Data Vaccination Updated!");
     }
 
