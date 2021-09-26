@@ -254,9 +254,7 @@ public class Csvreader {
     public void viewDataByVC(String Location) {        // To view user's data which from the same VC only          // for Vaccination Center use  
         int ROW = getUserInfo().size();
         int count=0;      // "count" is to check there is recipient assigned to the VC or not
-        for (int i = 0; i<1; i++) {
-                printList(i);
-        }
+        printList(0);    // to print table headings
         for (int i = 4; i<ROW; i++) {
             if(GetUserData(VCASSIGNED_INDEX,i).equals(Location)) {
                 printList(i);
