@@ -103,7 +103,7 @@ public class Csvreader {
      * Retrives user data by the its line number
      * @param index Data field (attribute) number 
      * @param userline Line (index) where user is located in list 
-     * @return Data specified by index and useline
+     * @return String
      */
     public String GetUserData(int index, int userline) { // finds user by line number and gets user data by index
         String[] items = UsersInfo.get(userline).split(",");
