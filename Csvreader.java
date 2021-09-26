@@ -62,8 +62,7 @@ public class Csvreader {
           }   
     }
 
-    public void addUser(String Password, String Usertype, String Username, Boolean FstVac, Boolean ScndVac,
-            String Phone, String CapPerHr) { // adds
+    public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac,String Phone, String CapPerHr) { // adds
         // new
         // user
         int Last_ID = Integer.parseInt(GetUserData(0, UsersInfo.size() - 1));
