@@ -8,6 +8,8 @@ import java.util.List;
 public class Csvreader {
     private List<String> UsersInfo;
     private int UserLocatedInLine;
+    private final int PASS_INDEX = 1;
+    private final int USERTYPE_INDEX = 2;
     private final int NAME_INDEX = 3;
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
@@ -35,12 +37,12 @@ public class Csvreader {
 
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(","); // split a line by comma
-            String password = items[1];                    // items[0] is id, items[1] is password, items[2] is usertype,
-            String username = items[3];                       // items[3] is username , items[4] is 1st vac status, items[5] is 2nd vac status
+            String password = items[PASS_INDEX];                    
+            String username = items[NAME_INDEX];               
             if (Username.equals(username)) {
                 if (Password.equals(password)) {
                     UserLocatedInLine = i;
-                    UserType = items[2];
+                    UserType = items[USERTYPE_INDEX];
                 }
             }
         }
