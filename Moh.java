@@ -27,12 +27,12 @@ public class Moh extends User{
             System.out.println("Enter a UserType (VC, Recipient): ");           // check if usertype is enter correctlty
             usertype = input.nextLine();
             if(usertype.equals("Recipient")){
-                csv.addUser(password, usertype, Name, false, false, Phone,"none");
+                csv.addUser(password, usertype, Name, "Pending", "Pending", Phone,"none");
                 break;
             }if(usertype.equals("VC")){
                 System.out.println("Enter a Capacity per hour: ");
                 String Capa = input.nextLine();
-                csv.addUser(password, "vcadmin", Name, false, false, Phone, Capa);
+                csv.addUser(password, "vcadmin", Name, "none", "none", Phone, Capa);
                 break;
             }else{
                 System.out.println("Invalid Entery");
