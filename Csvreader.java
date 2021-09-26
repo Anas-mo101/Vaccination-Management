@@ -135,7 +135,7 @@ public class Csvreader {
      * Finds user by ID then retrive data from user info by index
      * @param ID User ID
      * @param index Data field (attribute) number 
-     * @return Data specified by index
+     * @return String
      */
     public String GetUserDataByID(String ID, int index) { // gets specific user data by ID
         for (int i = 0; i < UsersInfo.size(); i++) {
@@ -246,7 +246,7 @@ public class Csvreader {
 
     /**
      * Gets list containing all users
-     * @return Users list
+     * @return List<String>
      */
     public List<String> getUserInfo() { // return list containing all user data
         return UsersInfo;
@@ -254,7 +254,7 @@ public class Csvreader {
 
     /**
      * Gets line number belonging to user
-     * @return Line nubumber (line index)
+     * @return int
      */
     public int getUserLineLocation() { // return line number where user info located at
         return UserLocatedInLine;
@@ -264,7 +264,7 @@ public class Csvreader {
      * Gets the Count of users with speicified matching data field
      * @param index Data field (attribute) number 
      * @param Compare Data to match with
-     * @return Count of users
+     * @return int
      */
     public int ComparenCountField(int index, String Compare) { // finds and counts user data from speicifed data fields (can be used for Statistic)
         int c = 0;
@@ -283,7 +283,7 @@ public class Csvreader {
      * @param index Data field (attribute) number 
      * @param Compare Data to match with
      * @param Location Vaccination center username
-     * @return
+     * @return int
      */
     public int ComparenCountFieldByVC(int index, String Compare, String Location) { // finds and counts user data from speicifed data fields according to the VC assigned                                                      
         int c = 0;
@@ -304,7 +304,7 @@ public class Csvreader {
      * Centers user data in middle of cell
      * @param text Userdata
      * @param len Cell length
-     * @return
+     * @return String
      */
     public String center(String text, int len){                             // to set the format for "viewData" function
         String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
