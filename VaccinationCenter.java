@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,25 +36,32 @@ public class VaccinationCenter extends User {
             if(WhichVac == 1){
                 WhichVac = FSTVACDATE_INDEX;
                 WhichStatus = FSTSTATUS_INDEX;
-            }if(WhichVac == 2){
+            }else if(WhichVac == 2){
                 WhichVac = SCNDVACDATE_INDEX;
                 WhichStatus = SCNDSTATUS_INDEX;
+            }else {
+                System.out.println("Invalid input!! Please choose 1/2 only");
+                break;
             }
         
             System.out.println("Enter Appointment Date(DD/MM/YYYY): ");
             String Date = input.nextLine();
             System.out.println("Enter Appointment Time (08:00-18:00): ");
             String Time = input.nextLine();
-    
-            if(checkCapacityDay(Date) && checkCapacityHour(Date)){
-                csv.setUserData(ID,Date + "-" + Time,WhichVac);                       //set date & time
-                csv.setUserData(ID,"AppointmentMade",WhichStatus);                     //automatically set the vaccination status
-                dateList.add(Date);                                         // add the appointment date that made successfully to array list
-                System.out.println("Appointment made Successfully!!"); 
+            if(!timeChecking(Time)){                   // check appointment time is valid or not
+                System.out.println("The appointment time you entered is not in the operating hours of the Vaccination Center!! Please try again!!");
                 break;
-            }else{
-                System.out.println("Max Capacity Reached!!");
-                break;
+            }else {
+                if(checkCapacityDay(Date) && checkCapacityHour(Date)){
+                    csv.setUserData(ID,Date + "-" + Time,WhichVac);                       //set date & time
+                    csv.setUserData(ID,"AppointmentMade",WhichStatus);                     //automatically set the vaccination status
+                    dateList.add(Date);                                         // add the appointment date that made successfully to array list
+                    System.out.println("Appointment made Successfully!!"); 
+                    break;
+                }else{
+                    System.out.println("Max Capacity Reached!!");
+                    break;
+                }
             }
         }
         if(!csv.GetUserDataByID(ID, 9).equals(getUsername())){
@@ -61,7 +69,6 @@ public class VaccinationCenter extends User {
         }      
     }
     
-
     public void setVaccineStatus() {           // to change vaccination status
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();
@@ -70,22 +77,30 @@ public class VaccinationCenter extends User {
             int WhichVac = Integer.parseInt(input.nextLine());
             if(WhichVac == 1){
                 WhichVac = FSTSTATUS_INDEX;
-            }if(WhichVac == 2){
+            }else if(WhichVac == 2){
                 WhichVac = SCNDSTATUS_INDEX;
+            }else{
+                System.out.println("Invalid input!! Please choose 1/2 only");
+                break;
             }
 
             System.out.println("Set Vaccine Status (Pending/AppointmentMade/Done): ");
             String status = input.nextLine();
-            csv.setUserData(ID,status,WhichVac);
-            System.out.println("Vaccine Status is set Successfully!!"); 
-            break;  
+            if(status.equals("Pending") || status.equals("Appointment") || status.equals("Done")) {
+                csv.setUserData(ID,status,WhichVac);
+                System.out.println("Vaccine Status is set Successfully!!"); 
+                break; 
+            }else {
+                System.out.println("Invalid input!! Please try again!!");
+                break;
+            }
         }
         if(!csv.GetUserDataByID(ID, 9).equals(getUsername())){
             System.out.println("This recipient is not assgined to this Vaccination Center!! Please try again!!");
         }
     }
     
-    public Boolean checkCapacityDay(String Date) {                          // to check capacity reached or not 
+    public Boolean checkCapacityDay(String Date) {                          // to check capacity reached or not  (by day)
         int maxCapacity = CapacityPerHour * 10;                    // calculate max capacity through whole day (From 8am - 6pm, total 10 hours)
         int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
         if(CurrentCapaicty < maxCapacity){
@@ -95,7 +110,7 @@ public class VaccinationCenter extends User {
         }
     }
 
-    public Boolean checkCapacityHour(String Date) {                          // to check capacity reached or not 
+    public Boolean checkCapacityHour(String Date) {                          // to check capacity reached or not (by hour) 
         int maxCapacity = CapacityPerHour;                    // calculate max capacity per hour
         int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
         if(CurrentCapaicty < maxCapacity){
@@ -103,6 +118,16 @@ public class VaccinationCenter extends User {
         }else{
             return false;
         }
+    }
+
+    public Boolean timeChecking(String time) {                      // check the time of appointment is in the VC operating hours or not
+        LocalTime TargetTime = LocalTime.parse(time);
+        Boolean TargetInZone = (
+            TargetTime.isAfter(LocalTime.parse("08:00"))
+            &&
+            TargetTime.isBefore(LocalTime.parse("18:00"))
+        );
+        return TargetInZone;
     }
 
     public static void countVaccinationRegistered(ArrayList<String> list) {           // count the appointment date 
