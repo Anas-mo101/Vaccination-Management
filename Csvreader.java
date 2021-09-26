@@ -5,6 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.List;
 
+
+/**
+ * Used to all handle action done in csv file 
+ */
 public class Csvreader {
     private List<String> UsersInfo;
     private int UserLocatedInLine;
@@ -22,23 +26,30 @@ public class Csvreader {
         ReadFileLine();
     }
 
+    /**
+     * Opens and loads data from csv file to list
+     */
     public void ReadFileLine() {
         try {
             String currentPath = System.getProperty("user.dir"); // to get path of current directory
-            UsersInfo = Files.readAllLines(Paths.get(currentPath + "/users.csv")); // read users.csv into a list of
-                                                                                   // lines.
+            UsersInfo = Files.readAllLines(Paths.get(currentPath + "/users.csv")); // read users.csv into a list 
         } catch (IOException ie) {
             ie.printStackTrace();
         }
     }
 
+
+    /**
+     * Checks if username and password are correct and runs user according to it 
+     * @param Username Username to login 
+     * @param Password Password to login
+     */
     public void CheckLoginDetails(String Username, String Password) {    // check login details and return usertype
         String UserType = "none";
-
         for (int i = 0; i < UsersInfo.size(); i++) {
-            String[] items = UsersInfo.get(i).split(","); // split a line by comma
+            String[] items = UsersInfo.get(i).split(","); 
             String password = items[PASS_INDEX];                    
-            String username = items[NAME_INDEX];               
+            String username = items[NAME_INDEX];                    
             if (Username.equals(username)) {
                 if (Password.equals(password)) {
                     UserLocatedInLine = i;
@@ -64,9 +75,18 @@ public class Csvreader {
           }   
     }
 
+    /**
+     * Creates and adds new user to csv  
+     * @param Password Password for new to login in
+     * @param Usertype Type of new user
+     * @param Username Username for new to login in
+     * @param FstVac First vaccination status (for recipients)
+     * @param ScndVac Second vaccination status (for recipients)
+     * @param Phone Phone number
+     * @param CapPerHr Capacity per hour (for vaccination centers)
+     */
     public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac,String Phone, String CapPerHr) { // adds
-        // new
-        // user
+
         int Last_ID = Integer.parseInt(GetUserData(0, UsersInfo.size() - 1));
         ++Last_ID; // get the last ID in csv and increaments it to next ID
         try {
@@ -79,30 +99,44 @@ public class Csvreader {
         }
     }
 
-    public String GetUserData(int index) { // gets user data by index
-        String[] items = UsersInfo.get(UserLocatedInLine).split(",");
-        return items[index];
-    }
-
+    /**
+     * Retrives user data by the its line number
+     * @param index Data field (attribute) number 
+     * @param userline Line (index) where user is located in list 
+     * @return Data specified by index and useline
+     */
     public String GetUserData(int index, int userline) { // finds user by line number and gets user data by index
         String[] items = UsersInfo.get(userline).split(",");
         return items[index];
     }
 
+    /**
+     * Finds user by ID and prints user's details 
+     * @param ID User ID
+     */
     public void GetUserInfoByID(String ID) { // gets all user info by ID
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(",");
             String id = items[0];
             if (ID.equals(id)) {
-                System.out.println("User ID: " + ID + ", Name: " + GetUserData(NAME_INDEX, i)
-                        + ", First Vaccine Status: " + GetUserData(FSTSTATUS_INDEX, i) + ", Second Vaccine Status: "
-                        + GetUserData(SCNDSTATUS_INDEX, i) + ", First Appoinment: " + GetUserData(FIRSTVAC_INDEX, i)
-                        + ", Second Appoinment: " + GetUserData(SCNDVAC_INDEX, i) + ", Phone: "
-                        + GetUserData(PHONE_INDEX, i));
+                System.out.println("User ID: " + ID);
+                System.out.println("Name: " + GetUserData(NAME_INDEX, i));
+                System.out.println("First Vaccine Status: " + GetUserData(FSTSTATUS_INDEX, i));
+                System.out.println("Second Vaccine Status: "+ GetUserData(SCNDSTATUS_INDEX, i));
+                System.out.println("First Appoinment: " + GetUserData(FIRSTVAC_INDEX, i));
+                System.out.println("Second Appoinment: " + GetUserData(SCNDVAC_INDEX, i));
+                System.out.println("Phone: " + GetUserData(PHONE_INDEX, i));
             }
         }
     }
 
+
+    /**
+     * Finds user by ID then retrive data from user info by index
+     * @param ID User ID
+     * @param index Data field (attribute) number 
+     * @return Data specified by index
+     */
     public String GetUserDataByID(String ID, int index) { // gets specific user data by ID
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(",");
@@ -114,8 +148,14 @@ public class Csvreader {
         return "NOT FOUND";
     }
 
-    public void setUserData(String ID, String Data, int index) { // searches for user by ID then sets specific data by
-                                                                 // index
+
+    /**
+     * Finds user by ID then edits/replace user's data 
+     * @param ID User ID
+     * @param Data New data to be added
+     * @param index Data field (attribute) number 
+     */
+    public void setUserData(String ID, String Data, int index) { // searches for user by ID then sets specific data by index
         int LineToBeEdited = 0;
         String newLine = "";
         String[] items;
@@ -153,8 +193,15 @@ public class Csvreader {
             System.out.println("No file found.");
         }
     }
-                                                        // searches and sets multiple users data by ID
-     public void setMultipleUserData(String Start, String End, String Data, int index) { 
+    
+    /**
+     * Edits/Replace data of multiple users 
+     * @param Start ID to start from 
+     * @param End ID to end from
+     * @param Data New data to be added 
+     * @param index Data field (attribute) number 
+     */
+     public void setMultipleUserData(String Start, String End, String Data, int index) {   // searches and sets multiple users data by ID
         int LineToBeEdited = 0;
         String[] items;
         String currentID = Start;
@@ -196,16 +243,30 @@ public class Csvreader {
         }
     }
 
+
+    /**
+     * Gets list containing all users
+     * @return Users list
+     */
     public List<String> getUserInfo() { // return list containing all user data
         return UsersInfo;
     }
 
+    /**
+     * Gets line number belonging to user
+     * @return Line nubumber (line index)
+     */
     public int getUserLineLocation() { // return line number where user info located at
         return UserLocatedInLine;
     }
 
-    public int ComparenCountField(int index, String Compare) { // finds and counts user data from speicifed data fields
-                                                               // (can be used for Statistic)
+    /**
+     * Gets the Count of users with speicified matching data field
+     * @param index Data field (attribute) number 
+     * @param Compare Data to match with
+     * @return Count of users
+     */
+    public int ComparenCountField(int index, String Compare) { // finds and counts user data from speicifed data fields (can be used for Statistic)
         int c = 0;
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(",");
@@ -217,6 +278,13 @@ public class Csvreader {
         return c;
     }
     
+    /**
+     * Gets the Counts of users with speicified matching data field according to Vaccination center
+     * @param index Data field (attribute) number 
+     * @param Compare Data to match with
+     * @param Location Vaccination center username
+     * @return
+     */
     public int ComparenCountFieldByVC(int index, String Compare, String Location) { // finds and counts user data from speicifed data fields according to the VC assigned                                                      
         int c = 0;
         for (int i = 0; i < UsersInfo.size(); i++) {
@@ -232,6 +300,12 @@ public class Csvreader {
         return c;
     }
 
+    /**
+     * Centers user data in middle of cell
+     * @param text Userdata
+     * @param len Cell length
+     * @return
+     */
     public String center(String text, int len){                             // to set the format for "viewData" function
         String out = String.format("%"+len+"s%s%"+len+"s", "",text,"");
         float mid = (out.length()/2);
@@ -240,6 +314,10 @@ public class Csvreader {
         return out.substring((int)start, (int)end);
     }
 
+    /**
+     * Prints and puts use data in a table format
+     * @param i User line 
+     */
     public void printList(int i) {                                  // print list function
         String HOR_LINE = "==================================================================================================================================================================================================================";
         System.out.println(HOR_LINE);
@@ -253,6 +331,10 @@ public class Csvreader {
         System.out.println(HOR_LINE);
     }
 
+    /**
+     * Prints and puts use data in a table format according to Vaccination center
+     * @param Location Vaccination center location
+     */
     public void viewDataByVC(String Location) {        // To view user's data which from the same VC only          // for Vaccination Center use  
         int ROW = getUserInfo().size();
         int count=0;      // "count" is to check there is recipient assigned to the VC or not
@@ -263,10 +345,13 @@ public class Csvreader {
                 count++;
             }
         }
-        if(count ==0)                     // If no recipient , "No recipient is assigned to this Vaccination Center!!" will be print out
+        if(count==0)                     // If no recipient , "No recipient is assigned to this Vaccination Center!!" will be print out
         System.out.println("No recipient is assigned to this Vaccination Center!!");
     }
 
+    /**
+     * Print list of all users
+     */
     public  void viewData() {              // To view every user's data in a list form                  // for MOH use
         int ROW = getUserInfo().size();
         for (int i = 0; i<ROW; i++) {
