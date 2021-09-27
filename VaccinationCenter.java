@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Provide functions that could only be done at Vaccination Center level
+ */
 public class VaccinationCenter extends User {
     Csvreader csv = new Csvreader();
     private final int CAPACITY_INDEX = 10;
@@ -24,11 +27,17 @@ public class VaccinationCenter extends User {
         CapacityPerHour = Integer.parseInt(csv.GetUserDataByID(getID(),CAPACITY_INDEX));
     }
 
+    /**
+     * Print recipient's details which belongs to the same Vaccination Center
+     */
     public void PrintRecipientList() {                  // This function is to print the recipient list which all the recipients are from the same VC
         userInfo = csv.getUserInfo();                // to update list everytime function is called
         csv.viewDataByVC(getUsername());
     }
-   
+
+    /**
+     * Set appointment date for recipient from the same Vaccination Center
+     */
     public void setAppointmentDate() {                 // set the appoinment date for recipient
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();                                             
@@ -79,6 +88,9 @@ public class VaccinationCenter extends User {
         }      
     }
     
+    /**
+     * Set Vaccination Status for recipient from the same Vaccination Center
+     */
     public void setVaccineStatus() {           // to change vaccination status
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();
@@ -116,6 +128,11 @@ public class VaccinationCenter extends User {
         }
     }
     
+    /**
+     * Check there is any slot available throughout the whole day(8am-6pm) for the recipient to take the vaccine
+     * @param Date Appointment Date entered by User
+     * @return Boolean
+     */
     public Boolean checkCapacityDay(String Date) {                          // to check capacity reached or not 
         int maxCapacity = CapacityPerHour * 10;                    // calculate max capacity through whole day (From 8am - 6pm, total 10 hours)
         int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
@@ -126,6 +143,11 @@ public class VaccinationCenter extends User {
         }
     }
 
+    /**
+     * Check there is any slot available throughout the whole hour for the recipient to take the vaccine
+     * @param Date Appointment Date entered by User
+     * @return Boolean
+     */
     public Boolean checkCapacityHour(String Date) {                          // to check capacity reached or not 
         int maxCapacity = CapacityPerHour;                    // calculate max capacity per hour
         int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
@@ -136,6 +158,11 @@ public class VaccinationCenter extends User {
         }
     }
 
+    /**
+     * Check the time selected is in the Vaccination Center operating hours or not
+     * @param time Appointment Time entered by User
+     * @return Boolean
+     */
     public Boolean timeChecking(String time) {                      // check the time of appointment is in the VC operating hours or not 
         Boolean TargetInZone = true;                                // check the input is valid or not
         try{
@@ -152,6 +179,11 @@ public class VaccinationCenter extends User {
         return TargetInZone;
     }
 
+    /**
+     * Check the input is a valid date or not
+     * @param dateString Appointment Date entered by User
+     * @return Boolean
+     */
     public Boolean isDate(String dateString) {                       // check the input is valid or not
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -162,6 +194,10 @@ public class VaccinationCenter extends User {
         }
     }
 
+    /**
+     * Count the Appointment that made through the program
+     * @param list List that contains the date which appointment have been made
+     */
     public static void countVaccinationRegistered(ArrayList<String> list) {           // count the appointment date 
         Map<String,Integer> table = new HashMap<String, Integer>();
         for (String i : list) {
@@ -173,6 +209,10 @@ public class VaccinationCenter extends User {
         }
     }
 
+    /**
+     * Print the number of Total Vaccination taken at the same Vaccination Center and also
+     * the number of appointment date that have been registered
+     */
     public void viewTotalVaccination() {                    // calculate the Total Vaccination
         System.out.println("\tTotal Vaccination taken: "+ (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", getUsername()) + 
                                                            csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", getUsername())));
@@ -182,11 +222,3 @@ public class VaccinationCenter extends User {
     }
 
 }
-
-
-
-
-
-
-
-
