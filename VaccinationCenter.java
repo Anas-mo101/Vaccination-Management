@@ -32,7 +32,7 @@ public class VaccinationCenter extends User {
      */
     public void PrintRecipientList() {                  // This function is to print the recipient list which all the recipients are from the same VC
         userInfo = csv.getUserInfo();                // to update list everytime function is called
-        csv.viewDataByVC(getUsername());
+        csv.viewDataByIndex(getUsername(), VCASSINGED_INDEX);
     }
 
     /**
