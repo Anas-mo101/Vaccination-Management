@@ -1,6 +1,14 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * AllMenus class representing the details of all menus (Main menu, Customer
+ * menu, Vaccination center menu and MOH menu) for each role by calling RoleMenu
+ * method
+ * 
+ * @author Sharifah Farah Sofea, Anas mohammad
+ */
+
 public class AllMenus {
 
     AllMenus() {
@@ -9,6 +17,12 @@ public class AllMenus {
     
     private static String[] args;
     
+    /**
+     * Display the details of main menu of the system and let user choose between 3
+     * options. 1) registers customer's name, phone number, password and status into
+     * the system, 2) signs in into the system using the info provided in Register,
+     * 3) exit which exit the system.
+     */
     public static void RoleMenu() {
         int choice;
         try {
@@ -49,6 +63,11 @@ public class AllMenus {
 
     }
 
+    /**
+     * Display the details of customer menu and the options for user to choose
+     * depends on what they want to see. 1) displays the specific customer's status,
+     * 2) display an appointment of vaccination date, 3) exit the system
+     */
     public static void CustomerMenu(int i) {
         Customer customer = new Customer(i);
         Scanner input = new Scanner(System.in);
@@ -86,7 +105,12 @@ public class AllMenus {
         } while (!choice.equals("0"));
     }
 
-    
+    /**
+     * Display the details of vaccination center menu and the options for admin to
+     * choose depends on what they want to do. 1) Display all of customer list, 2)
+     * set an appointment date for customer, 3) set an appointment status for
+     * customer, 4) display statistic from vaccination program, 5) exit the system
+     */
     public static void VC(int i) {
         VaccinationCenter vc = new VaccinationCenter(i);
         Scanner input = new Scanner(System.in);
@@ -131,6 +155,13 @@ public class AllMenus {
             } while (!choice.equals("0"));
     }
 
+    /**
+     * Display the details of MOH menu and the options for admin to choose depends
+     * on what they want to do. 1) Adding user to the list, 2) search for customer
+     * details from table list, 3) display all of customer list, 4) display
+     * statistic from vaccination program, 5) assigned place of vaccine to the
+     * customer based on their ID, 6) exit the system
+     */
     public static void MOH() {
         Moh moh = new Moh();
         Scanner input = new Scanner(System.in);
