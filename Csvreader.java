@@ -347,22 +347,22 @@ public class Csvreader {
         System.out.println(HOR_LINE);
     }
 
-    /**
-     * Prints and puts use data in a table format according to Vaccination center
+   /**
+     * Prints and puts use data in a table format according to specified data
      * @param Location Vaccination center location
      */
-    public void viewDataByVC(String Location) {        // To view user's data which from the same VC only          // for Vaccination Center use  
+    public void viewDataByIndex(String Data, int index) {                
         int ROW = getUserInfo().size();
-        int count=0;      // "count" is to check there is recipient assigned to the VC or not
+        int count=0;      // "count" is to check if users exist or not
         printList(0);    // to print table headings
-        for (int i = 4; i<ROW; i++) {
-            if(GetUserData(VCASSIGNED_INDEX,i).equals(Location)) {
+        for (int i = 1; i<ROW; i++) {
+            if(GetUserData(index,i).equals(Data)) {
                 printList(i);
                 count++;
             }
         }
-        if(count==0)                     // If no recipient , "No recipient is assigned to this Vaccination Center!!" will be print out
-        System.out.println("No recipient is assigned to this Vaccination Center!!");
+        if(count==0)                     
+        System.out.println("No Users Found");
     }
 
     /**
