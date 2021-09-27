@@ -147,7 +147,23 @@ public class Csvreader {
         }
         return "NOT FOUND";
     }
-
+    
+    /**
+     * Finds user by Username then retrive data from user info by index
+     * @param Username Username
+     * @param index Data field (attribute) number
+     * @return String
+     */
+    public String GetUserDataByUsername(String Username, int index) { // gets specific user data by username
+        for (int i = 0; i < UsersInfo.size(); i++) {
+            String[] items = UsersInfo.get(i).split(",");
+            String username = items[NAME_INDEX];
+            if (Username.equals(username)) {
+                return items[index];
+            }
+        }
+        return "NOT FOUND";
+    }
 
     /**
      * Finds user by ID then edits/replace user's data 
