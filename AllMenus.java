@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
  * menu, Vaccination center menu and MOH menu) for each role by calling RoleMenu
  * method
  * 
- * @author Sharifah Farah Sofea, Anas mohammad
+ * @author Sharifah Farah Sofea, Anas mohamed
  */
 
 public class AllMenus {
