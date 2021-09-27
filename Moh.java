@@ -1,6 +1,10 @@
 import java.util.List;
 import java.util.*;
 
+/**
+ *MOH is the government agency who has the data of all registered
+recipient and vaccination centers (VC).
+ */
 public class Moh extends User{
     Csvreader csv = new Csvreader();
     Scanner input = new Scanner(System.in);
@@ -10,8 +14,10 @@ public class Moh extends User{
     Moh() {
         super();
     }
-
-
+/**
+ * Add User Data to register by name phone number and password to csv 
+ * checking for user to input correctly 
+ */
     public void addUser() { 
         System.out.println("Enter name:  ");
         String Name = input.nextLine();
@@ -40,7 +46,9 @@ public class Moh extends User{
             
         }
     }
-
+/**
+ * b) Search a recipient and view their details.
+ */
     public void searchRecipientData() {  // Unique Primary Key
         System.out.print("Enter User ID: ");
         String ID_in = input.nextLine();
@@ -50,12 +58,17 @@ public class Moh extends User{
             System.out.print("User is not Recipient");
         }
     }
-    
+/**
+ * a) View all recipient data and vaccination status from all VCs (multi-column format)
+ */   
    public void viewAllData() {
         userInfo = csv.getUserInfo();
         csv.viewData();
     }
 
+/**
+ * d) View various statistics combining all VCs such as total vaccination, total by day, etc.
+ */
     public void viewStatistic() { 
         System.out.println("\tVaccination Stats:\n");
         System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(4, "Appointment made")) );
@@ -65,7 +78,11 @@ public class Moh extends User{
         System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(4, "Done")+ csv.ComparenCountField(5, "Done")));
         
     }
-
+/**
+ * c) Distribute vaccines and recipients to VCs based on the capacity of the VCs.
+ * allow user to re-enter if they input wrong User ID to and from
+ * non-case sensitive for assigned vc if the user input vcselangor/vckl in lower/uppercase
+ */
     public void distributeVaccine() {
         String v,q,r;
         
