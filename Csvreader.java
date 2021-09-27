@@ -349,8 +349,9 @@ public class Csvreader {
     }
 
    /**
-     * Prints and puts use data in a table format according to specified data
-     * @param Location Vaccination center location
+     * Prints and puts user data in a table format according to specified data
+     * @param Data Data to print according to
+     * @param index Data field (attribute) number
      */
     public void viewDataByIndex(String Data, int index) {                
         int ROW = getUserInfo().size();
@@ -367,7 +368,7 @@ public class Csvreader {
     }
 
     /**
-     * Print list of all users
+     * Print list of all user data in table form
      */
     public  void viewData() {              // To view every user's data in a list form                  // for MOH use
         int ROW = getUserInfo().size();
