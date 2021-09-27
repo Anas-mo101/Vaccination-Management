@@ -126,6 +126,7 @@ public class Csvreader {
                 System.out.println("First Appoinment: " + GetUserData(FIRSTVAC_INDEX, i));
                 System.out.println("Second Appoinment: " + GetUserData(SCNDVAC_INDEX, i));
                 System.out.println("Phone: " + GetUserData(PHONE_INDEX, i));
+                System.out.println("Assigned Vaccination center: " + GetUserData(VCASSIGNED_INDEX, i));
             }
         }
     }
