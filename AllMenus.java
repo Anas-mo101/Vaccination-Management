@@ -211,3 +211,10 @@ public class AllMenus {
     
     
 }
+
+
+class Main {
+    public static void main (String[] args) { 
+        AllMenus Start = new AllMenus();
+    }
+}
