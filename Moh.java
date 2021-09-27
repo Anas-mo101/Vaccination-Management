@@ -84,38 +84,44 @@ public class Moh extends User{
  * non-case sensitive for assigned vc if the user input vcselangor/vckl in lower/uppercase
  */
     public void distributeVaccine() {
-        String v,q,r;
-        
-        System.out.print("Enter User ID from: ");
-        v = input.next();
-            
-        while(csv.GetUserDataByID(v,0).equals("NOT FOUND")){
+        String StartID,EndID,AssignedVC;
+
+        while(true){
+            System.out.print("Enter User ID from (0 to exit): ");
+            StartID = input.next();
+
+            if(!csv.GetUserDataByID(StartID,0).equals("NOT FOUND") || StartID.equals("0")){
+                break;
+            }
             System.out.println("User ID Not Found");
-            System.out.print("Re-enter User ID from: ");
-            v = input.next();
         }
 
-        System.out.print("Enter User ID to: ");
-        q = input.next();
-        while(csv.GetUserDataByID(q,0).equals("NOT FOUND")){
+        while(true){
+            System.out.print("Enter User ID to (0 to exit): ");
+            EndID = input.next();
+
+            if(!csv.GetUserDataByID(EndID,0).equals("NOT FOUND") || EndID.equals("0")){
+                break;
+            }
             System.out.println("User ID Not Found");
-            System.out.print("Re-enter User ID to: ");
-            q = input.next();
-
         }
-        do {
-            System.out.print("Enter Assigned VC: ");
-            r = input.next();
-        }while(!r.toLowerCase().equals("vcselangor")&&!r.toLowerCase().equals("vckl"));
 
-        csv.setMultipleUserData(v,q,r,9); 
-        System.out.print("Data Vaccination Updated!");
+        while( !StartID.equals("0") && !EndID.equals("0") ){
+            System.out.print("Enter Assigned Vaccination center: ");
+            AssignedVC = input.next();
+            if(csv.GetUserDataByUsername(AssignedVC, USERTYPE_INDEX).equals("vcadmin")){
+                csv.setMultipleUserData(StartID,EndID,AssignedVC,ASSIGNEDVC_INDEX); 
+                System.out.println("Data Vaccination Updated!");
+                break;
+            }else{
+                System.out.println("Vaccination center does not exist (0 to exit)");
+                csv.viewDataByIndex("vcadmin", USERTYPE_INDEX);
+            }
+            if(AssignedVC.equals("0")){
+                break;
+            }
+        }
     }
-
-    //public void setRecipientVC(String UserID , String VaccinationID) {
-    //    csv.setUserData(UserID,csv.GetUserDataByID(VaccinationID,4),9);
-    //}
-
 }
 
 
