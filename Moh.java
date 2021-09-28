@@ -10,6 +10,8 @@ public class Moh extends User{
     Scanner input = new Scanner(System.in);
     List<String> userInfo = csv.getUserInfo();
     private final int USERTYPE_INDEX = 2;
+    private final int FSTSTATUS_INDEX = 4;
+    private final int SCNDSTATUS_INDEX = 5;
     private final int VCASSINGED_INDEX = 9;
 
     Moh() {
@@ -72,11 +74,11 @@ public class Moh extends User{
  */
     public void viewStatistic() { 
         System.out.println("\tVaccination Stats:\n");
-        System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(4, "Appointment made")) );
-        System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(4, "Done"));
-        System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(5, "Appointment made")));
-        System.out.println("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(5, "Done"));
-        System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(4, "Done")+ csv.ComparenCountField(5, "Done")));
+        System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Appointment made")) );
+        System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
+        System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
+        System.out.println("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
+        System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done")+ csv.ComparenCountField(5, "Done")));
         
     }
 /**
