@@ -9,6 +9,7 @@ public class Moh extends User{
     Csvreader csv = new Csvreader();
     Scanner input = new Scanner(System.in);
     List<String> userInfo = csv.getUserInfo();
+    private final int ID_INDEX = 0;
     private final int USERTYPE_INDEX = 2;
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
@@ -73,13 +74,12 @@ public class Moh extends User{
  * d) View various statistics combining all VCs such as total vaccination, total by day, etc.
  */
     public void viewStatistic() { 
-        System.out.println("\tVaccination Stats:\n");
-        System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Appointment made")) );
-        System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
-        System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
-        System.out.println("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
-        System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done")+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done")));
-        
+    System.out.println("\tVaccination Stats:\n");
+    System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Appointment made")) );
+    System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
+    System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
+    System.out.println("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
+    System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done")+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
     }
 /**
  * c) Distribute vaccines and recipients to VCs based on the capacity of the VCs.
@@ -92,7 +92,7 @@ public class Moh extends User{
             System.out.print("Enter User ID from (0 to exit): ");
             StartID = input.next();
 
-            if(!csv.GetUserDataByID(StartID,0).equals("NOT FOUND") || StartID.equals("0")){
+            if(!csv.GetUserDataByID(StartID,ID_INDEX).equals("NOT FOUND") || StartID.equals("0")){
                 break;
             }
             System.out.println("User ID Not Found");
@@ -102,7 +102,7 @@ public class Moh extends User{
             System.out.print("Enter User ID to (0 to exit): ");
             EndID = input.next();
 
-            if(!csv.GetUserDataByID(EndID,0).equals("NOT FOUND") || EndID.equals("0")){
+            if(!csv.GetUserDataByID(EndID,ID_INDEX).equals("NOT FOUND") || EndID.equals("0")){
                 break;
             }
             System.out.println("User ID Not Found");
