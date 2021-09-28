@@ -79,7 +79,7 @@ public class Moh extends User{
     System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
     System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
     System.out.println("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
-    System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done")+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
+    System.out.println("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done")+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done")));
     }
 /**
  * c) Distribute vaccines and recipients to VCs based on the capacity of the VCs.
