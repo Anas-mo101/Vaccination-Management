@@ -12,6 +12,7 @@ import java.util.List;
 public class Csvreader {
     private List<String> UsersInfo;
     private int UserLocatedInLine;
+    private final int ID_INDEX = 0;
     private final int PASS_INDEX = 1;
     private final int USERTYPE_INDEX = 2;
     private final int NAME_INDEX = 3;
@@ -117,7 +118,7 @@ public class Csvreader {
     public void GetUserInfoByID(String ID) { // gets all user info by ID
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(",");
-            String id = items[0];
+            String id = items[ID_INDEX];
             if (ID.equals(id)) {
                 System.out.println("User ID: " + ID);
                 System.out.println("Name: " + GetUserData(NAME_INDEX, i));
@@ -141,7 +142,7 @@ public class Csvreader {
     public String GetUserDataByID(String ID, int index) { // gets specific user data by ID
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(",");
-            String id = items[0];
+            String id = items[ID_INDEX];
             if (ID.equals(id)) {
                 return items[index];
             }
@@ -179,7 +180,7 @@ public class Csvreader {
 
         for (int i = 0; i < UsersInfo.size(); i++) {
             items = UsersInfo.get(i).split(",");
-            String id = items[0];
+            String id = items[ID_INDEX];
             if (ID.equals(id)) {
                 LineToBeEdited = i;
                 items[index] = Data;
@@ -226,7 +227,7 @@ public class Csvreader {
         for (int i = 0; i < UsersInfo.size(); i++) {
             String newLine = "";
             items = UsersInfo.get(i).split(",");
-            String id = items[0];
+            String id = items[ID_INDEX];
 
             if (currentID.equals(id)) {
                 LineToBeEdited = i;
