@@ -10,6 +10,7 @@ public class Moh extends User{
     Scanner input = new Scanner(System.in);
     List<String> userInfo = csv.getUserInfo();
     private final int USERTYPE_INDEX = 2;
+    private final int VCASSINGED_INDEX = 9;
 
     Moh() {
         super();
@@ -110,7 +111,7 @@ public class Moh extends User{
             System.out.print("Enter Assigned Vaccination center: ");
             AssignedVC = input.next();
             if(csv.GetUserDataByUsername(AssignedVC, USERTYPE_INDEX).equals("vcadmin")){
-                csv.setMultipleUserData(StartID,EndID,AssignedVC,ASSIGNEDVC_INDEX); 
+                csv.setMultipleUserData(StartID,EndID,AssignedVC,VCASSINGED_INDEX); 
                 System.out.println("Data Vaccination Updated!");
                 break;
             }else{
