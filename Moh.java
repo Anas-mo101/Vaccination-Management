@@ -82,7 +82,6 @@ public class Moh extends User{
 /**
  * c) Distribute vaccines and recipients to VCs based on the capacity of the VCs.
  * allow user to re-enter if they input wrong User ID to and from
- * non-case sensitive for assigned vc if the user input vcselangor/vckl in lower/uppercase
  */
     public void distributeVaccine() {
         String StartID,EndID,AssignedVC;
