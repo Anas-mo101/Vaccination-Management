@@ -4,7 +4,8 @@ import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.List;
-
+import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  * Used to all handle action done in csv file 
@@ -22,9 +23,16 @@ public class Csvreader {
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
     private final int VCASSIGNED_INDEX = 9;
+    private final int AGE_INDEX = 11;
+    private String filename;
     
     Csvreader() {
         ReadFileLine();
+    }
+
+    Csvreader(String filename) {
+        this.filename = filename;
+        ReadVacFileLine();
     }
 
     /**
@@ -368,6 +376,8 @@ public class Csvreader {
         System.out.println("No Users Found");
     }
 
+  
+
     /**
      * Print list of all user data in table form
      */
@@ -377,7 +387,7 @@ public class Csvreader {
             printList(i);
         }
     }
-    
+
     /**
      * Finds recipents on the assigned vaccination center and date of appointmnet
      * @param Date assgined date of appointment
@@ -409,5 +419,50 @@ public class Csvreader {
         }
         return queue;
     }
+
+    /**
+     * Check if data exsit at specified attribute
+     * @param Data data to be checked
+     * @param index attribute to look in
+     * @return true if not found or false if found
+     */
+    public Boolean checkData(String Data, int index) { // gets specific user data by ID
+        for (int i = 0; i < UsersInfo.size(); i++) {
+            String[] items = UsersInfo.get(i).split(",");
+            String data = items[index];
+
+            if (Data.equals(data)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     
+   /**
+     * Opens and loads data from csv file to list
+    */
+    public void ReadVacFileLine() {
+        try {
+            String currentPath = System.getProperty("user.dir"); // to get path of current directory
+            UsersInfo = Files.readAllLines(Paths.get(currentPath + "/" + filename)); // read users.csv into a list 
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates and adds new registered vac to csv  
+     * @param Num Password for new to login in
+     */
+    public void addVac(String Num) { // adds
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
+            writer.append("\n"+Num+",,");
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("No file found.");
+        }
+    }
+
 }
