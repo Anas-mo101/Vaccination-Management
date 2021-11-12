@@ -19,12 +19,19 @@ public class Customer extends User {
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
     private String custPhone;
+    private int vaccineBatchNo;
+    private String age;
 
     Customer() {
     }
 
     Customer(int i) {
         super(i);
+    }
+    
+    Customer(String Name, String age) { 
+        super(Name);
+        this.age = age;
     }
 
     /**
