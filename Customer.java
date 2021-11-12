@@ -105,4 +105,8 @@ public class Customer extends User {
         return custPhone.charAt(0) == '0' && custPhone.charAt(1) == '1' && custPhone.length() == 10;
 
     }
+    
+     public String getAge() {
+        return age;
+    }
 }
