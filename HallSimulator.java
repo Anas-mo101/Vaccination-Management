@@ -72,9 +72,13 @@ public class HallSimulator extends Application {
     public void setDate(){
         LocalDate setDate = datePicker.getValue();  // saves date value from date picker
         queue = csv.getQueue(setDate.toString(), "VCKL"); // gets recips and puts in queue
-        System.out.println(queue.toString());
-        for(int i=0;i<=queue.size();i++){
-            mainQueueTable.getItems().add(queue.poll());
+        if(!queue.isEmpty()){
+            int queueSize = queue.size() - 1;
+            for(int i=0;i<=queueSize;i++){
+                mainQueueTable.getItems().add(queue.poll());
+            }
+        }else{
+            mainQueueTable.setPlaceholder(new Label("No recipients at this day"));
         }
     }
 
