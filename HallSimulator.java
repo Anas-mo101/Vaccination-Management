@@ -17,6 +17,9 @@ import java.util.LinkedList;
 
 public class HallSimulator extends Application {
     Queue<Customer> queue = new LinkedList<Customer>();
+    Queue<Customer> elderlyQueue = new LinkedList<Customer>();   
+    Queue<Vaccine> vacQueue = new LinkedList<Vaccine>();
+     
     Label t1Lbl = new Label("Recipients");
     Label t2Lbl = new Label("Recipient bove 60yr");
     Label t3Lbl = new Label("Vaccine batch no.");
@@ -27,10 +30,12 @@ public class HallSimulator extends Application {
     Button setButton = new Button("Set");
     Button nextButton = new Button("Next");
     Button btnTime = new Button("Submit");
+    Boolean arrangeQueue = true;
+    LocalDate setDate;
 
     TableView<Customer> mainQueueTable = new TableView<Customer>();
     TableView<Customer> aboveSixtyQueueTable = new TableView<Customer>();
-    TableView vaccineTable = new TableView();
+    TableView<Vaccine> vaccineTable = new TableView<Vaccine>();
     TableView<Customer> vaccinatedTable = new TableView<Customer>();
 
     @Override
@@ -40,7 +45,7 @@ public class HallSimulator extends Application {
         setButton.setOnAction(action -> {
             setDate();
             nextButton.setDisable(false);
-            setButton.setDisable(true);
+            // setButton.setDisable(true);
         });
 
         nextButton.setOnAction(action -> {next();});
@@ -66,22 +71,50 @@ public class HallSimulator extends Application {
     }
 
     public void next(){
+        
+        if(arrangeQueue){
+            mainQueueTable.getItems().clear();
+            arrangeQueue();
+            arrangeQueue = false;
+        }else{
 
+        }
     }
 
-    public void setDate(){
-        LocalDate setDate = datePicker.getValue();  // saves date value from date picker
+    public void arrangeQueue(){
         queue = csv.getQueue(setDate.toString(), "VCKL"); // gets recips and puts in queue
         if(!queue.isEmpty()){
             int queueSize = queue.size() - 1;
             for(int i=0;i<=queueSize;i++){
-                mainQueueTable.getItems().add(queue.poll());
+                if(Integer.parseInt(queue.peek().getAge()) < 60){
+                    mainQueueTable.getItems().add(queue.poll());
+                }else{
+                    aboveSixtyQueueTable.getItems().add(queue.poll());
+                }
             }
         }else{
             mainQueueTable.setPlaceholder(new Label("No recipients at this day"));
         }
     }
 
+    public void setDate(){
+        mainQueueTable.getItems().clear();
+        setDate = datePicker.getValue();  // saves date value from date picker
+        queue = csv.getQueue(setDate.toString(), "VCKL"); // gets recips and puts in queue
+        int queueSize = queue.size() - 1;
+
+        if(!queue.isEmpty()){
+            for(int i=0;i<=queueSize;i++){
+                vacQueue.add(new Vaccine());
+            }
+            for(int i=0;i<=queueSize;i++){
+                mainQueueTable.getItems().add(queue.poll());
+                vaccineTable.getItems().add(vacQueue.poll());
+            }
+        }else{
+            mainQueueTable.setPlaceholder(new Label("No recipients at this day"));
+        }
+    }
 
     public void setElements(){
         TableColumn<Customer, String> name = new TableColumn<>("Name");
@@ -90,18 +123,28 @@ public class HallSimulator extends Application {
         TableColumn<Customer, String> age = new TableColumn<>("Age");
         age.setCellValueFactory(new PropertyValueFactory<>("age"));
 
-        TableColumn<Customer, Integer> vac = new TableColumn<>("Vaccine No.");
-        vac.setCellValueFactory(new PropertyValueFactory<>("vaccineBatchNo"));
-
         mainQueueTable.getColumns().add(name);
         mainQueueTable.getColumns().add(age);
 
+        //==================================================
 
-        // aboveSixtyQueueTable.getColumns().addAll(name, age);
-        // vaccineTable.getColumns().addAll(vac);
+        TableColumn<Customer, String> nameEldery = new TableColumn<>("Name");
+        nameEldery.setCellValueFactory(new PropertyValueFactory<>("Username"));
+
+        TableColumn<Customer, String> ageEldery = new TableColumn<>("Age");
+        ageEldery.setCellValueFactory(new PropertyValueFactory<>("age"));
+
+        aboveSixtyQueueTable.getColumns().add(nameEldery);
+        aboveSixtyQueueTable.getColumns().add(ageEldery);
+
+        //====================================================
+
+        TableColumn<Vaccine, String> vac = new TableColumn<>("Vaccine");
+        vac.setCellValueFactory(new PropertyValueFactory<>("VacBatchNo"));
+        vaccineTable.getColumns().add(vac);
+
         // vaccinatedTable.getColumns().addAll(name,age,vac);
  
-        
         t1Lbl.setTranslateX(130);
         t1Lbl.setTranslateY(4);
 
@@ -134,6 +177,10 @@ public class HallSimulator extends Application {
 
         name.setPrefWidth(144);
         age.setPrefWidth(144);
+
+        nameEldery.setPrefWidth(144);
+        ageEldery.setPrefWidth(144);
+
         vac.setPrefWidth(144);
  
         mainQueueTable.setTranslateX(10);
@@ -148,6 +195,7 @@ public class HallSimulator extends Application {
         vaccinatedTable.setTranslateX(765);
         vaccinatedTable.setTranslateY(20);
     }
+
     public static void main(String[] args){
         launch(args);
     }
