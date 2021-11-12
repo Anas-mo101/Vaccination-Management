@@ -378,4 +378,36 @@ public class Csvreader {
         }
     }
     
+    /**
+     * Finds recipents on the assigned vaccination center and date of appointmnet
+     * @param Date assgined date of appointment
+     * @param VC assgined vaccination center 
+     * @return returns queue containing recipients
+     */
+    public Queue<Customer> getQueue(String Date, String VC) {
+        Queue<Customer> queue = new LinkedList<Customer>();
+        for (int i = 0; i < UsersInfo.size(); i++) {
+            String[] items = UsersInfo.get(i).split(",");
+
+            String datenTime = items[FIRSTVAC_INDEX];               // 12/12/2021-08:00
+            String otherDatenTime = items[SCNDVAC_INDEX];           // 12/12/2021-08:00
+
+            String vcAssigned = items[VCASSIGNED_INDEX];             // VCKL
+                                                                            //0           //1 
+            String[] date = datenTime.split("/");                       // [12/12/2021],[08:00]
+            String[] otherDate = otherDatenTime.split("/");
+
+            if(VC.equals(vcAssigned)){
+                // System.out.println("match vc ->" + items.toString() + "-------" + date[0] + "-------" + otherDate[0]);
+                if (Date.equals(date[0]) || Date.equals(otherDate[0]) ) {
+                    // System.out.println("match date ->" + items.toString());
+                    String name = items[NAME_INDEX];
+                    String age = items[AGE_INDEX];
+                    queue.add(new Customer(name, age));
+                }
+            }
+        }
+        return queue;
+    }
+    
 }
