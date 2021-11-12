@@ -24,6 +24,10 @@ public class User {
         Username = UsersData.GetUserData(USERNAME_INDEX, getUserLine());
         Password = UsersData.GetUserData(PASSWORD_INDEX, getUserLine());
     }
+    
+    User(String Username) {
+        this.Username = Username;
+    }
 
     public String getID() {
         return ID;
