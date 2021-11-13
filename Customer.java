@@ -19,7 +19,7 @@ public class Customer extends User {
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
     private String custPhone;
-    private int vaccineBatchNo;
+    private String vaccineBatchNo;
     private String age;
 
     Customer() {
@@ -108,5 +108,9 @@ public class Customer extends User {
     
      public String getAge() {
         return age;
+    }
+    
+    public String getVacBatchNo(){
+        return vacBatchNo;
     }
 }
