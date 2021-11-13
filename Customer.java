@@ -19,7 +19,7 @@ public class Customer extends User {
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
     private String custPhone;
-    private String vaccineBatchNo;
+    private String vacBatchNo;
     private String age;
 
     Customer() {
