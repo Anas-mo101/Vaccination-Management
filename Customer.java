@@ -113,4 +113,8 @@ public class Customer extends User {
     public String getVacBatchNo(){
         return vacBatchNo;
     }
+    
+    public void setvacBatchNo(String vacBatchNo){
+        this.vacBatchNo = vacBatchNo;
+    }
 }
