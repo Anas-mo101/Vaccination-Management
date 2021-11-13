@@ -458,7 +458,7 @@ public class Csvreader {
     public void addVac(String Num) { // adds
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
-            writer.append("\n"+Num+",,");
+            writer.append("\n"+Num);
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
