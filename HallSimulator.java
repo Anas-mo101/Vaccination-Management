@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import javafx.scene.control.Label;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.cell.PropertyValueFactory;
-// import javafx.collections.FXCollections;
-// import javafx.collections.ObservableList;
 import java.util.Queue;
 import java.util.LinkedList;
 
@@ -19,7 +17,7 @@ public class HallSimulator extends Application {
     Queue<Customer> queue = new LinkedList<Customer>();
     Queue<Customer> elderlyQueue = new LinkedList<Customer>();   
     Queue<Vaccine> vacQueue = new LinkedList<Vaccine>();
-     
+    Label noticeLbl = new Label("Hello! Pick date to start");
     Label t1Lbl = new Label("Recipients");
     Label t2Lbl = new Label("Recipient bove 60yr");
     Label t3Lbl = new Label("Vaccine batch no.");
@@ -44,13 +42,14 @@ public class HallSimulator extends Application {
 
         setButton.setOnAction(action -> {
             setDate();
-            nextButton.setDisable(false);
+            
             // setButton.setDisable(true);
         });
 
         nextButton.setOnAction(action -> {next();});
 
         Group root = new Group();
+        root.getChildren().add(noticeLbl);
         root.getChildren().add(t1Lbl);
         root.getChildren().add(t2Lbl);
         root.getChildren().add(t3Lbl);
@@ -73,11 +72,54 @@ public class HallSimulator extends Application {
     public void next(){
         
         if(arrangeQueue){
+            noticeLbl.setText("Now click next to move queue");
             mainQueueTable.getItems().clear();
             arrangeQueue();
             arrangeQueue = false;
         }else{
+            move();
+        }
+    }
+    
+    public void move(){
+        Customer tempCusOne = new Customer();
+        Customer tempCusTwo = new Customer();
+        Vaccine tempVacOne = new Vaccine(true);
+        Vaccine tempVacTwo = new Vaccine(true);
 
+        if(!mainQueueTable.getItems().isEmpty()){
+            tempCusOne = mainQueueTable.getItems().remove(0);
+            if(!vaccineTable.getItems().isEmpty()){
+                tempVacOne = vaccineTable.getItems().remove(0);
+            }else{
+                vaccineTable.setPlaceholder(new Label("No more vaccines"));
+            }
+            tempCusOne.setvacBatchNo(tempVacOne.getVacBatchNo());
+            System.out.println(tempCusOne.getUsername() + ", " + tempCusOne.getAge() + ", " + tempCusOne.getVacBatchNo());
+
+            vaccinatedTable.getItems().add(tempCusOne);
+        }else{
+            mainQueueTable.setPlaceholder(new Label("No more recipients"));
+        }
+
+        if(!aboveSixtyQueueTable.getItems().isEmpty()){
+            tempCusTwo = aboveSixtyQueueTable.getItems().remove(0);
+            if(!vaccineTable.getItems().isEmpty()){
+                tempVacTwo = vaccineTable.getItems().remove(0);
+            }else{
+                vaccineTable.setPlaceholder(new Label("No more vaccines"));
+            }
+            tempCusTwo.setvacBatchNo(tempVacTwo.getVacBatchNo());
+            System.out.println(tempCusTwo.getUsername() + ", " + tempCusTwo.getAge() + ", " + tempCusTwo.getVacBatchNo());
+
+            vaccinatedTable.getItems().add(tempCusTwo);
+        }else{
+            aboveSixtyQueueTable.setPlaceholder(new Label("No more recipients"));
+        }
+
+        if(aboveSixtyQueueTable.getItems().isEmpty() && mainQueueTable.getItems().isEmpty()){
+            noticeLbl.setText("Queue is over, try picking another date");
+            nextButton.setDisable(true);
         }
     }
 
@@ -104,6 +146,8 @@ public class HallSimulator extends Application {
         int queueSize = queue.size() - 1;
 
         if(!queue.isEmpty()){
+            noticeLbl.setText("Now click next to arrange queue");
+            nextButton.setDisable(false);
             for(int i=0;i<=queueSize;i++){
                 vacQueue.add(new Vaccine());
             }
@@ -112,6 +156,7 @@ public class HallSimulator extends Application {
                 vaccineTable.getItems().add(vacQueue.poll());
             }
         }else{
+            noticeLbl.setText("Try picking another date");
             mainQueueTable.setPlaceholder(new Label("No recipients at this day"));
         }
     }
@@ -143,7 +188,22 @@ public class HallSimulator extends Application {
         vac.setCellValueFactory(new PropertyValueFactory<>("VacBatchNo"));
         vaccineTable.getColumns().add(vac);
 
-        // vaccinatedTable.getColumns().addAll(name,age,vac);
+        //===========================================================
+
+        TableColumn<Customer, String> nameVaccined = new TableColumn<>("Name");
+        nameVaccined.setCellValueFactory(new PropertyValueFactory<>("Username"));
+
+        TableColumn<Customer, String> ageVaccined = new TableColumn<>("Age");
+        ageVaccined.setCellValueFactory(new PropertyValueFactory<>("Age"));
+
+        TableColumn<Customer, String> vacVaccined = new TableColumn<>("Vaccine");
+        vacVaccined.setCellValueFactory(new PropertyValueFactory<>("VacBatchNo"));
+
+        vaccinatedTable.getColumns().add(nameVaccined);
+        vaccinatedTable.getColumns().add(ageVaccined);
+        vaccinatedTable.getColumns().add(vacVaccined);
+
+        //============================================================================
  
         t1Lbl.setTranslateX(130);
         t1Lbl.setTranslateY(4);
@@ -159,6 +219,9 @@ public class HallSimulator extends Application {
 
         d5Lbl.setTranslateX(500);
         d5Lbl.setTranslateY(364);
+
+        noticeLbl.setTranslateX(200);
+        noticeLbl.setTranslateY(380);
 
         nextButton.setTranslateX(715);
         nextButton.setTranslateY(380);
@@ -182,6 +245,10 @@ public class HallSimulator extends Application {
         ageEldery.setPrefWidth(144);
 
         vac.setPrefWidth(144);
+
+        nameVaccined.setPrefWidth(144);
+        ageVaccined.setPrefWidth(144);
+        vacVaccined.setPrefWidth(144);
  
         mainQueueTable.setTranslateX(10);
         mainQueueTable.setTranslateY(20);
