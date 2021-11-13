@@ -5,13 +5,16 @@ public class Vaccine {
     private final int NUM_INDEX = 0;
     Csvreader csv = new Csvreader("vac.csv");
     private String vacBatchNo;
-    private String recipinetName;
-    private String recipinetAge;
+    // private String recipinetName;
+    // private String recipinetAge;
     Random rand = new Random();
 
     Vaccine(){
         vacBatchNo = addVacBatchNO();
-        System.out.println(vacBatchNo);
+    }
+
+    Vaccine(Boolean check){
+
     }
     
     public String addVacBatchNO(){
@@ -26,14 +29,6 @@ public class Vaccine {
         }
         csv.addVac(Integer.toString(Num));
         return Integer.toString(Num);
-    }
-
-    public void setrecipinetName(String recipinetName){
-        this.recipinetName = recipinetName;
-    }
-
-    public void setrecipinetAge(String recipinetAge){
-        this.recipinetAge = recipinetAge;
     }
 
     public String getVacBatchNo(){
