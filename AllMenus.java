@@ -63,7 +63,7 @@ public class AllMenus {
 
     }
 
-    /**
+   /**
      * Display the details of customer menu and the options for user to choose
      * depends on what they want to see. 1) displays the specific customer's status,
      * 2) display an appointment of vaccination date, 3) exit the system
@@ -75,12 +75,12 @@ public class AllMenus {
 
         do {
             System.out.println();
-             System.out.println("-----> ID: " + customer.getID() + " -  Username: "+ customer.getUsername() + " <-----");
+            System.out
+                    .println("-----> ID: " + customer.getID() + " -  Username: " + customer.getUsername() + " <-----");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.println("|                           - RECIPIENT MENU -                               |");
             System.out.println("|----------------------------------------------------------------------------|");
             System.out.println("|                            [1] View Recipient Status                       |");
-            System.out.println("|                            [2] View Appointment Date                       |");
             System.out.println("|                            [0] Exit                                        |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
@@ -88,18 +88,16 @@ public class AllMenus {
             choice = input.nextLine();
 
             switch (choice) {
-                case "0": System.out.println("Thank you. Bye!"); 
-                    System.exit(0);
-                    break;
-                case "1":
-                    customer.ViewCustomerStatus();
-                    break;
-                case "2":
-                    customer.ViewAppointmentDate();
-                    break;
-                default:
-                    System.out.println("Invalid input. Please enter again: ");
-                    break;
+            case "0":
+                System.out.println("Thank you. Bye!");
+                System.exit(0);
+                break;
+            case "1":
+                customer.ViewCustomerStatus();
+                break;
+            default:
+                System.out.println("Invalid input. Please enter again: ");
+                break;
             }
 
         } while (!choice.equals("0"));
