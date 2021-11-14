@@ -1,6 +1,6 @@
 ID,PASS,USERTYPE,USERNAME,1st Vac Status,2nd Vac Status,1st Vac Date,2nd Vac Date,Phone,ASSGINED VC,CAP/HOUR
 10001,admin,admin,MOH,none,none,none,none,0380008000,none,none
-10002,vcadmin,vcadmin,VCSelangor,none,none,none,none,0382508330,none,5
+10002,vcadmin,vcadmin,VCSelangor,none,none,none,none,0382508330,none,20
 10003,vcadmin,vcadmin,VCKL,none,none,none,none,0385215640,none,10
 10004,A1234,recipient,Anas,Pending,Pending,none,none,0125694822,VCSelangor,none
 10005,A1234,recipient,Katia,Pending,Pending,none,none,0145976585,VCSelangor,none
