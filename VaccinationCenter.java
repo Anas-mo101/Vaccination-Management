@@ -227,7 +227,7 @@ public class VaccinationCenter extends User {
         System.out.println("\tTotal Vaccination taken at " + getUsername() + ": "+ 
                             (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", getUsername()) + 
                              csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", getUsername())));
-        //System.out.println("\tTotal Vaccine Available at " + getUsername() + ": ");
+        //System.out.println("\tTotal Vaccine Available at " + getUsername() + ": "); 
         System.out.println("\tNumber of Vaccination that registered (by day):");
         System.out.println();
         countVaccinationRegistered(dateList);
