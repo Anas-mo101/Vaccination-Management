@@ -14,6 +14,7 @@ public class Moh extends User{
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
     private final int VCASSINGED_INDEX = 9;
+    private String age;
 
     Moh() {
         super();
