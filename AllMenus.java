@@ -175,10 +175,10 @@ public class AllMenus {
             System.out.println("|                               - MOH MENU -                           	     |");
             System.out.println("|----------------------------------------------------------------------------|");
             System.out.println("|                            [1] Add User                      	             |");
-            System.out.println("|                            [2] Search Recipient                            |");
-            System.out.println("|                            [3] View Recipient List                         |");
-            System.out.println("|                            [4] View Vaccination Static                     |");
-            System.out.println("|                            [5] Distribute Vaccine                          |");
+            //System.out.println("|                            [2] Search Recipient                            |");
+            System.out.println("|                            [2] View Recipient List                         |");
+            System.out.println("|                            [3] View Vaccination Static                     |");
+            System.out.println("|                            [4] Distribute Vaccine                          |");
             System.out.println("|                            [0] Exit                                        |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
@@ -192,16 +192,16 @@ public class AllMenus {
                     case "1":
                         moh.addUser();
                         break;
+                    //case "2":
+                        //moh.searchRecipientData();
+                        //break;
                     case "2":
-                        moh.searchRecipientData();
-                        break;
-                    case "3":
                         moh.viewAllData();
                         break;
-                    case "4":
+                    case "3":
                         moh.viewStatistic();
                         break;
-                    case "5":
+                    case "4":
                         moh.distributeVaccine(); 
                         break;
                     default:
