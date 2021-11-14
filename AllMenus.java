@@ -119,13 +119,14 @@ public class AllMenus {
             do {
                 System.out.println();
             System.out.println("-----> ID: " + vc.getID() + " -  Username: "+ vc.getUsername() + " <-----");
-            System.out.println("+----------------------------------------------------------------------------+");
+           System.out.println("+----------------------------------------------------------------------------+");
             System.out.println("|                           - VACCINATION CENTER MENU -                      |");
             System.out.println("|----------------------------------------------------------------------------|");
             System.out.println("|                            [1] Print Recipient List                        |");
             System.out.println("|                            [2] Set Appointment Date                        |");
-            System.out.println("|                            [3] Set Vaccine Status                          |");
-            System.out.println("|                            [4] View Vaccination Static                     |");    
+            System.out.println("|                            [3] Set Appointment Date(Many)                  |");
+            System.out.println("|                            [4] Set Vaccine Status                          |");
+            System.out.println("|                            [5] View Vaccination Static                     |");    
             System.out.println("|                            [0] Exit                                        |");
             System.out.println("+----------------------------------------------------------------------------+");
             System.out.print(" Enter a choice:  ");
@@ -143,9 +144,12 @@ public class AllMenus {
                         vc.setAppointmentDate();
                         break;
                     case "3":
-                        vc.setVaccineStatus();
+                        vc.setAppointmentDate_Many();
                         break;
                     case "4":
+                        vc.setVaccineStatus();
+                        break;
+                    case "5":
                         vc.viewTotalVaccination();
                         break;
                     default:
