@@ -54,15 +54,15 @@ public class Moh extends User{
 /**
  * b) Search a recipient and view their details.
  */
-    public void searchRecipientData() {  // Unique Primary Key
-        System.out.print("Enter User ID: ");
-        String ID_in = input.nextLine();
-        if(csv.GetUserDataByID(ID_in,USERTYPE_INDEX).equals("recipient")){
-            csv.GetUserInfoByID(ID_in);
-        }else{
-            System.out.print("User is not Recipient");
-        }
-    }
+    //public void searchRecipientData() {  // Unique Primary Key
+        //System.out.print("Enter User ID: ");
+        //String ID_in = input.nextLine();
+        //if(csv.GetUserDataByID(ID_in,USERTYPE_INDEX).equals("recipient")){
+            //csv.GetUserInfoByID(ID_in);
+        //}else{
+            //System.out.print("User is not Recipient");
+        //}
+    //}
 /**
  * a) View all recipient data and vaccination status from all VCs (multi-column format)
  */   
@@ -76,6 +76,8 @@ public class Moh extends User{
  */
     public void viewStatistic() { 
     System.out.println("\tVaccination Stats:\n");
+
+    
     System.out.println("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Appointment made")) );
     System.out.println("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
     System.out.println("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
