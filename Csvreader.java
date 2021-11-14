@@ -93,15 +93,20 @@ public class Csvreader {
      * @param ScndVac Second vaccination status (for recipients)
      * @param Phone Phone number
      * @param CapPerHr Capacity per hour (for vaccination centers)
+     * @param Age      Age
      */
-    public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac,String Phone, String CapPerHr) { // adds
+    public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac, String Phone,
+            String CapPerHr, String Age) { // adds
+
+        LinkedList<Integer> list = new LinkedList<>();
+        Random r = new Random();
 
         int Last_ID = Integer.parseInt(GetUserData(0, UsersInfo.size() - 1));
         ++Last_ID; // get the last ID in csv and increaments it to next ID
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", true));
-            writer.append("\n" + Last_ID + "," + Password + "," + Usertype + "," + Username + "," + FstVac + "," + ScndVac
-                    + ",none,none," + Phone + ",none," + CapPerHr);
+            writer.append("\n" + Last_ID + "," + Password + "," + Usertype + "," + Username + "," + FstVac + ","
+                    + ScndVac + ",none,none," + Phone + ",none," + CapPerHr + "," + Age);
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
@@ -120,7 +125,8 @@ public class Csvreader {
     }
 
     /**
-     * Finds user by ID and prints user's details 
+     * Finds user by ID and prints user's details
+     * 
      * @param ID User ID
      */
     public void GetUserInfoByID(String ID) { // gets all user info by ID
@@ -130,12 +136,14 @@ public class Csvreader {
             if (ID.equals(id)) {
                 System.out.println("User ID: " + ID);
                 System.out.println("Name: " + GetUserData(NAME_INDEX, i));
-                System.out.println("First Vaccine Status: " + GetUserData(FSTSTATUS_INDEX, i));
-                System.out.println("Second Vaccine Status: "+ GetUserData(SCNDSTATUS_INDEX, i));
-                System.out.println("First Appoinment: " + GetUserData(FIRSTVAC_INDEX, i));
-                System.out.println("Second Appoinment: " + GetUserData(SCNDVAC_INDEX, i));
+                System.out.println("Age: " + GetUserData(AGE_INDEX, i));
+                System.out.println("1st Vaccine Status: " + GetUserData(FSTSTATUS_INDEX, i) + " - "
+                        + GetUserData(FIRSTVAC_INDEX, i));
+                System.out.println("2nd Vaccine Status: " + GetUserData(SCNDSTATUS_INDEX, i) + " - "
+                        + GetUserData(SCNDVAC_INDEX, i));
                 System.out.println("Phone: " + GetUserData(PHONE_INDEX, i));
                 System.out.println("Assigned Vaccination center: " + GetUserData(VCASSIGNED_INDEX, i));
+
             }
         }
     }
