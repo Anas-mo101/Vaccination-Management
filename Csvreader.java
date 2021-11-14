@@ -99,7 +99,6 @@ public class Csvreader {
             String CapPerHr, String Age) { // adds
 
         LinkedList<Integer> list = new LinkedList<>();
-        Random r = new Random();
 
         int Last_ID = Integer.parseInt(GetUserData(0, UsersInfo.size() - 1));
         ++Last_ID; // get the last ID in csv and increaments it to next ID
