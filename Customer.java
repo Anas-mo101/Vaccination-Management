@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.*;
+//import java.util.Random;
 
 /**
  * A Customer class representing the details of the customer. 1) custName is the
@@ -18,6 +18,9 @@ public class Customer extends User {
     private final int FIRSTVAC_INDEX = 6;
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
+    private final int AGE_INDEX = 11;
+    // private final int BATCHVAC1_INDEX = 12;
+    // private final int BATCHVAC2_INDEX = 13;
     private String custPhone;
     private String vacBatchNo;
     private String age;
@@ -28,8 +31,8 @@ public class Customer extends User {
     Customer(int i) {
         super(i);
     }
-    
-    Customer(String Name, String age) { 
+
+    Customer(String Name, String age) {
         super(Name);
         this.age = age;
     }
@@ -40,6 +43,7 @@ public class Customer extends User {
      */
     public void saveCustomertoFile() { // recipient regiesteration
         Scanner input = new Scanner(System.in);
+        // Random r = new Random();
 
         System.out.println("+----------------------------------------------------------------------------+");
         System.out.println("|                           - REGISTRATION -                                 |");
@@ -47,6 +51,9 @@ public class Customer extends User {
 
         System.out.println("Enter your name:  ");
         String custName = input.nextLine();
+
+        System.out.println("Enter your age:  ");
+        String age = input.nextLine();
 
         while (true) {
             System.out.print("Enter your phone number: ");
@@ -65,34 +72,30 @@ public class Customer extends User {
         System.out.println(">>>>>>>>>>>>>>>>>>>>> ACCOUNT SUCCESSFULLY REGISTERED!! <<<<<<<<<<<<<<<<<<<<<");
 
         // writes to the file "customer.csv"
-        csv.addUser(password, "recipient", custName, "Pending", "Pending", custPhone, "none");
+        csv.addUser(password, "recipient", custName, "Pending", "Pending", custPhone, "none", age);
         AllMenus.RoleMenu();
-    }
-    
-    /**
-     * Display Customer details like name, phone number and status of their first
-     * dose and second dose vaccine. 1) Pending means still waiting for appointment
-     * date, 2) 1st dose complete means the customer has received the first dose, 3)
-     * 2nd dose complete means the customer has received the second dose.
-     */
-    public void ViewCustomerStatus() {
-        System.out.println("Name: " + csv.GetUserData(NAME_INDEX, getUserLine()));
-        System.out.println("Phone number: " + csv.GetUserData(PHONE_INDEX, getUserLine()));
-        System.out.println("First Vaccine Status -> " + csv.GetUserData(FSTSTATUS_INDEX, getUserLine()));
-        System.out.println("Second Vaccine Status -> " + csv.GetUserData(SCNDSTATUS_INDEX, getUserLine()));
     }
 
     /**
-     * Display Customer details like name, phone number and appointment date of
-     * their vaccine.
+     * Display Customer details like name, phone number, age, status, date and batch
+     * number of their first dose and second dose vaccine. 1) Pending means still
+     * waiting for appointment date, 2) 1st dose complete means the customer has
+     * received the first dose, 3) 2nd dose complete means the customer has received
+     * the second dose.
      */
-    public void ViewAppointmentDate() {
+    public void ViewCustomerStatus() {
+        Vaccine vac = new Vaccine();
         System.out.println("Name: " + csv.GetUserData(NAME_INDEX, getUserLine()));
+        System.out.println("Age: " + csv.GetUserData(AGE_INDEX, getUserLine()));
         System.out.println("Phone number: " + csv.GetUserData(PHONE_INDEX, getUserLine()));
-        System.out.println("First Vaccine Appointment -> " + csv.GetUserData(FIRSTVAC_INDEX, getUserLine()));
-        System.out.println("Second Vaccine Appointment -> " + csv.GetUserData(SCNDVAC_INDEX, getUserLine()));
+        System.out.println("1st Vaccine Status -> " + csv.GetUserData(FSTSTATUS_INDEX, getUserLine()) + " - "
+                + csv.GetUserData(FIRSTVAC_INDEX, getUserLine()));
+        System.out.println("Batch number -> " + vac.addVacBatchNO());
+        System.out.println("2nd Vaccine Status -> " + csv.GetUserData(SCNDSTATUS_INDEX, getUserLine()) + " - "
+                + csv.GetUserData(SCNDVAC_INDEX, getUserLine()));
+        System.out.println("Batch number -> " + vac.addVacBatchNO());
     }
-    
+
     /**
      * Checking a valid phone number of customer whether it meet the requirement
      * such as first character is 0, second character is 1 and the length of phone
@@ -105,16 +108,16 @@ public class Customer extends User {
         return custPhone.charAt(0) == '0' && custPhone.charAt(1) == '1' && custPhone.length() == 10;
 
     }
-    
-     public String getAge() {
+
+    public String getAge() {
         return age;
     }
-    
-    public String getVacBatchNo(){
+
+    public String getVacBatchNo() {
         return vacBatchNo;
     }
-    
-    public void setvacBatchNo(String vacBatchNo){
+
+    public void setvacBatchNo(String vacBatchNo) {
         this.vacBatchNo = vacBatchNo;
     }
 }
