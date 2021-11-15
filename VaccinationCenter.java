@@ -18,13 +18,16 @@ public class VaccinationCenter extends User {
     private final int SCNDVACDATE_INDEX = 7;
     private final int VCASSINGED_INDEX = 9;
     private final int CAPACITY_INDEX = 10;
+    private final int TOTALVACAVAILABLE_INDEX = 12;
     private int CapacityPerHour;
+    private int totalVacAvailable;
     List<String> userInfo = csv.getUserInfo();
     ArrayList<String> dateList = new ArrayList<String>();
 
     VaccinationCenter(int i){
         super(i);
         CapacityPerHour = Integer.parseInt(csv.GetUserDataByID(getID(),CAPACITY_INDEX));
+        totalVacAvailable = Integer.parseInt(csv.GetUserDataByID(getID(),TOTALVACAVAILABLE_INDEX));
     }
 
     /**
@@ -65,11 +68,13 @@ public class VaccinationCenter extends User {
                     System.out.println("This appointment time is not valid!! Please try again!!");
                     break;
                 }else {
-                    if(checkCapacityDay(Date)){
+                    if(checkCapacityDay(Date) || checkTotalVacAvailable()){
                         csv.setUserData(ID,Date + "-" + Time,whichVac(ID));                       //set date & time
                         csv.setUserData(ID,"AppointmentMade",whichStatus(ID));                     //automatically set the vaccination status
                         dateList.add(Date);                                         // add the appointment date that made successfully to array list
                         System.out.println("Appointment made Successfully!!"); 
+                        totalVacAvailable--;
+                        csv.setUserData(getID(), String.valueOf(totalVacAvailable) , TOTALVACAVAILABLE_INDEX);
                         break;
                     }else{
                         System.out.println("Max Capacity Reached!!");
@@ -104,10 +109,12 @@ public class VaccinationCenter extends User {
                         System.out.println("This appointment time is not valid!! Please try again!!");
                         break;
                     }else {
-                        if(checkCapacityDay(Date)){
+                        if(checkCapacityDay(Date) || checkTotalVacAvailable()){
                             csv.setUserData(current_ID,Date + "-" + Time,whichVac(current_ID));                       //set date & time
                             csv.setUserData(current_ID,"AppointmentMade",whichStatus(current_ID));                     //automatically set the vaccination status
                             dateList.add(Date);                                         // add the appointment date that made successfully to array list 
+                            totalVacAvailable--;
+                            csv.setUserData(getID(), String.valueOf(totalVacAvailable) , TOTALVACAVAILABLE_INDEX);
                             break;
                         }else{
                             System.out.println("(" + current_ID + ")" + "Max Capacity Reached!!");
@@ -166,6 +173,13 @@ public class VaccinationCenter extends User {
         }else{
             return false;
         }
+    }
+
+    public Boolean checkTotalVacAvailable() {          // to check there is vaccine available or not
+        if(totalVacAvailable <= 0)
+            return false;
+        else
+            return true;
     }
 
     /**
@@ -227,7 +241,9 @@ public class VaccinationCenter extends User {
         System.out.println("\tTotal Vaccination taken at " + getUsername() + ": "+ 
                             (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", getUsername()) + 
                              csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", getUsername())));
-        //System.out.println("\tTotal Vaccine Available at " + getUsername() + ": "); 
+        System.out.println();
+        System.out.println("\tTotal Vaccine Available at " + getUsername() + ": " + totalVacAvailable);
+        System.out.println();
         System.out.println("\tNumber of Vaccination that registered (by day):");
         System.out.println();
         countVaccinationRegistered(dateList);
