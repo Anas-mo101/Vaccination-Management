@@ -38,6 +38,11 @@ public class VaccinationCenter extends User {
         csv.viewDataByIndex(getUsername(), VCASSINGED_INDEX);
     }
 
+    /**
+     * To check which Vaccination date the recipient is taking
+     * @param ID Recipients' ID
+     * @return return which Vaccination date the recipient need to take
+     */
     public int whichVac(String ID) {                                       // To check which Vac the recipients is taking (1st vac or 2nd vac)
         if(csv.GetUserDataByID(ID, FSTVACDATE_INDEX).equals("none"))        
             return FSTVACDATE_INDEX;
@@ -45,6 +50,11 @@ public class VaccinationCenter extends User {
             return SCNDVACDATE_INDEX;        
     }
 
+    /**
+     * To check which Vaccination status that the system need to set for the recipient
+     * @param ID Recipients' ID
+     * @return return which Vaccination status the system need to set for the recipient
+     */
     public int whichStatus(String ID) {                                   
         if(csv.GetUserDataByID(ID, FSTSTATUS_INDEX).equals("Pending"))        
             return FSTSTATUS_INDEX;
@@ -175,6 +185,10 @@ public class VaccinationCenter extends User {
         }
     }
 
+    /**
+     * To check there is vaccine available or not currently at the vaccination center
+     * @return Boolean
+     */
     public Boolean checkTotalVacAvailable() {          // to check there is vaccine available or not
         if(totalVacAvailable <= 0)
             return false;
@@ -234,7 +248,8 @@ public class VaccinationCenter extends User {
     }
 
     /**
-     * Print the number of Total Vaccination taken at the same Vaccination Center and also
+     * Print the number of Total Vaccination taken at the same Vaccination Center,
+     * total vaccine currently available at the vaccination center and also
      * the number of appointment date that have been registered
      */
     public void viewTotalVaccination() {                    // calculate the Total Vaccination
@@ -250,3 +265,4 @@ public class VaccinationCenter extends User {
     }
 
 }
+
