@@ -1,4 +1,4 @@
-ID,PASS,USERTYPE,USERNAME,1st Vac Status,2nd Vac Status,1st Vac Date,2nd Vac Date,Phone,ASSGINED VC,CAP/HOUR,Age,Total Vac Available
+ID,PASS,USERTYPE,USERNAME,1st Vac Status,2nd Vac Status,1st Vac Date,2nd Vac Date,Phone,ASSGINED VC,CAP/DAY,Age,Total Vac Available
 10001,admin,admin,MOH,none,none,none,none,380008000,none,none,none,none
 10002,vcadmin,vcadmin,VCSelangor,none,none,none,none,382508330,none,20,none,100
 10003,vcadmin,vcadmin,VCKL,none,none,none,none,385215640,none,10,none,100
