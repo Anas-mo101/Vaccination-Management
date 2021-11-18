@@ -69,7 +69,7 @@ public class VaccinationCenter extends User {
         System.out.println("Enter Recipient ID: ");
         String ID = input.nextLine();                                             
         while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(getUsername())){                      // Checks if Recipient is assigned to current vaccination center 
-            System.out.println("Enter Appointment Date(DD/MM/YYYY): ");
+            System.out.println("Enter Appointment Date(YYYY-MM-DD): ");
             String Date = input.nextLine();
             System.out.println("Enter Appointment Time (08:00-18:00): ");
             String Time = input.nextLine();
@@ -79,12 +79,12 @@ public class VaccinationCenter extends User {
                     break;
                 }else {
                     if(checkCapacityDay(Date) || checkTotalVacAvailable()){
-                        csv.setUserData(ID,Date + "-" + Time,whichVac(ID));                       //set date & time
+                        csv.setUserData(ID,Date + "/" + Time,whichVac(ID));                       //set date & time
                         csv.setUserData(ID,"AppointmentMade",whichStatus(ID));                     //automatically set the vaccination status
                         dateList.add(Date);                                         // add the appointment date that made successfully to array list
                         System.out.println("Appointment made Successfully!!"); 
                         totalVacAvailable--;
-                        csv.setUserData(getID(), String.valueOf(totalVacAvailable) , TOTALVACAVAILABLE_INDEX);
+                        csv.setUserData(getID(), String.valueOf(totalVacAvailable), TOTALVACAVAILABLE_INDEX);
                         break;
                     }else{
                         System.out.println("Max Capacity Reached!!");
@@ -107,7 +107,7 @@ public class VaccinationCenter extends User {
         String ID_end = input.nextLine(); 
         String current_ID = ID_start;   
         
-        System.out.println("Enter Appointment Date(DD/MM/YYYY): ");
+        System.out.println("Enter Appointment Date(YYYY-MM-DD): ");
         String Date = input.nextLine();
         System.out.println("Enter Appointment Time (08:00-18:00): ");
         String Time = input.nextLine();
@@ -120,7 +120,7 @@ public class VaccinationCenter extends User {
                         break;
                     }else {
                         if(checkCapacityDay(Date) || checkTotalVacAvailable()){
-                            csv.setUserData(current_ID,Date + "-" + Time,whichVac(current_ID));                       //set date & time
+                            csv.setUserData(current_ID,Date + "/" + Time,whichVac(current_ID));                       //set date & time
                             csv.setUserData(current_ID,"AppointmentMade",whichStatus(current_ID));                     //automatically set the vaccination status
                             dateList.add(Date);                                         // add the appointment date that made successfully to array list 
                             totalVacAvailable--;
@@ -224,7 +224,7 @@ public class VaccinationCenter extends User {
      */
     public Boolean isDate(String dateString) {                       // check the input is valid or not
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-DD");
             return dateFormat.parse(dateString) != null;
         } catch (ParseException e) {
             System.out.println("Invalid Input for date!!");
