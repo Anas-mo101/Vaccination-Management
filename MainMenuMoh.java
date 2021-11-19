@@ -17,6 +17,11 @@ import javafx.geometry.Insets;
 public class MainMenuMoh extends Application {
     static int n = 0;
     Csvreader csv = new Csvreader();
+    private final int ID_INDEX = 0;
+    private final int USERTYPE_INDEX = 2;
+    private final int FSTSTATUS_INDEX = 4;
+    private final int SCNDSTATUS_INDEX = 5;
+    private final int VCASSINGED_INDEX = 9;
 
     public static void main (String[] args){
         launch(args);
@@ -52,8 +57,11 @@ public class MainMenuMoh extends Application {
         Button button3 = new Button();
         button3.setText("View Vacination Static");
 
-        Button button4 = new Button();
-        button4.setText("Distribute Vaccine");
+        Button distributeVaccineButton = new Button();
+        distributeVaccineButton.setText("Distribute Vaccine");
+        distributeVaccineButton.setOnAction(e->{
+            distributeVaccine();
+        });
 
         Button button5 = new Button();
         button5.setText("Exit");
@@ -65,7 +73,7 @@ public class MainMenuMoh extends Application {
         hBoxMenu.setAlignment(Pos.TOP_CENTER);
         hBoxMenu.setSpacing(30);
         hBoxMenu.setPadding(new Insets(90, 5, 5, 5));
-        hBoxMenu.getChildren().addAll(buttonRecipient,buttonVC, button2, button3, button4, button5);
+        hBoxMenu.getChildren().addAll(buttonRecipient,buttonVC, button2, button3, distributeVaccineButton, button5);
 
         Scene scene = new Scene (hBoxMenu,800,250);
         mainStage.setScene(scene);
@@ -184,8 +192,7 @@ public class MainMenuMoh extends Application {
         insertPass.setSpacing(30);
         insertPass.setPadding(new Insets(5, 5, 5, 5));
         insertPass.getChildren().addAll(password, passField);
-
-        
+     
         HBox insertCapa = new HBox();
         insertCapa.setPrefWidth(200);
         insertCapa.setAlignment(Pos.TOP_CENTER);
@@ -204,4 +211,56 @@ public class MainMenuMoh extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void distributeVaccine(){
+        Stage stage = new Stage();
+        stage.setTitle("Distribute Vaccine");
+
+        Label idFrom = new Label("Enter User ID from");
+        Label idTo = new Label("Enter User ID to");
+        Label assignVC = new Label ("Enter Assigned Vaccination center:");
+
+        TextField idFromField = new TextField();
+        TextField idToField = new TextField();
+        TextField assignVCField = new TextField();
+
+        Button submit = new Button();
+            submit.setText("Submit");
+            submit.setOnAction(e->{
+                csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
+                csv.setMultipleUserData(idFromField.getText(),idToField.getText(),assignVCField.getText(),VCASSINGED_INDEX); 
+            });
+        
+        HBox insertFrom = new HBox();
+        insertFrom.setPrefWidth(200);
+        insertFrom.setAlignment(Pos.TOP_CENTER);
+        insertFrom.setSpacing(30);
+        insertFrom.setPadding(new Insets(5, 5, 5, 5));
+        insertFrom.getChildren().addAll(idFrom,idFromField);
+
+        HBox insertTo = new HBox();
+        insertTo.setPrefWidth(200);
+        insertTo.setAlignment(Pos.TOP_CENTER);
+        insertTo.setSpacing(30);
+        insertTo.setPadding(new Insets(5, 5, 5, 5));
+        insertTo.getChildren().addAll(idTo, idToField);
+
+        HBox insertVC = new HBox();
+        insertVC.setPrefWidth(200);
+        insertVC.setAlignment(Pos.TOP_CENTER);
+        insertVC.setSpacing(30);
+        insertVC.setPadding(new Insets(5, 5, 5, 5));
+        insertVC.getChildren().addAll(assignVC, assignVCField);
+
+        VBox vBoxMenu = new VBox();
+        vBoxMenu.setPrefWidth(200);
+        vBoxMenu.setAlignment(Pos.TOP_CENTER);
+        vBoxMenu.setSpacing(30);
+        vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
+        vBoxMenu.getChildren().addAll(insertFrom,insertTo,insertVC,submit);
+
+        Scene scene = new Scene (vBoxMenu,700,300);
+        stage.setScene(scene);
+        stage.show();
+    }   
 }
