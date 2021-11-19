@@ -89,13 +89,13 @@ public class Moh extends User{
  * allow user to re-enter if they input wrong User ID to and from
  */
     public void distributeVaccine() {
-        String StartID,EndID,AssignedVC;
+        String startID,endID,assignedVC;
 
         while(true){
             System.out.print("Enter User ID from (0 to exit): ");
-            StartID = input.next();
+            startID = input.next();
 
-            if(!csv.GetUserDataByID(StartID,ID_INDEX).equals("NOT FOUND") || StartID.equals("0")){
+            if(!csv.GetUserDataByID(startID,ID_INDEX).equals("NOT FOUND") || startID.equals("0")){
                 break;
             }
             System.out.println("User ID Not Found");
@@ -103,26 +103,26 @@ public class Moh extends User{
 
         while(true){
             System.out.print("Enter User ID to (0 to exit): ");
-            EndID = input.next();
+            endID = input.next();
 
-            if(!csv.GetUserDataByID(EndID,ID_INDEX).equals("NOT FOUND") || EndID.equals("0")){
+            if(!csv.GetUserDataByID(endID,ID_INDEX).equals("NOT FOUND") || endID.equals("0")){
                 break;
             }
             System.out.println("User ID Not Found");
         }
 
-        while( !StartID.equals("0") && !EndID.equals("0") ){
+        while( !startID.equals("0") && !endID.equals("0") ){
             System.out.print("Enter Assigned Vaccination center: ");
-            AssignedVC = input.next();
-            if(csv.GetUserDataByUsername(AssignedVC, USERTYPE_INDEX).equals("vcadmin")){
-                csv.setMultipleUserData(StartID,EndID,AssignedVC,VCASSINGED_INDEX); 
+            assignedVC = input.next();
+            if(csv.GetUserDataByUsername(assignedVC, USERTYPE_INDEX).equals("vcadmin")){
+                csv.setMultipleUserData(startID,endID,assignedVC,VCASSINGED_INDEX); 
                 System.out.println("Data Vaccination Updated!");
                 break;
             }else{
                 System.out.println("Vaccination center does not exist (0 to exit)");
                 csv.viewDataByIndex("vcadmin", USERTYPE_INDEX);
             }
-            if(AssignedVC.equals("0")){
+            if(assignedVC.equals("0")){
                 break;
             }
         }
