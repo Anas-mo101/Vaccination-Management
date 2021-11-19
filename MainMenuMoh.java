@@ -45,7 +45,7 @@ public class MainMenuMoh extends Application {
         Button buttonRecipientList = new Button();
         buttonRecipientList.setText("View Recipient List");
         buttonRecipientList.setOnAction(e->{
-            //mainStage.close();
+            viewRecipientList();
         });
         Button buttonStatistic = new Button();
         buttonStatistic.setText("View Vacination Statistic");
@@ -220,11 +220,24 @@ public class MainMenuMoh extends Application {
         TextField idToField = new TextField();
         TextField assignVCField = new TextField();
 
+
+
         Button submit = new Button();
             submit.setText("Submit");
             submit.setOnAction(e->{
-                csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
-                csv.setMultipleUserData(idFromField.getText(),idToField.getText(),assignVCField.getText(),VCASSINGED_INDEX); 
+                try{
+                    int idFrom_intForm = Integer.parseInt(idFromField.getText());
+                    int idTo_intTo = Integer.parseInt(idToField.getText());
+                    if(idFrom_intForm <5 || idTo_intTo >300 || idFrom_intForm > idTo_intTo ) //change sepcific
+                        throw new Exception("ID out of Index");
+                    csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
+                    csv.setMultipleUserData(idFromField.getText(),idToField.getText(),assignVCField.getText(),VCASSINGED_INDEX);
+                    System.out.println("succes");
+                }
+                catch(Exception ex){
+                    apearWindow.display("Error!", "close" + ex.getMessage());
+                    System.out.println("fail");
+                }
             });
         
         HBox insertFrom = new HBox();
@@ -280,5 +293,9 @@ public class MainMenuMoh extends Application {
         Scene scene = new Scene (vBoxMenu,450,350);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void viewRecipientList(){
+
     }
 }
