@@ -94,7 +94,7 @@ public class MainMenuMoh extends Application {
         submit.setText("Submit");
         submit.setOnAction(e->{
             csv.addUser(passField.getText(), "recipient", nameField.getText(), "Pending", "Pending", phoneField.getText(), "none", ageField.getText());
-            PopUpWindow.display("Succesfull", "Succesfully Updated!");
+            apearWindow.display("Succesfull", "Succesfully Updated!");
             stage.close();
         });
         
@@ -159,7 +159,7 @@ public class MainMenuMoh extends Application {
         submit.setText("Submit");
         submit.setOnAction(e->{
             csv.addUser(passField.getText(), "vcadmin", nameField.getText(), "none", "none", phoneField.getText(), capaField.getText(), "none");
-            PopUpWindow.display("Succesfull", "Succesfully Updated!");
+            apearWindow.display("Succesfull", "Succesfully Updated!");
             stage.close();
         });
         
