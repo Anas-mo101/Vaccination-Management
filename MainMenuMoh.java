@@ -15,7 +15,6 @@ import javafx.geometry.Insets;
 
 
 public class MainMenuMoh extends Application {
-    static int n = 0;
     Csvreader csv = new Csvreader();
     private final int ID_INDEX = 0;
     private final int USERTYPE_INDEX = 2;
@@ -35,27 +34,24 @@ public class MainMenuMoh extends Application {
         buttonRecipient.setText("Add Recipient");
         buttonRecipient.setOnAction(e->{
             addRecipent();
-            System.out.println("Call: "+n+" times");
-            n++;
         });
 
         Button buttonVC = new Button();
         buttonVC.setText("Add VC");
         buttonVC.setOnAction(e->{
             addVC();
-            System.out.println("Call: "+n+" times");
-            n++;
         });
 
-        Button button2 = new Button();
-        button2.setText("View Recipient List");
-        button2.setOnAction(e->{
-            mainStage.close();
-            // System.out.println("Call: "+n+" times");
-            // n++;
+        Button buttonRecipientList = new Button();
+        buttonRecipientList.setText("View Recipient List");
+        buttonRecipientList.setOnAction(e->{
+            //mainStage.close();
         });
-        Button button3 = new Button();
-        button3.setText("View Vacination Static");
+        Button buttonStatistic = new Button();
+        buttonStatistic.setText("View Vacination Statistic");
+        buttonStatistic.setOnAction(e->{
+            vacinationStatistic();
+        });
 
         Button distributeVaccineButton = new Button();
         distributeVaccineButton.setText("Distribute Vaccine");
@@ -63,9 +59,9 @@ public class MainMenuMoh extends Application {
             distributeVaccine();
         });
 
-        Button button5 = new Button();
-        button5.setText("Exit");
-        button5.setOnAction(e->{
+        Button buttonExit = new Button();
+        buttonExit.setText("Exit");
+        buttonExit.setOnAction(e->{
             mainStage.close();});
 
         HBox hBoxMenu = new HBox();
@@ -73,7 +69,7 @@ public class MainMenuMoh extends Application {
         hBoxMenu.setAlignment(Pos.TOP_CENTER);
         hBoxMenu.setSpacing(30);
         hBoxMenu.setPadding(new Insets(90, 5, 5, 5));
-        hBoxMenu.getChildren().addAll(buttonRecipient,buttonVC, button2, button3, distributeVaccineButton, button5);
+        hBoxMenu.getChildren().addAll(buttonRecipient,buttonVC, buttonRecipientList, buttonStatistic, distributeVaccineButton, buttonExit);
 
         Scene scene = new Scene (hBoxMenu,800,250);
         mainStage.setScene(scene);
@@ -87,7 +83,7 @@ public class MainMenuMoh extends Application {
         Stage stage = new Stage();
         stage.setTitle("ADD USER");
 
-        Label name = new Label("Enter name:  ");
+        Label name = new Label("Enter name:  "); 
         Label phone = new Label("Enter your phone number: ");
         Label age = new Label ("Enter your Age: ");
         Label password = new Label("Enter a password: ");
@@ -143,7 +139,7 @@ public class MainMenuMoh extends Application {
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(insertName,insertAge,insertPhone,insertPass,submit);
 
-        Scene scene = new Scene (vBoxMenu,700,500);
+        Scene scene = new Scene (vBoxMenu,600,350);
         stage.setScene(scene);
         stage.show();
     }
@@ -207,7 +203,7 @@ public class MainMenuMoh extends Application {
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(insertName,insertPhone,insertPass,insertCapa,submit);
 
-        Scene scene = new Scene (vBoxMenu,700,500);
+        Scene scene = new Scene (vBoxMenu,600,350);
         stage.setScene(scene);
         stage.show();
     }
@@ -263,4 +259,26 @@ public class MainMenuMoh extends Application {
         stage.setScene(scene);
         stage.show();
     }   
+
+    public void vacinationStatistic(){
+        Stage stage = new Stage();
+        stage.setTitle("Vacination Statistic");
+
+        Label receiveOneDose = new Label("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Appointment made")));
+        Label completedOneDose = new Label("\tComplete 1st Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
+        Label receiveTwoDose = new Label ("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "+ (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
+        Label completedTwoDose = new Label("\tComplete 2nd Dose of Vaccination! \n\t\t ==> "+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
+        Label completedBothDose = new Label("\tComplete Both Dose of Vaccination! \n\t\t ==> "+ (csv.ComparenCountField(FSTSTATUS_INDEX, "Done")+ csv.ComparenCountField(SCNDSTATUS_INDEX, "Done")));
+
+        VBox vBoxMenu = new VBox();
+        vBoxMenu.setPrefWidth(200);
+        vBoxMenu.setAlignment(Pos.TOP_CENTER);
+        vBoxMenu.setSpacing(30);
+        vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
+        vBoxMenu.getChildren().addAll(receiveOneDose,completedOneDose,receiveTwoDose,completedTwoDose,completedBothDose);
+
+        Scene scene = new Scene (vBoxMenu,450,350);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
