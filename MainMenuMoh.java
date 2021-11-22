@@ -1,11 +1,26 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.util.ArrayList;
+
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
@@ -21,6 +36,8 @@ public class MainMenuMoh extends Application {
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
     private final int VCASSINGED_INDEX = 9;
+    private final TableView<RecipientData> dataTable = new TableView<>();
+    private final ArrayList<RecipientData> recipientPosition = new ArrayList<>();
 
     public static void main (String[] args){
         launch(args);
@@ -41,10 +58,11 @@ public class MainMenuMoh extends Application {
         buttonVC.setOnAction(e->{
             addVC();
         });
-
+        
         Button buttonRecipientList = new Button();
         buttonRecipientList.setText("View Recipient List");
         buttonRecipientList.setOnAction(e->{
+            readCSV();
             viewRecipientList();
         });
         Button buttonStatistic = new Button();
@@ -78,7 +96,7 @@ public class MainMenuMoh extends Application {
 
     }
 
-    
+////////////////////// ADD RECIPIENT //////////////////////////////
     public void addRecipent() {
         Stage stage = new Stage();
         stage.setTitle("ADD USER");
@@ -107,28 +125,28 @@ public class MainMenuMoh extends Application {
         insertName.setPrefWidth(200);
         insertName.setAlignment(Pos.TOP_CENTER);
         insertName.setSpacing(30);
-        insertName.setPadding(new Insets(5, 5, 5, 5));
+        insertName.setPadding(new Insets(5, 5, 5, 2));
         insertName.getChildren().addAll(name ,nameField);
 
         HBox insertPhone = new HBox();
         insertPhone.setPrefWidth(200);
         insertPhone.setAlignment(Pos.TOP_CENTER);
         insertPhone.setSpacing(30);
-        insertPhone.setPadding(new Insets(5, 5, 5, 5));
+        insertPhone.setPadding(new Insets(5, 5, 5, 60));
         insertPhone.getChildren().addAll(phone, phoneField);
 
         HBox insertPass = new HBox();
         insertPass.setPrefWidth(200);
         insertPass.setAlignment(Pos.TOP_CENTER);
         insertPass.setSpacing(30);
-        insertPass.setPadding(new Insets(5, 5, 5, 5));
+        insertPass.setPadding(new Insets(5, 5, 5, 15));
         insertPass.getChildren().addAll(password, passField);
 
         HBox insertAge = new HBox();
         insertAge.setPrefWidth(200);
         insertAge.setAlignment(Pos.TOP_CENTER);
         insertAge.setSpacing(30);
-        insertAge.setPadding(new Insets(5, 5, 5, 5));
+        insertAge.setPadding(new Insets(5, 5, 5, 8));
         insertAge.getChildren().addAll(age,ageField);
         
 
@@ -139,10 +157,11 @@ public class MainMenuMoh extends Application {
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(insertName,insertAge,insertPhone,insertPass,submit);
 
-        Scene scene = new Scene (vBoxMenu,600,350);
+        Scene scene = new Scene (vBoxMenu,550,350);
         stage.setScene(scene);
         stage.show();
     }
+///////////////// ADD VC ////////////////////
     public void addVC() {
         Stage stage = new Stage();
         stage.setTitle("ADD USER");
@@ -179,21 +198,21 @@ public class MainMenuMoh extends Application {
         insertPhone.setPrefWidth(200);
         insertPhone.setAlignment(Pos.TOP_CENTER);
         insertPhone.setSpacing(30);
-        insertPhone.setPadding(new Insets(5, 5, 5, 5));
+        insertPhone.setPadding(new Insets(5, 5, 5, 70));
         insertPhone.getChildren().addAll(phone, phoneField);
 
         HBox insertPass = new HBox();
         insertPass.setPrefWidth(200);
         insertPass.setAlignment(Pos.TOP_CENTER);
         insertPass.setSpacing(30);
-        insertPass.setPadding(new Insets(5, 5, 5, 5));
+        insertPass.setPadding(new Insets(5, 5, 5, 20));
         insertPass.getChildren().addAll(password, passField);
      
         HBox insertCapa = new HBox();
         insertCapa.setPrefWidth(200);
         insertCapa.setAlignment(Pos.TOP_CENTER);
         insertCapa.setSpacing(30);
-        insertCapa.setPadding(new Insets(5, 5, 5, 5));
+        insertCapa.setPadding(new Insets(5, 5, 5, 50));
         insertCapa.getChildren().addAll(capa,capaField);
 
         VBox vBoxMenu = new VBox();
@@ -203,11 +222,11 @@ public class MainMenuMoh extends Application {
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(insertName,insertPhone,insertPass,insertCapa,submit);
 
-        Scene scene = new Scene (vBoxMenu,600,350);
+        Scene scene = new Scene (vBoxMenu,550,350);
         stage.setScene(scene);
         stage.show();
     }
-
+////////////// DISTRIBUTE VACCINE //////////////////////
     public void distributeVaccine(){
         Stage stage = new Stage();
         stage.setTitle("Distribute Vaccine");
@@ -244,7 +263,7 @@ public class MainMenuMoh extends Application {
         insertFrom.setPrefWidth(200);
         insertFrom.setAlignment(Pos.TOP_CENTER);
         insertFrom.setSpacing(30);
-        insertFrom.setPadding(new Insets(5, 5, 5, 5));
+        insertFrom.setPadding(new Insets(5, 5, 5, 20));
         insertFrom.getChildren().addAll(idFrom,idFromField);
 
         HBox insertTo = new HBox();
@@ -258,7 +277,7 @@ public class MainMenuMoh extends Application {
         insertVC.setPrefWidth(200);
         insertVC.setAlignment(Pos.TOP_CENTER);
         insertVC.setSpacing(30);
-        insertVC.setPadding(new Insets(5, 5, 5, 5));
+        insertVC.setPadding(new Insets(5, 5, 5, 100));
         insertVC.getChildren().addAll(assignVC, assignVCField);
 
         VBox vBoxMenu = new VBox();
@@ -268,11 +287,11 @@ public class MainMenuMoh extends Application {
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(insertFrom,insertTo,insertVC,submit);
 
-        Scene scene = new Scene (vBoxMenu,700,300);
+        Scene scene = new Scene (vBoxMenu,600,300);
         stage.setScene(scene);
         stage.show();
     }   
-
+////////////// VACCINATION STATISTIC /////////////////////
     public void vacinationStatistic(){
         Stage stage = new Stage();
         stage.setTitle("Vacination Statistic");
@@ -294,8 +313,70 @@ public class MainMenuMoh extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
+/////////// VIEW RECIPIENT LIST ////////////
     public void viewRecipientList(){
+        Stage stage = new Stage();
+        stage.setTitle("Vacination Recipient Statistic");
 
+        TableColumn<RecipientData, String> id               = new TableColumn<>("ID");
+        TableColumn<RecipientData, String> pass             = new TableColumn<>("PASS");
+        TableColumn<RecipientData, String> userName         = new TableColumn<>("USERNAME");
+        TableColumn<RecipientData, String> firstVacStatus   = new TableColumn<>("1st Vac Status");
+        TableColumn<RecipientData, String> secondVacStatus  = new TableColumn<>("2nd Vac Status");
+        TableColumn<RecipientData, String> firstVacDate     = new TableColumn<>("1st Vac Date");
+        TableColumn<RecipientData, String> secondVacDate    = new TableColumn<>("2nd Vac Date");
+        TableColumn<RecipientData, String> phone            = new TableColumn<>("Phone");
+        TableColumn<RecipientData, String> assignedVC       = new TableColumn<>("ASSGINED VC");
+        TableColumn<RecipientData, String> age              = new TableColumn<>("Age");
+        
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        pass.setCellValueFactory(new PropertyValueFactory<>("pass"));
+        userName.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        firstVacDate.setCellValueFactory(new PropertyValueFactory<>("firstVacDate"));
+        firstVacStatus.setCellValueFactory(new PropertyValueFactory<>("firstVacStatus"));
+        secondVacDate.setCellValueFactory(new PropertyValueFactory<>("secondVacDate"));
+        secondVacStatus.setCellValueFactory(new PropertyValueFactory<>("secondVacStatus"));
+
+        dataTable.getColumns().addAll(id,pass,userName,age,phone,assignedVC,firstVacDate,firstVacStatus,secondVacDate,secondVacStatus);
+        dataTable.getItems().addAll(recipientPosition);
+    
+        VBox vBoxMenu = new VBox();
+        vBoxMenu.setSpacing(20);
+        vBoxMenu.getChildren().add(dataTable);
+                            
+        Scene scene = new Scene (vBoxMenu,800,400);
+        stage.setScene(scene);                    
+        stage.show();             
+    }
+
+    private void readCSV() {
+        
+        String currentPath = System.getProperty("user.dir");
+        String FieldDelimiter = ",";
+
+        BufferedReader br;
+
+        try {
+            br = new BufferedReader(new FileReader(currentPath + "/users.csv"));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(FieldDelimiter, -1);
+                if(fields[USERTYPE_INDEX].equals("recipient")) {
+                    RecipientData record = new RecipientData(fields[0], fields[1], fields[3],
+                        fields[11], fields[8], fields[9],fields[6],fields[4],
+                        fields[7],fields[5]);
+                    recipientPosition.add(record);
+
+                }
+            }
+
+        } catch (FileNotFoundException ex) {
+            apearWindow.display("Error!", "ERROR :" + ex.getMessage());
+        } catch (IOException ex) {
+
+            apearWindow.display("Error!", "ERROR : " + ex.getMessage());
+        }
     }
 }
+    
