@@ -581,8 +581,4 @@ public class MainMenuVaccinationCenter{
         }
     }
 
-    public static void main(String[] args) {
-        Platform.setImplicitExit(false);
-        launch(args);
-    }
 }
