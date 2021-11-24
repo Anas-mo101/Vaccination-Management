@@ -36,7 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class MainMenuVaccinationCenter extends Application {
+public class MainMenuVaccinationCenter{
     Csvreader csv = new Csvreader();
     List<String> userInfo = csv.getUserInfo();
     String vcName = "";
@@ -47,18 +47,25 @@ public class MainMenuVaccinationCenter extends Application {
     private final int VCASSINGED_INDEX = 9;
     private final int CAPACITY_INDEX = 10;
     private final int TOTALVACAVAILABLE_INDEX = 12;
-    private int maxCapacity = Integer.parseInt(csv.GetUserDataByUsername(vcName, CAPACITY_INDEX));       // for Vaccination center 
-    private int totalVac_Available = Integer.parseInt(csv.GetUserDataByUsername(vcName, TOTALVACAVAILABLE_INDEX));
+//     private int maxCapacity = Integer.parseInt(csv.GetUserDataByUsername(vcName, CAPACITY_INDEX));       // for Vaccination center 
+//     private int totalVac_Available = Integer.parseInt(csv.GetUserDataByUsername(vcName, TOTALVACAVAILABLE_INDEX));
     private final TableView<Record> tableView = new TableView<>();
     private final ObservableList<Record> dataList = FXCollections.observableArrayList();
     ArrayList<String> dateList = new ArrayList<String>();
     
-    MainMenuVaccinationCenter() {
-        vcName = "";
-    }
+    
+    private int maxCapacity;            // assign from userData array
+    private int totalVac_Available;
 
-    @Override
-    public void start(Stage mainStage) throws Exception {
+    private String[] userData;
+
+    Stage mainStage = new Stage();
+
+   
+    MainMenuVaccinationCenter(String[] data) {
+        
+        userData = data;       // <-- Saves user data into an array to used later
+
         mainStage.setTitle("Vaccination Center Menu");
 
         Button buttonRecipientList = new Button();
@@ -101,11 +108,9 @@ public class MainMenuVaccinationCenter extends Application {
         hBoxMenu.setSpacing(30);
         hBoxMenu.setPadding(new Insets(90, 5, 5, 5));
         hBoxMenu.getChildren().addAll(buttonRecipientList,buttonSetAD, buttonSetAD_Many, buttonSetVCStatus, buttonViewVCStatic, buttonExit);
-
         Scene scene = new Scene (hBoxMenu,1000,250);
         mainStage.setScene(scene);
         mainStage.show();
-
     }
 
     //////////////////////////Print Recipient List/////////////////////////////////////////////////////////////////////////////
