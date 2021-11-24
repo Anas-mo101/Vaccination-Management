@@ -39,6 +39,7 @@ import javafx.scene.layout.HBox;
 public class MainMenuVaccinationCenter extends Application {
     Csvreader csv = new Csvreader();
     List<String> userInfo = csv.getUserInfo();
+    String vcName = "";
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
     private final int FSTVACDATE_INDEX = 6;
@@ -46,8 +47,8 @@ public class MainMenuVaccinationCenter extends Application {
     private final int VCASSINGED_INDEX = 9;
     private final int CAPACITY_INDEX = 10;
     private final int TOTALVACAVAILABLE_INDEX = 12;
-    private int maxCapacity = Integer.parseInt(csv.GetUserDataByID(String.valueOf(10002), CAPACITY_INDEX));       // for Vaccination center VCSelangor
-    private int totalVac_Available = Integer.parseInt(csv.GetUserDataByID(String.valueOf(10002), TOTALVACAVAILABLE_INDEX));
+    private int maxCapacity = Integer.parseInt(csv.GetUserDataByUsername(vcName, CAPACITY_INDEX));       // for Vaccination center 
+    private int totalVac_Available = Integer.parseInt(csv.GetUserDataByUsername(vcName, TOTALVACAVAILABLE_INDEX));
     private final TableView<Record> tableView = new TableView<>();
     private final ObservableList<Record> dataList = FXCollections.observableArrayList();
     ArrayList<String> dateList = new ArrayList<String>();
@@ -236,7 +237,7 @@ public class MainMenuVaccinationCenter extends Application {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(FieldDelimiter, -1);
-                if(fields[9].equals("VCSelangor")) {
+                if(fields[9].equals(vcName)) {
                     Record record = new Record(fields[0], fields[1], fields[2],
                         fields[3], fields[4], fields[5],fields[6],fields[7],
                         fields[8],fields[9],fields[11]);
@@ -294,7 +295,7 @@ public class MainMenuVaccinationCenter extends Application {
 
     public boolean setAppointmentDate(String ID, String Date, String Time) {                 // set the appoinment date for recipient
                                                
-        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals("VCSelangor")){                      // Checks if Recipient is assigned to current vaccination center 
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)){                      // Checks if Recipient is assigned to current vaccination center 
                 if(!timeChecking(Time) || !isDate(Date)){                   // check appointment time is valid or not
                     return false;
                 }else {
@@ -311,7 +312,7 @@ public class MainMenuVaccinationCenter extends Application {
                     }
                 }
         }
-        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals("VCSelangor")){
+        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)){
             apearWindow.display("Notification", "This recipient is not assgined to this Vaccination Center!! Please try again!!");
             return false;
         } 
@@ -422,7 +423,7 @@ public class MainMenuVaccinationCenter extends Application {
         String current_ID = ID_start;   
         while(!current_ID.equals(Integer.toString(Integer.parseInt(ID_end) + 1))) 
         {       
-            while(csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals("VCSelangor")) {                      // Checks if Recipient is assigned to current vaccination center 
+            while(csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals(vcName)) {                      // Checks if Recipient is assigned to current vaccination center 
                     if(!timeChecking(Time) || !isDate(Date)){                   // check appointment time is valid or not
                         return false;
                     }else {
@@ -438,7 +439,7 @@ public class MainMenuVaccinationCenter extends Application {
                         }
                     }
             }
-            if(!csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals("VCSelangor")){
+            if(!csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals(vcName)){
                 apearWindow.display("Notification", "This recipient " + "("+ current_ID +")"+ " is not assgined to this Vaccination Center!! Please try again!!");
                 return false;
             }
@@ -482,7 +483,7 @@ public class MainMenuVaccinationCenter extends Application {
     }
 
     public boolean setVaccineStatus(String ID, String Status) {           // to change vaccination status
-        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals("VCSelangor")) {
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)) {
             int WhichVac = 0;
             String Dose;
             if(csv.GetUserDataByID(ID, SCNDSTATUS_INDEX).equals("Pending")){        
@@ -503,7 +504,7 @@ public class MainMenuVaccinationCenter extends Application {
                 return false;
             }
         }
-        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals("VCSelangor")){
+        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)){
             apearWindow.display("Notification", "This recipient is not assgined to this Vaccination Center!! Please try again!!");
             return false;
         }
@@ -515,9 +516,9 @@ public class MainMenuVaccinationCenter extends Application {
         
         Stage stage = new Stage();
         stage.setTitle("Vaccination Center Static");
-        Label totalVacTaken = new Label("\tTotal Vaccination taken at  VCSelangor: "
-                                + (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", "VCSelangor")
-                                + csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", "VCSelangor")));
+        Label totalVacTaken = new Label("\tTotal Vaccination taken at  "+"vcName: " 
+                                + (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", vcName)
+                                + csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", vcName)));
         Label totalVacAvailable= new Label("\tTotal Vaccine Available at VCSelangor: " + totalVac_Available);
         
         countDate();
@@ -562,10 +563,10 @@ public class MainMenuVaccinationCenter extends Application {
             String fstVacDate = items[FSTVACDATE_INDEX];
             String scdVacDate = items[SCNDVACDATE_INDEX];
 
-            if (!fstVacDate.equals("none") && items[VCASSINGED_INDEX].equals("VCSelangor")) { 
+            if (!fstVacDate.equals("none") && items[VCASSINGED_INDEX].equals(vcName)) { 
                 dateList.add(fstVacDate.substring(0, 10));
             }
-            if (!scdVacDate.equals("none") && items[VCASSINGED_INDEX].equals("VCSelangor")) { 
+            if (!scdVacDate.equals("none") && items[VCASSINGED_INDEX].equals(vcName)) { 
                 dateList.add(scdVacDate.substring(0, 10));
             }
         }
