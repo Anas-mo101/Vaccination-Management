@@ -19,8 +19,6 @@ public class Login extends Application{
   Button btnReg = new Button("Register");
   private final int USERTYPE_INDEX = 2;
 
-  Scene main;
-
   @Override
   public void start(Stage primaryStage) {
     setElements();
@@ -43,7 +41,6 @@ public class Login extends Application{
     root.getChildren().add(lblStatus);
 
     Scene scene = new Scene(root, 230, 180);
-    main = scene;
     primaryStage.setResizable(false);
     primaryStage.setTitle("Login");
     primaryStage.setScene(scene);
