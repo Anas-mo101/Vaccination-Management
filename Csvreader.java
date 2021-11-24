@@ -53,8 +53,7 @@ public class Csvreader {
      * @param Username Username to login 
      * @param Password Password to login
      */
-    public void CheckLoginDetails(String Username, String Password) {    // check login details and return usertype
-        String UserType = "none";
+    public Boolean CheckLoginDetails(String Username, String Password) {    // check login details and return usertype
         for (int i = 0; i < UsersInfo.size(); i++) {
             String[] items = UsersInfo.get(i).split(","); 
             String password = items[PASS_INDEX];                    
@@ -62,26 +61,22 @@ public class Csvreader {
             if (Username.equals(username)) {
                 if (Password.equals(password)) {
                     UserLocatedInLine = i;
-                    UserType = items[USERTYPE_INDEX];
+                    // UserType = items[USERTYPE_INDEX];
+                    return true;
                 }
             }
         }
+        return false;   
+    }
 
-        switch(UserType){  
-            case "admin": AllMenus.MOH();
-                          break;
-
-            case "vcadmin": AllMenus.VC(UserLocatedInLine);
-                            break;
-
-           case "recipient": AllMenus.CustomerMenu(UserLocatedInLine);
-                            break;
-
-           default: System.out.println("Invalid user ID or Password");
-                    System.out.println("Thank you. Bye!"); 
-                    System.exit(0);
-                    break;
-          }   
+    /**
+     * Retrives all user data by the its line number
+     * @param userline Line (index) where user is located in list 
+     * @return String array containing all user data
+     */
+    public String[] GetUserData(int userline) { // finds user by line number and gets user data by index
+        String[] items = UsersInfo.get(userline).split(",");
+        return items;
     }
 
     /**
