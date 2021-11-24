@@ -52,6 +52,10 @@ public class MainMenuVaccinationCenter extends Application {
     private final TableView<Record> tableView = new TableView<>();
     private final ObservableList<Record> dataList = FXCollections.observableArrayList();
     ArrayList<String> dateList = new ArrayList<String>();
+    
+    MainMenuVaccinationCenter() {
+        vcName = "";
+    }
 
     @Override
     public void start(Stage mainStage) throws Exception {
