@@ -71,6 +71,7 @@ public class HallSimulator{
         root.getChildren().add(vaccineTable);
         root.getChildren().add(vaccinatedTable);
         Scene scene = new Scene(root, 1210, 500);
+        scene.getStylesheets().add("style.css");
         stage.setResizable(false);
         stage.setTitle (vcName + " Vaccination Hall Simulator");
         stage.setScene(scene);
