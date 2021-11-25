@@ -111,6 +111,13 @@ public class MainMenuVaccinationCenter{
         });
         buttonViewVCStatic.setMinWidth(250);
 
+        Button buttonHallSimulator = new Button();
+        buttonHallSimulator.setText(userData[USERNAME_INDEX] + " Hall Simulator");
+        buttonHallSimulator.setOnAction(e->{
+            // nothing yet
+        });
+        buttonHallSimulator.setMinWidth(250);
+
         Button buttonExit = new Button();
         buttonExit.setText("Exit");
         buttonExit.setOnAction(e->{
@@ -141,8 +148,8 @@ public class MainMenuVaccinationCenter{
         vBoxMenu.setSpacing(30);
         vBoxMenu.setPadding(new Insets(90, 5, 5, 5));
         vBoxMenu.getChildren().addAll(menuTitle, clock_lb, buttonRecipientList, buttonSetAD, buttonSetAD_Many, 
-                                      buttonSetVCStatus, buttonViewVCStatic, buttonExit);
-        Scene scene = new Scene (vBoxMenu,675,575);
+                                      buttonSetVCStatus, buttonViewVCStatic, buttonHallSimulator, buttonExit);
+        Scene scene = new Scene (vBoxMenu,675,650);
         mainStage.setScene(scene);
         mainStage.show();
     }
