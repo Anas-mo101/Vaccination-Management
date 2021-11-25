@@ -46,8 +46,8 @@ public class Login extends Application {
         root.getChildren().add(btnLogin);
         root.getChildren().add(btnReg);
         root.getChildren().add(lblStatus);
-
         Scene scene = new Scene(root, 230, 180);
+        scene.getStylesheets().add("style.css");
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
