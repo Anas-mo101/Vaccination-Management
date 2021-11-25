@@ -79,7 +79,8 @@ public class Login extends Application {
             switch (csv.GetUserData(USERTYPE_INDEX, csv.getUserLineLocation())) { // retrives user type after
                                                                                   // successfull login
 
-            case "admin":
+             case "admin":
+                MainMenuMoh admin = new MainMenuMoh(csv.GetUserData(csv.getUserLineLocation()));
                 break;
 
             case "vcadmin":
