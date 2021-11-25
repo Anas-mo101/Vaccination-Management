@@ -3,112 +3,146 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 
 public class MainMenuVaccinationCenter{
     Csvreader csv = new Csvreader();
     List<String> userInfo = csv.getUserInfo();
-    String vcName = "";
+    private final int ID_INDEX = 0;
+    private final int PASSWORD_INDEX = 1;
+    private final int USERTYPE_INDEX = 2;
+    private final int USERNAME_INDEX = 3;
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
     private final int FSTVACDATE_INDEX = 6;
     private final int SCNDVACDATE_INDEX = 7;
+    private final int PHONE_INDEX = 8;
     private final int VCASSINGED_INDEX = 9;
     private final int CAPACITY_INDEX = 10;
+    private final int AGE_INDEX = 11;
     private final int TOTALVACAVAILABLE_INDEX = 12;
-//     private int maxCapacity = Integer.parseInt(csv.GetUserDataByUsername(vcName, CAPACITY_INDEX));       // for Vaccination center 
-//     private int totalVac_Available = Integer.parseInt(csv.GetUserDataByUsername(vcName, TOTALVACAVAILABLE_INDEX));
+    private int maxCapacity;                                    // assign from userData array
+    private int totalVac_Available;
+    private String[] userData;
     private final TableView<Record> tableView = new TableView<>();
     private final ObservableList<Record> dataList = FXCollections.observableArrayList();
-    ArrayList<String> dateList = new ArrayList<String>();
-    
-    
-    private int maxCapacity;            // assign from userData array
-    private int totalVac_Available;
-
-    private String[] userData;
+    ArrayList<String> dateList_registered = new ArrayList<String>();
+    ArrayList<String> dateList_taken = new ArrayList<String>();
 
     Stage mainStage = new Stage();
-
    
     MainMenuVaccinationCenter(String[] data) {
         
         userData = data;       // <-- Saves user data into an array to used later
+        maxCapacity = Integer.parseInt(userData[CAPACITY_INDEX]);
+        totalVac_Available = Integer.parseInt(userData[TOTALVACAVAILABLE_INDEX]);
 
-        mainStage.setTitle("Vaccination Center Menu");
+        mainStage.setTitle(userData[USERNAME_INDEX] + " Menu");
+        Text menuTitle = new Text("Welcome back, " + userData[USERNAME_INDEX]);
+        menuTitle.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+        menuTitle.setStroke(Color.RED);
 
         Button buttonRecipientList = new Button();
-        buttonRecipientList.setText("Print Recipient List");
+        buttonRecipientList.setText("Print Recipient List for " + userData[USERNAME_INDEX]);
         buttonRecipientList.setOnAction(e->{
             printRecipientsList();
         });
-
+        buttonRecipientList.setMinWidth(250);
+        
         Button buttonSetAD= new Button();
         buttonSetAD.setText("Set Appointment Date");
         buttonSetAD.setOnAction(e->{
             setAppointmentDate();
         });
+        buttonSetAD.setMinWidth(250);
 
         Button buttonSetAD_Many = new Button();
         buttonSetAD_Many.setText("Set Appointment Date for Many");
         buttonSetAD_Many.setOnAction(e->{
             setAppointmentDate_Many();
         });
+        buttonSetAD_Many.setMinWidth(250);
+
         Button buttonSetVCStatus = new Button();
         buttonSetVCStatus.setText("Set Vaccination Status");
         buttonSetVCStatus.setOnAction(e->{
             setVaccineStatus();
         });
+        buttonSetVCStatus.setMinWidth(250);
 
         Button buttonViewVCStatic = new Button();
-        buttonViewVCStatic.setText("View Vaccination Center Static");
+        buttonViewVCStatic.setText("View " + userData[USERNAME_INDEX] + " Static");
         buttonViewVCStatic.setOnAction(e->{
             viewVaccinationCenterStatic();
         });
+        buttonViewVCStatic.setMinWidth(250);
 
         Button buttonExit = new Button();
         buttonExit.setText("Exit");
         buttonExit.setOnAction(e->{
-            mainStage.close();});
+            mainStage.close();
+        });
+        buttonExit.setMinWidth(175);
 
-        HBox hBoxMenu = new HBox();
-        hBoxMenu.setPrefWidth(200);
-        hBoxMenu.setAlignment(Pos.TOP_CENTER);
-        hBoxMenu.setSpacing(30);
-        hBoxMenu.setPadding(new Insets(90, 5, 5, 5));
-        hBoxMenu.getChildren().addAll(buttonRecipientList,buttonSetAD, buttonSetAD_Many, buttonSetVCStatus, buttonViewVCStatic, buttonExit);
-        Scene scene = new Scene (hBoxMenu,1000,250);
+        Label clock_lb = new Label();         // create a live clock
+        Thread timerThread = new Thread(() -> {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        while (true) {
+            try {
+                Thread.sleep(1000); //1 second
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            final String time = simpleDateFormat.format(new Date());
+            Platform.runLater(() -> {
+                clock_lb.setText(time);
+            });
+        }
+        });   
+        timerThread.start(); //start the thread and its ok
+
+        VBox vBoxMenu = new VBox();
+        vBoxMenu.setPrefWidth(200);
+        vBoxMenu.setAlignment(Pos.TOP_CENTER);
+        vBoxMenu.setSpacing(30);
+        vBoxMenu.setPadding(new Insets(90, 5, 5, 5));
+        vBoxMenu.getChildren().addAll(menuTitle, clock_lb, buttonRecipientList, buttonSetAD, buttonSetAD_Many, 
+                                      buttonSetVCStatus, buttonViewVCStatic, buttonExit);
+        Scene scene = new Scene (vBoxMenu,675,575);
         mainStage.setScene(scene);
         mainStage.show();
     }
@@ -181,7 +215,7 @@ public class MainMenuVaccinationCenter{
     public void printRecipientsList() {
 
         Stage stage = new Stage();
-        stage.setTitle("PrintRecipientsList");
+        stage.setTitle("Recipient List for " + userData[USERNAME_INDEX]);
 
         Group root = new Group();
 
@@ -225,9 +259,7 @@ public class MainMenuVaccinationCenter{
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.getChildren().add(tableView);
-                            
         root.getChildren().add(vBox);
-                            
         stage.setScene(new Scene(root, 900, 475));
         stage.show();             
         readCSV();
@@ -246,10 +278,10 @@ public class MainMenuVaccinationCenter{
             String line;
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(FieldDelimiter, -1);
-                if(fields[9].equals(vcName)) {
-                    Record record = new Record(fields[0], fields[1], fields[2],
-                        fields[3], fields[4], fields[5],fields[6],fields[7],
-                        fields[8],fields[9],fields[11]);
+                if(fields[VCASSINGED_INDEX].equals(userData[USERNAME_INDEX])) {
+                    Record record = new Record(fields[ID_INDEX], fields[PASSWORD_INDEX], fields[USERTYPE_INDEX],
+                        fields[USERNAME_INDEX], fields[FSTSTATUS_INDEX], fields[SCNDSTATUS_INDEX],fields[FSTVACDATE_INDEX],fields[SCNDVACDATE_INDEX],
+                        fields[PHONE_INDEX],fields[VCASSINGED_INDEX],fields[AGE_INDEX]);
                     dataList.add(record);
                 }
             }
@@ -304,7 +336,7 @@ public class MainMenuVaccinationCenter{
 
     public boolean setAppointmentDate(String ID, String Date, String Time) {                 // set the appoinment date for recipient
                                                
-        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)){                      // Checks if Recipient is assigned to current vaccination center 
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])){                      // Checks if Recipient is assigned to current vaccination center 
                 if(!timeChecking(Time) || !isDate(Date)){                   // check appointment time is valid or not
                     return false;
                 }else {
@@ -313,7 +345,7 @@ public class MainMenuVaccinationCenter{
                         csv.setUserData(ID,"AppointmentMade",whichStatus(ID));                     //automatically set the vaccination status                                                                // add the appointment date that made successfully to array list
                         apearWindow.display("Notification", "Appointment made Successfully!!"); 
                         totalVac_Available--;
-                        csv.setUserData(String.valueOf(10002), String.valueOf(totalVac_Available), TOTALVACAVAILABLE_INDEX);
+                        csv.setUserData(userData[ID_INDEX], String.valueOf(totalVac_Available), TOTALVACAVAILABLE_INDEX);
                         break;
                     }else{
                         apearWindow.display("Notification", "Max Capacity Reached!!");
@@ -321,7 +353,7 @@ public class MainMenuVaccinationCenter{
                     }
                 }
         }
-        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)){
+        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])){
             apearWindow.display("Notification", "This recipient is not assgined to this Vaccination Center!! Please try again!!");
             return false;
         } 
@@ -432,7 +464,7 @@ public class MainMenuVaccinationCenter{
         String current_ID = ID_start;   
         while(!current_ID.equals(Integer.toString(Integer.parseInt(ID_end) + 1))) 
         {       
-            while(csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals(vcName)) {                      // Checks if Recipient is assigned to current vaccination center 
+            while(csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])) {                      // Checks if Recipient is assigned to current vaccination center 
                     if(!timeChecking(Time) || !isDate(Date)){                   // check appointment time is valid or not
                         return false;
                     }else {
@@ -440,7 +472,7 @@ public class MainMenuVaccinationCenter{
                             csv.setUserData(current_ID,Date + "/" + Time,whichVac(current_ID));                       //set date & time
                             csv.setUserData(current_ID,"AppointmentMade",whichStatus(current_ID));                     //automatically set the vaccination status                                       // add the appointment date that made successfully to array list 
                             totalVac_Available--;
-                            csv.setUserData(String.valueOf(10002), String.valueOf(totalVac_Available) , TOTALVACAVAILABLE_INDEX);
+                            csv.setUserData(userData[ID_INDEX], String.valueOf(totalVac_Available) , TOTALVACAVAILABLE_INDEX);
                             break;
                         }else{
                             apearWindow.display("Notification", "(" + current_ID + ")" + "Max Capacity Reached!!");
@@ -448,7 +480,7 @@ public class MainMenuVaccinationCenter{
                         }
                     }
             }
-            if(!csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals(vcName)){
+            if(!csv.GetUserDataByID(current_ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])){
                 apearWindow.display("Notification", "This recipient " + "("+ current_ID +")"+ " is not assgined to this Vaccination Center!! Please try again!!");
                 return false;
             }
@@ -492,7 +524,7 @@ public class MainMenuVaccinationCenter{
     }
 
     public boolean setVaccineStatus(String ID, String Status) {           // to change vaccination status
-        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)) {
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])) {
             int WhichVac = 0;
             String Dose;
             if(csv.GetUserDataByID(ID, SCNDSTATUS_INDEX).equals("Pending")){        
@@ -513,7 +545,7 @@ public class MainMenuVaccinationCenter{
                 return false;
             }
         }
-        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(vcName)){
+        if(!csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])){
             apearWindow.display("Notification", "This recipient is not assgined to this Vaccination Center!! Please try again!!");
             return false;
         }
@@ -524,59 +556,89 @@ public class MainMenuVaccinationCenter{
     public void viewVaccinationCenterStatic() {
         
         Stage stage = new Stage();
-        stage.setTitle("Vaccination Center Static");
-        Label totalVacTaken = new Label("\tTotal Vaccination taken at  "+"vcName: " 
-                                + (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", vcName)
-                                + csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", vcName)));
+        stage.setTitle(userData[USERNAME_INDEX] + " Static");
+        Label totalVacTaken = new Label("\tTotal Vaccination taken at  "+ userData[USERNAME_INDEX] +": " 
+                                + (csv.ComparenCountFieldByVC(FSTSTATUS_INDEX, "Done", userData[USERNAME_INDEX])
+                                + csv.ComparenCountFieldByVC(SCNDSTATUS_INDEX, "Done", userData[USERNAME_INDEX])));
         Label totalVacAvailable= new Label("\tTotal Vaccine Available at VCSelangor: " + totalVac_Available);
         
-        countDate();
+        countDate_registered();
+        countDate_taken();
+
         CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Number of Vaccination that registered (by day)");
+        xAxis.setLabel("Date");
+        xAxis.getCategories().addAll("Number of Vaccination that registered (by day)",("Total Vaccination taken at  "+ userData[USERNAME_INDEX]));
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Num of people");
 
-        BarChart barChart = new BarChart(xAxis,yAxis);
-        XYChart.Series dataSeries = new XYChart.Series();
-        dataSeries.setName("Date");
+        StackedBarChart stackedBarChart = new StackedBarChart(xAxis, yAxis); 
+            
+        XYChart.Series dataSeries_registered = new XYChart.Series();    // static for Vaccination registered by day
+        dataSeries_registered.setName("Number of Vaccination that registered "+ userData[USERNAME_INDEX] +" (by day)");
+        addDate(dateList_registered, dataSeries_registered);
+        stackedBarChart.getData().add(dataSeries_registered);
 
-        Map<String, Integer> table = new HashMap<String, Integer>();
-        for (String i : dateList) {
-            Integer j = table.get(i);
-            table.put(i, (j == null) ? 1 : j + 1);
-        }
-        for (Map.Entry<String, Integer> val : table.entrySet()) {
-            dataSeries.getData().add(new XYChart.Data(val.getKey() , val.getValue()));
-        }
+        XYChart.Series dataSeries_taken = new XYChart.Series();     // static for Total Vaccination taken by day         
+        dataSeries_taken.setName("Total Vaccination taken at  "+ userData[USERNAME_INDEX] + " (by day)");
+        addDate(dateList_taken, dataSeries_taken);
+        stackedBarChart.getData().add(dataSeries_taken);
 
-        barChart.getData().add(dataSeries);
-        
-        VBox vBoxMenu = new VBox(barChart);
+        VBox vBoxMenu = new VBox(stackedBarChart);
         vBoxMenu.setPrefWidth(500);
         vBoxMenu.setAlignment(Pos.TOP_CENTER);
         vBoxMenu.setSpacing(30);
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(totalVacTaken,totalVacAvailable);
 
-        Scene scene = new Scene (vBoxMenu,350,575);
+        Scene scene = new Scene (vBoxMenu,450,575);
         stage.setScene(scene);
         stage.show();
     
     }
 
-    public void countDate() {
+    public void addDate(ArrayList<String> list, XYChart.Series dataSeries) {           // add date from array list into XYChart
+        Map<String,Integer> table = new HashMap<String, Integer>();
+        for (String i : list) {
+            Integer j = table.get(i);
+            table.put(i, (j == null) ? 1 : j + 1);
+        }
+        for (Map.Entry<String, Integer> val : table.entrySet()) {
+            dataSeries.getData().add(new XYChart.Data(val.getKey() , val.getValue()));
+        }
+    }
+
+    public void countDate_registered() {                                               // count date for Vaccination registered by day
         userInfo = csv.getUserInfo(); // to update list everytime function is called
-        dateList.clear();
+        dateList_registered.clear();
         for (int i = 2; i < userInfo.size(); i++) {
             String[] items = userInfo.get(i).split(",");
             String fstVacDate = items[FSTVACDATE_INDEX];
             String scdVacDate = items[SCNDVACDATE_INDEX];
 
-            if (!fstVacDate.equals("none") && items[VCASSINGED_INDEX].equals(vcName)) { 
-                dateList.add(fstVacDate.substring(0, 10));
+            if (!fstVacDate.equals("none") && items[VCASSINGED_INDEX].equals(userData[USERNAME_INDEX])) { 
+                dateList_registered.add(fstVacDate.substring(0, 10));
             }
-            if (!scdVacDate.equals("none") && items[VCASSINGED_INDEX].equals(vcName)) { 
-                dateList.add(scdVacDate.substring(0, 10));
+            if (!scdVacDate.equals("none") && items[VCASSINGED_INDEX].equals(userData[USERNAME_INDEX])) { 
+                dateList_registered.add(scdVacDate.substring(0, 10));
+            }
+        }
+    }
+
+    public void countDate_taken() {                                                     // count date for Total Vaccination taken by day   
+        userInfo = csv.getUserInfo(); // to update list everytime function is called
+        dateList_taken.clear();
+        for (int i = 2; i < userInfo.size(); i++) {
+            String[] items = userInfo.get(i).split(",");
+            String fstVacStatus = items[FSTSTATUS_INDEX];
+            String fstVacDate = items[FSTVACDATE_INDEX];
+            String scdVacStatus = items[SCNDSTATUS_INDEX];
+            String scdVacDate = items[SCNDVACDATE_INDEX];
+
+            if (fstVacStatus.equals("Done") && items[VCASSINGED_INDEX].equals(userData[USERNAME_INDEX])) { 
+                dateList_taken.add(fstVacDate.substring(0, 10));
+            }
+            if (scdVacStatus.equals("Done") && items[VCASSINGED_INDEX].equals(userData[USERNAME_INDEX])) { 
+                dateList_taken.add(scdVacDate.substring(0, 10));
             }
         }
     }
