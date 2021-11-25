@@ -83,7 +83,7 @@ public class GUIrecipient {
                 "First Vaccine Status: " + userData[FSTSTATUS_INDEX] + " - " + userData[FIRSTVAC_INDEX]);
         Label tfBatch1 = new Label("Batch number: " + userData[VAC1_INDEX]);
         Label tfVac2 = new Label(
-                "\tSecond Vaccine Status: " + userData[SCNDSTATUS_INDEX] + " - " + userData[SCNDVAC_INDEX]);
+                "Second Vaccine Status: " + userData[SCNDSTATUS_INDEX] + " - " + userData[SCNDVAC_INDEX]);
         Label tfBatch2 = new Label("Batch number:  " + userData[VAC2_INDEX]);
 
         VBox vBoxMenu = new VBox();
@@ -133,5 +133,4 @@ public class GUIrecipient {
         return counter - 1;
     }
 }
-
 
