@@ -1,10 +1,17 @@
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.*;
 
 public class Login extends Application {
@@ -79,7 +86,7 @@ public class Login extends Application {
             switch (csv.GetUserData(USERTYPE_INDEX, csv.getUserLineLocation())) { // retrives user type after
                                                                                   // successfull login
 
-             case "admin":
+            case "admin":
                 MainMenuMoh admin = new MainMenuMoh(csv.GetUserData(csv.getUserLineLocation()));
                 break;
 
@@ -105,6 +112,9 @@ public class Login extends Application {
 
         Stage stage = new Stage();
         stage.setTitle("REGISTRATION");
+        Text menuTitle = new Text("WELCOME TO JAVA COVID-19 VACCINATION PROGRAM");
+        menuTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        menuTitle.setStroke(Color.BLUE);
 
         Label tfName = new Label("Name:  ");
         Label tfPhone = new Label("Phone number: ");
@@ -120,10 +130,15 @@ public class Login extends Application {
 
         submit.setOnAction(e -> {
 
-            csv.addUser(tfPasswordd.getText(), "recipient", tfNamee.getText(), "Pending", "Pending", tfPhonee.getText(),
-                    "none", tfAgee.getText());
-            csv = new Csvreader();
-            apearWindow.display("Succesfull", "Succesfully Updated!");
+            if (valPhone(tfPhonee.getText())) {
+                csv.addUser(tfPasswordd.getText(), "recipient", tfNamee.getText(), "Pending", "Pending",
+                        tfPhonee.getText(), "none", tfAgee.getText());
+                csv = new Csvreader();
+                apearWindow.display("Succesfull", "Succesfully Updated!");
+
+            } else
+                apearWindow.display("Failed", "Invalid phone number!");
+
             stage.close();
         });
 
@@ -154,6 +169,13 @@ public class Login extends Application {
         submit.setTranslateX(100);
         submit.setTranslateY(160);
 
+        VBox vBoxMenu = new VBox();
+        vBoxMenu.setPrefWidth(200);
+        vBoxMenu.setAlignment(Pos.TOP_CENTER);
+        vBoxMenu.setSpacing(30);
+        vBoxMenu.setPadding(new Insets(50, 5, 5, 5));
+        vBoxMenu.getChildren().addAll(menuTitle);
+
         Group root = new Group();
         root.getChildren().add(tfName);
         root.getChildren().add(tfPhone);
@@ -165,12 +187,18 @@ public class Login extends Application {
         root.getChildren().add(tfPasswordd);
         root.getChildren().add(submit);
 
-        Scene scene = new Scene(root, 260, 200);
+        vBoxMenu.getChildren().add(root);
+
+        Scene scene = new Scene(vBoxMenu, 600, 350); // 260, 200);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UTILITY);
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    public boolean valPhone(String tfPhonee) {
+        return tfPhonee.charAt(0) == '0' && tfPhonee.charAt(1) == '1' && tfPhonee.length() == 10;
     }
 
     public static void main(String[] args) {
