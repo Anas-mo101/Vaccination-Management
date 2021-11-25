@@ -241,13 +241,12 @@ public class MainMenuMoh {
         submit.setText("Submit");
         submit.setOnAction(e -> {
             try {
-                int idFrom_intForm = Integer.parseInt(idFromField.getText());
-                int idTo_intTo = Integer.parseInt(idToField.getText());
-                if (idFrom_intForm < 5 || idTo_intTo > 300 || idFrom_intForm > idTo_intTo) // change sepcific
+                if(csv.GetUserDataByID(idFromField.getText(),ID_INDEX).equals("NOT FOUND") || csv.GetUserDataByID(idToField.getText(),ID_INDEX).equals("NOT FOUND")){
                     throw new Exception("ID out of Index");
+                }
                 csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
-                csv.setMultipleUserData(idFromField.getText(), idToField.getText(), assignVCField.getText(),
-                        VCASSINGED_INDEX);
+                csv.setMultipleUserData(idFromField.getText(), idToField.getText(), assignVCField.getText(),VCASSINGED_INDEX);
+                stage.close();
                 System.out.println("succes");
             } catch (Exception ex) {
                 apearWindow.display("Error!", "close" + ex.getMessage());
