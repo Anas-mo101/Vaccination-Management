@@ -11,8 +11,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.Queue;
 import java.util.LinkedList;
 
-
+/**
+ * Class to handle hall simulator and vaccinating recipients 
+ */
 public class HallSimulator{
+    private final int FRSTVACBATCH_INDEX = 13;
+    private final int SCNDVACBATCH_INDEX = 14;
+    private final int ID_INDEX = 0;
+    private final int FSTSTATUS_INDEX = 4;
+    private final int SCNDSTATUS_INDEX = 5;
     Queue<Customer> queue = new LinkedList<Customer>();
     Queue<Customer> elderlyQueue = new LinkedList<Customer>();   
     Queue<Vaccine> vacQueue = new LinkedList<Vaccine>();
@@ -30,6 +37,7 @@ public class HallSimulator{
     Boolean arrangeQueue = true;
     LocalDate setDate;
     private String vcName;
+    int queueSize;
     TableView<Customer> mainQueueTable = new TableView<Customer>();
     TableView<Customer> aboveSixtyQueueTable = new TableView<Customer>();
     TableView<Vaccine> vaccineTable = new TableView<Vaccine>();
@@ -69,6 +77,9 @@ public class HallSimulator{
         stage.show();
     }
 
+    /**
+     * Arranges then Moves queue one recipient forward
+     */
     public void next(){
         
         if(arrangeQueue){
@@ -82,6 +93,10 @@ public class HallSimulator{
         }
     }
     
+
+    /**
+     * Moves queue one recipient forward
+     */
     public void move(){
         Customer tempCusOne = new Customer();
         Customer tempCusTwo = new Customer();
@@ -121,6 +136,7 @@ public class HallSimulator{
         if(aboveSixtyQueueTable.getItems().isEmpty() && mainQueueTable.getItems().isEmpty()){
             noticeLbl.setText("Queue is over, try picking another date");
             nextButton.setDisable(true);
+            finialize();
         }
     }
 
@@ -140,11 +156,33 @@ public class HallSimulator{
         }
     }
 
+
+    /**
+     * Saves Vaccine Batch Number to Recipinet in database
+     */
+    public void finialize(){
+       System.out.println("FINIALZIED");
+        for(int i=0;i<queueSize;i++){
+            String username = vaccinatedTable.getItems().get(i).getUsername();
+            if(csv.GetUserDataByUsername(username, FRSTVACBATCH_INDEX).equals("none")){
+                csv.setUserData(csv.GetUserDataByUsername(username, ID_INDEX), vaccinatedTable.getItems().get(i).getVacBatchNo(), FRSTVACBATCH_INDEX);
+                csv.setUserData(csv.GetUserDataByUsername(username, ID_INDEX), "Done", FSTSTATUS_INDEX);
+            }
+            else if(csv.GetUserDataByUsername(username, SCNDVACBATCH_INDEX).equals("none")){
+                csv.setUserData(csv.GetUserDataByUsername(username, ID_INDEX), vaccinatedTable.getItems().get(i).getVacBatchNo(), SCNDVACBATCH_INDEX);
+                csv.setUserData(csv.GetUserDataByUsername(username, ID_INDEX), "Done", SCNDSTATUS_INDEX);
+            }
+        }
+    }
+    
+    /**
+     * Retreives Recipients from set date and assgined vaccination center
+     */
     public void setDate(){
         mainQueueTable.getItems().clear();
         setDate = datePicker.getValue();  // saves date value from date picker
         queue = csv.getQueue(setDate.toString(), vcName); // gets recips and puts in queue
-        int queueSize = queue.size() - 1;
+        queueSize = queue.size() - 1;
 
         if(!queue.isEmpty()){
             noticeLbl.setText("Now click next to arrange queue");
@@ -162,6 +200,10 @@ public class HallSimulator{
         }
     }
 
+
+    /**
+     * Set GUI elements at start
+     */
     public void setElements(){
         TableColumn<Customer, String> name = new TableColumn<>("Name");
         name.setCellValueFactory(new PropertyValueFactory<>("Username"));
