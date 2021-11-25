@@ -115,7 +115,7 @@ public class MainMenuVaccinationCenter{
         Button buttonHallSimulator = new Button();
         buttonHallSimulator.setText(userData[USERNAME_INDEX] + " Hall Simulator");
         buttonHallSimulator.setOnAction(e->{
-            // nothing yet
+            HallSimulator hall = new HallSimulator(userData[USERNAME_INDEX]);
         });
         buttonHallSimulator.setMinWidth(250);
 
