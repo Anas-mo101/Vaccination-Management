@@ -31,6 +31,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 
+/**
+ * MainMenuMOH , addRecipient , addVC , distributeVaccine , VaccinationStatistic , viewRecipientList
+ *  ++apearwindow recipientData style.css
+ * 
+ * 
+ * @author Azleen Adlina
+ */
+
+
 public class MainMenuMoh {
     Csvreader csv = new Csvreader();
     private final int ID_INDEX = 0;
