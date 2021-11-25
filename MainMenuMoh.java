@@ -104,6 +104,7 @@ public class MainMenuMoh {
                 distributeVaccineButton, buttonExit);
 
         Scene scene = new Scene(hBoxMenu, 400, 450);
+        scene.getStylesheets().add("style.css");
         mainStage.setScene(scene);
         mainStage.show();
 
@@ -180,6 +181,7 @@ public class MainMenuMoh {
         vBoxMenu.getChildren().addAll(insertName, insertAge, insertPhone, insertPass, submit);
 
         Scene scene = new Scene(vBoxMenu, 550, 350);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -255,6 +257,7 @@ public class MainMenuMoh {
         vBoxMenu.getChildren().addAll(insertName, insertPhone, insertPass, insertCapa, submit);
 
         Scene scene = new Scene(vBoxMenu, 550, 350);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -319,6 +322,7 @@ public class MainMenuMoh {
         vBoxMenu.getChildren().addAll(insertFrom, insertTo, insertVC, submit);
 
         Scene scene = new Scene(vBoxMenu, 600, 300);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -348,6 +352,7 @@ public class MainMenuMoh {
                 completedBothDose);
 
         Scene scene = new Scene(vBoxMenu, 450, 350);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -385,6 +390,7 @@ public class MainMenuMoh {
         vBoxMenu.getChildren().add(dataTable);
 
         Scene scene = new Scene(vBoxMenu, 800, 400);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
     }
