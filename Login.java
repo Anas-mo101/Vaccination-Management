@@ -113,7 +113,7 @@ public class Login extends Application {
         Stage stage = new Stage();
         stage.setTitle("REGISTRATION");
         Text menuTitle = new Text("WELCOME TO JAVA COVID-19 VACCINATION PROGRAM");
-        menuTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        menuTitle.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         menuTitle.setStroke(Color.BLUE);
 
         Label tfName = new Label("Name:  ");
@@ -189,7 +189,8 @@ public class Login extends Application {
 
         vBoxMenu.getChildren().add(root);
 
-        Scene scene = new Scene(vBoxMenu, 600, 350); // 260, 200);
+        Scene scene = new Scene(vBoxMenu, 370, 300); 
+        scene.getStylesheets().add("style.css"); 
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UTILITY);
