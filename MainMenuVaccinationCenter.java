@@ -151,6 +151,7 @@ public class MainMenuVaccinationCenter{
         vBoxMenu.getChildren().addAll(menuTitle, clock_lb, buttonRecipientList, buttonSetAD, buttonSetAD_Many, 
                                       buttonSetVCStatus, buttonViewVCStatic, buttonHallSimulator, buttonExit);
         Scene scene = new Scene (vBoxMenu,620,610);
+        scene.getStylesheets().add("style.css");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.setScene(scene);
@@ -344,6 +345,7 @@ public class MainMenuVaccinationCenter{
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(gridPane, 265, 235);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.showAndWait();
     
@@ -475,6 +477,7 @@ public class MainMenuVaccinationCenter{
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(gridPane, 295, 275);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.showAndWait();
     
@@ -544,6 +547,7 @@ public class MainMenuVaccinationCenter{
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(gridPane, 275, 185);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.showAndWait();
     
@@ -623,6 +627,7 @@ public class MainMenuVaccinationCenter{
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene (vBoxMenu,450,575);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.showAndWait();
     
