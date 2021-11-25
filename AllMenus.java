@@ -109,6 +109,7 @@ public class AllMenus {
      * set an appointment date for customer, 3) set an appointment status for
      * customer, 4) display statistic from vaccination program, 5) exit the system
      */
+    /*
     public static void VC(int i) {
         VaccinationCenter vc = new VaccinationCenter(i);
         Scanner input = new Scanner(System.in);
@@ -155,7 +156,7 @@ public class AllMenus {
                         break;
                 }
             } while (!choice.equals("0"));
-    }
+    }*/
 
     /**
      * Display the details of MOH menu and the options for admin to choose depends
