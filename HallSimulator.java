@@ -178,25 +178,28 @@ public class HallSimulator{
     /**
      * Retreives Recipients from set date and assgined vaccination center
      */
-    public void setDate(){
+     public void setDate(){
         mainQueueTable.getItems().clear();
-        setDate = datePicker.getValue();  // saves date value from date picker
-        queue = csv.getQueue(setDate.toString(), vcName); // gets recips and puts in queue
-        queueSize = queue.size() - 1;
+        if(datePicker.getValue() != null){
+            
+            setDate = datePicker.getValue();  // saves date value from date picker
+            queue = csv.getQueue(setDate.toString(), vcName); // gets recips and puts in queue
+            queueSize = queue.size() - 1;  
 
-        if(!queue.isEmpty()){
-            noticeLbl.setText("Now click next to arrange queue");
-            nextButton.setDisable(false);
-            for(int i=0;i<=queueSize;i++){
-                vacQueue.add(new Vaccine());
+            if(!queue.isEmpty()){
+                noticeLbl.setText("Now click next to arrange queue");
+                nextButton.setDisable(false);
+                for(int i=0;i<=queueSize;i++){
+                    vacQueue.add(new Vaccine());
+                }
+                for(int i=0;i<=queueSize;i++){
+                    mainQueueTable.getItems().add(queue.poll());
+                    vaccineTable.getItems().add(vacQueue.poll());
+                }
+            }else{
+                noticeLbl.setText("Try picking another date");
+                mainQueueTable.setPlaceholder(new Label("No recipients at this day"));
             }
-            for(int i=0;i<=queueSize;i++){
-                mainQueueTable.getItems().add(queue.poll());
-                vaccineTable.getItems().add(vacQueue.poll());
-            }
-        }else{
-            noticeLbl.setText("Try picking another date");
-            mainQueueTable.setPlaceholder(new Label("No recipients at this day"));
         }
     }
 
