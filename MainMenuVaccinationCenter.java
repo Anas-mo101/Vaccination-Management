@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -149,7 +150,9 @@ public class MainMenuVaccinationCenter{
         vBoxMenu.setPadding(new Insets(90, 5, 5, 5));
         vBoxMenu.getChildren().addAll(menuTitle, clock_lb, buttonRecipientList, buttonSetAD, buttonSetAD_Many, 
                                       buttonSetVCStatus, buttonViewVCStatic, buttonHallSimulator, buttonExit);
-        Scene scene = new Scene (vBoxMenu,675,650);
+        Scene scene = new Scene (vBoxMenu,620,610);
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.setScene(scene);
         mainStage.show();
     }
@@ -264,12 +267,15 @@ public class MainMenuVaccinationCenter{
                                    fstVacDateCol,scdVacDateCol,phoneCol,vcAssignedCol,ageCol);
 
         VBox vBox = new VBox();
+        readCSV();
         vBox.setSpacing(20);
         vBox.getChildren().add(tableView);
         root.getChildren().add(vBox);
-        stage.setScene(new Scene(root, 900, 475));
-        stage.show();             
-        readCSV();
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root, 881, 400));
+        stage.showAndWait();             
+        
     }
 
     private void readCSV() {
@@ -335,14 +341,19 @@ public class MainMenuVaccinationCenter{
 
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(5);
-        Scene scene = new Scene(gridPane, 420, 250);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(gridPane, 265, 235);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
     
     }
 
     public boolean setAppointmentDate(String ID, String Date, String Time) {                 // set the appoinment date for recipient
-                                               
+        if(ID.equals("")) {
+            apearWindow.display("Notification", "Please enter an ID!!");
+            return false;
+        }                                       
         while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])){                      // Checks if Recipient is assigned to current vaccination center 
                 if(!timeChecking(Time) || !isDate(Date)){                   // check appointment time is valid or not
                     return false;
@@ -461,13 +472,19 @@ public class MainMenuVaccinationCenter{
 
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(5);
-        Scene scene = new Scene(gridPane, 420, 280);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(gridPane, 295, 275);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
     
     }
 
     public boolean setAppointmentDate_Many(String ID_start, String ID_end, String Date, String Time) {                 // set the appoinment date for recipient
+        if(ID_start.equals("") || ID_end.equals("")) {
+            apearWindow.display("Notification", "Please enter ID!!");
+            return false;
+        }            
         String current_ID = ID_start;   
         while(!current_ID.equals(Integer.toString(Integer.parseInt(ID_end) + 1))) 
         {       
@@ -512,7 +529,7 @@ public class MainMenuVaccinationCenter{
             System.out.println(tfID.getText());
             System.out.println(tfStatus.getText());
             if(setVaccineStatus(tfID.getText(), tfStatus.getText()))
-                stage.hide();  
+                stage.hide();    
         });
 
         GridPane gridPane = new GridPane();
@@ -524,14 +541,20 @@ public class MainMenuVaccinationCenter{
 
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(5);
-        Scene scene = new Scene(gridPane, 370, 250);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(gridPane, 275, 185);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
     
     }
 
     public boolean setVaccineStatus(String ID, String Status) {           // to change vaccination status
-        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])) {
+        if(ID.equals("")) {
+            apearWindow.display("Notification", "Please enter an ID!!");
+            return false;
+        }
+        while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])) {      
             int WhichVac = 0;
             String Dose;
             if(csv.GetUserDataByID(ID, SCNDSTATUS_INDEX).equals("Pending")){        
@@ -597,9 +620,11 @@ public class MainMenuVaccinationCenter{
         vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
         vBoxMenu.getChildren().addAll(totalVacTaken,totalVacAvailable);
 
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene (vBoxMenu,450,575);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
     
     }
 
