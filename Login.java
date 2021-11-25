@@ -77,15 +77,20 @@ public class Login extends Application{
       lblStatus.setText("Login Successful");
       switch (csv.GetUserData(USERTYPE_INDEX, csv.getUserLineLocation())){              // retrives user type after successfull login
 
-        case "admin": break;
-        
-        case "vcadmin": 
-          MainMenuVaccinationCenter user = new MainMenuVaccinationCenter( csv.GetUserData(csv.getUserLineLocation() ));
-          break;              
-            
-        case "recipient": break;
-             
-        default: break;
+        case "admin":
+                break;
+
+            case "vcadmin":
+                MainMenuVaccinationCenter user = new MainMenuVaccinationCenter(
+                        csv.GetUserData(csv.getUserLineLocation()));
+                break;
+
+            case "recipient":
+                GUIrecipient recipient = new GUIrecipient(csv.GetUserData(csv.getUserLineLocation()));
+                break;
+
+            default:
+                break;
       }
     }else{
       lblStatus.setText("Login Failed");
