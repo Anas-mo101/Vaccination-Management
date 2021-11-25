@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +25,10 @@ import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 
 public class MainMenuMoh {
@@ -45,18 +48,23 @@ public class MainMenuMoh {
         // @Override
         // public void start(Stage mainStage) throws Exception {
         mainStage.setTitle("MOH MENU");
+        Text menuTitle = new Text("Ministry of Health");
+        menuTitle.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+        menuTitle.setStroke(Color.BLUE);
 
         Button buttonRecipient = new Button();
         buttonRecipient.setText("Add Recipient");
         buttonRecipient.setOnAction(e -> {
             addRecipent();
         });
+        buttonRecipient.setMinWidth(250);
 
         Button buttonVC = new Button();
         buttonVC.setText("Add VC");
         buttonVC.setOnAction(e -> {
             addVC();
         });
+        buttonVC.setMinWidth(250);
 
         Button buttonRecipientList = new Button();
         buttonRecipientList.setText("View Recipient List");
@@ -64,33 +72,38 @@ public class MainMenuMoh {
             readCSV();
             viewRecipientList();
         });
+        buttonRecipientList.setMinWidth(250);
+
         Button buttonStatistic = new Button();
         buttonStatistic.setText("View Vacination Statistic");
         buttonStatistic.setOnAction(e -> {
             vacinationStatistic();
         });
+        buttonStatistic.setMinWidth(250);
 
         Button distributeVaccineButton = new Button();
         distributeVaccineButton.setText("Distribute Vaccine");
         distributeVaccineButton.setOnAction(e -> {
             distributeVaccine();
         });
+        distributeVaccineButton.setMinWidth(250);
 
         Button buttonExit = new Button();
         buttonExit.setText("Exit");
         buttonExit.setOnAction(e -> {
             mainStage.close();
         });
+        buttonExit.setMinWidth(250);
 
-        HBox hBoxMenu = new HBox();
+        VBox hBoxMenu = new VBox();
         hBoxMenu.setPrefWidth(200);
         hBoxMenu.setAlignment(Pos.TOP_CENTER);
         hBoxMenu.setSpacing(30);
-        hBoxMenu.setPadding(new Insets(90, 5, 5, 5));
-        hBoxMenu.getChildren().addAll(buttonRecipient, buttonVC, buttonRecipientList, buttonStatistic,
+        hBoxMenu.setPadding(new Insets(5, 5, 5, 5));
+        hBoxMenu.getChildren().addAll(menuTitle,buttonRecipient, buttonVC, buttonRecipientList, buttonStatistic,
                 distributeVaccineButton, buttonExit);
 
-        Scene scene = new Scene(hBoxMenu, 800, 250);
+        Scene scene = new Scene(hBoxMenu, 400, 450);
         mainStage.setScene(scene);
         mainStage.show();
 
@@ -114,9 +127,20 @@ public class MainMenuMoh {
         Button submit = new Button();
         submit.setText("Submit");
         submit.setOnAction(e -> {
-            csv.addUser(passField.getText(), "recipient", nameField.getText(), "Pending", "Pending",
+            if(
+                nameField.getText().equals("") ||
+                phoneField.getText().equals("") ||
+                passField.getText().equals("") ||
+                ageField.getText().equals("")
+            )
+            {
+                apearWindow.display("No Text Field", "Cannot leave the Text Field Empty!");
+            }
+            else{
+                csv.addUser(passField.getText(), "recipient", nameField.getText(), "Pending", "Pending",
                     phoneField.getText(), "none", ageField.getText());
-            apearWindow.display("Succesfull", "Succesfully Updated!");
+                apearWindow.display("Succesfull", "Succesfully Updated!");
+            }
             stage.close();
         });
 
@@ -178,9 +202,20 @@ public class MainMenuMoh {
         Button submit = new Button();
         submit.setText("Submit");
         submit.setOnAction(e -> {
-            csv.addUser(passField.getText(), "vcadmin", nameField.getText(), "none", "none", phoneField.getText(),
+            if(
+                nameField.getText().equals("") ||
+                phoneField.getText().equals("") ||
+                passField.getText().equals("") ||
+                capaField.getText().equals("")
+            )
+            {
+                apearWindow.display("No Text Field", "Cannot leave the Text Field Empty!");
+            }
+            else {
+                csv.addUser(passField.getText(), "vcadmin", nameField.getText(), "none", "none", phoneField.getText(),
                     capaField.getText(), "none");
-            apearWindow.display("Succesfull", "Succesfully Updated!");
+                apearWindow.display("Succesfull", "Succesfully Updated!");
+            }
             stage.close();
         });
 
@@ -241,14 +276,13 @@ public class MainMenuMoh {
         submit.setText("Submit");
         submit.setOnAction(e -> {
             try {
-                if(csv.GetUserDataByID(idFromField.getText(),ID_INDEX).equals("NOT FOUND") || csv.GetUserDataByID(idToField.getText(),ID_INDEX).equals("NOT FOUND")     ){
+                int idFrom_intForm = Integer.parseInt(idFromField.getText());
+                int idTo_intTo = Integer.parseInt(idToField.getText());
+                if (idFrom_intForm < 5 || idTo_intTo > 300 || idFrom_intForm > idTo_intTo) // change sepcific
                     throw new Exception("ID out of Index");
-                }
-                if(!csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin")){
-                    throw new Exception("Invalid Vaccination Center");
-                }
-                csv.setMultipleUserData(idFromField.getText(), idToField.getText(), assignVCField.getText(),VCASSINGED_INDEX);
-                stage.close();
+                csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
+                csv.setMultipleUserData(idFromField.getText(), idToField.getText(), assignVCField.getText(),
+                        VCASSINGED_INDEX);
                 System.out.println("succes");
             } catch (Exception ex) {
                 apearWindow.display("Error!", "close" + ex.getMessage());
@@ -294,15 +328,15 @@ public class MainMenuMoh {
         Stage stage = new Stage();
         stage.setTitle("Vacination Statistic");
 
-        Label receiveOneDose = new Label("\tReceive 1st Dose Date of vaccination! \n\t\t ==> "
+        Label receiveOneDose = new Label("\tReceive 1st Dose Date of vaccination! \n\t\t ➤ "
                 + (csv.ComparenCountField(FSTSTATUS_INDEX, "Appointment made")));
         Label completedOneDose = new Label(
-                "\tComplete 1st Dose of Vaccination! \n\t\t ==> " + csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
-        Label receiveTwoDose = new Label("\tReceive 2nd Dose Date of vaccination! \n\t\t ==> "
+                "\tComplete 1st Dose of Vaccination! \n\t\t ➤ " + csv.ComparenCountField(FSTSTATUS_INDEX, "Done"));
+        Label receiveTwoDose = new Label("\tReceive 2nd Dose Date of vaccination! \n\t\t ➤ "
                 + (csv.ComparenCountField(SCNDSTATUS_INDEX, "Appointment made")));
         Label completedTwoDose = new Label(
-                "\tComplete 2nd Dose of Vaccination! \n\t\t ==> " + csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
-        Label completedBothDose = new Label("\tComplete Both Dose of Vaccination! \n\t\t ==> "
+                "\tComplete 2nd Dose of Vaccination! \n\t\t ➤ " + csv.ComparenCountField(SCNDSTATUS_INDEX, "Done"));
+        Label completedBothDose = new Label("\tComplete Both Dose of Vaccination! \n\t\t ➤ "
                 + (csv.ComparenCountField(FSTSTATUS_INDEX, "Done") + csv.ComparenCountField(SCNDSTATUS_INDEX, "Done")));
 
         VBox vBoxMenu = new VBox();
