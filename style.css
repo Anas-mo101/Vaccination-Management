@@ -38,5 +38,10 @@
     background-color: rgb(0,0,0);
     font-size: 20px ;
     -fx-font-size: 20px;
+    -fx-text-alignment: left;
+    min-width: 500px;
+    -fx-min-width: 500px;
 }
+
+ 
 
