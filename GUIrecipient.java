@@ -34,7 +34,7 @@ public class GUIrecipient {
         this.UserName = UserName;
 
         mainStage.setTitle("RECIPIENT MENU");
-        Text menuTitle = new Text("Hi dearest customer, " + UserName);
+        Text menuTitle = new Text("HI DEAREST CUSTOMER, " + UserName);
         Text menuTitle2 = new Text("please choose:");
         menuTitle.setFont(Font.font("Arial", FontWeight.BOLD, 36));
         menuTitle.setStroke(Color.BLUE);
@@ -63,6 +63,7 @@ public class GUIrecipient {
         vBoxMenu.getChildren().addAll(menuTitle, menuTitle2, buttonStatus, buttonExit);
 
         Scene scene = new Scene(vBoxMenu, 675, 300);
+        scene.getStylesheets().add("style.css");
         mainStage.setScene(scene);
         mainStage.show();
 
@@ -71,28 +72,36 @@ public class GUIrecipient {
     public void ViewStatus(String[] userData) {
         Stage stage = new Stage();
         stage.setTitle("VIEW RECIPIENT STATUS");
-        Text menuTitle3 = new Text("Profile details for " + UserName);
+        Text menuTitle3 = new Text("PROFILE DETAILS FOR " + UserName);
         menuTitle3.setFont(Font.font("Arial", FontWeight.BOLD, 30));
         menuTitle3.setStroke(Color.GREEN);
 
-        Label tfName = new Label("Name \t  " + userData[NAME_INDEX]);
-        Label tfAge = new Label("Age \t  " + userData[AGE_INDEX]);
-        Label tfPhone = new Label("Phone number \t  " + userData[PHONE_INDEX]);
+        Label tfName = new Label("Name: " + userData[NAME_INDEX]);
+        Label tfAge = new Label("Age: " + userData[AGE_INDEX]);
+        Label tfPhone = new Label("Phone number: " + userData[PHONE_INDEX]);
         Label tfVac1 = new Label(
-                "1st Vaccine Status \t  " + userData[FSTSTATUS_INDEX] + " - " + userData[FIRSTVAC_INDEX]);
-        Label tfBatch1 = new Label("Batch number \t  " + userData[VAC1_INDEX]);
+                "First Vaccine Status: " + userData[FSTSTATUS_INDEX] + " - " + userData[FIRSTVAC_INDEX]);
+        Label tfBatch1 = new Label("Batch number: " + userData[VAC1_INDEX]);
         Label tfVac2 = new Label(
-                "\t2nd Vaccine Status \t   " + userData[SCNDSTATUS_INDEX] + " - " + userData[SCNDVAC_INDEX]);
-        Label tfBatch2 = new Label("Batch number \t   " + userData[VAC2_INDEX]);
+                "\tSecond Vaccine Status: " + userData[SCNDSTATUS_INDEX] + " - " + userData[SCNDVAC_INDEX]);
+        Label tfBatch2 = new Label("Batch number:  " + userData[VAC2_INDEX]);
 
         VBox vBoxMenu = new VBox();
         vBoxMenu.setPrefWidth(200);
         vBoxMenu.setAlignment(Pos.TOP_CENTER);
-        vBoxMenu.setSpacing(30);
-        vBoxMenu.setPadding(new Insets(10, 5, 5, 5));
+        vBoxMenu.setSpacing(20);
+        vBoxMenu.setPadding(new Insets(0, 0, 0, 2));
         vBoxMenu.getChildren().addAll(menuTitle3, tfName, tfAge, tfPhone, tfVac1, tfBatch1, tfVac2, tfBatch2);
+        tfName.setId("labelViewStatus");
+        tfAge.setId("labelViewStatus");
+        tfPhone.setId("labelViewStatus");
+        tfVac1.setId("labelViewStatus");
+        tfBatch1.setId("labelViewStatus");
+        tfVac2.setId("labelViewStatus");
+        tfBatch2.setId("labelViewStatus");
 
         Scene scene = new Scene(vBoxMenu, 675, 400);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.show();
     }
