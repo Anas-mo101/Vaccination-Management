@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
-public class GUIrecipient extends Application {
+public class GUIrecipient {
     Csvreader csv = new Csvreader();
+
     private final int NAME_INDEX = 3;
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
@@ -23,12 +22,11 @@ public class GUIrecipient extends Application {
     private final int PHONE_INDEX = 8;
     private final int AGE_INDEX = 11;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    Stage mainStage = new Stage();
 
-    @Override
-    public void start(Stage mainStage) throws Exception {
+    GUIrecipient(String[] data) {
+        // @Override
+        // public void start(Stage mainStage) throws Exception {
         mainStage.setTitle("RECIPIENT MENU");
 
         Button buttonStatus = new Button();
@@ -87,14 +85,13 @@ public class GUIrecipient extends Application {
 
     private int getUserLine() {
 
-        String currentPath = System.getProperty("user.dir");
-        String FieldDelimiter = ",";
+        String data = System.getProperty("user.dir");
 
         BufferedReader br;
         int counter = 0;
 
         try {
-            br = new BufferedReader(new FileReader(currentPath + "/users.csv"));
+            br = new BufferedReader(new FileReader(data + "/users.csv"));
 
             String line;
             while ((line = br.readLine()) != null)
@@ -103,9 +100,9 @@ public class GUIrecipient extends Application {
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR :" + ex.getMessage());
         } catch (IOException ex) {
-
             System.out.println("ERROR :" + ex.getMessage());
         }
         return counter - 1;
     }
 }
+
