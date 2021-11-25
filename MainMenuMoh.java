@@ -111,6 +111,10 @@ public class MainMenuMoh {
     }
 
     ////////////////////// ADD RECIPIENT //////////////////////////////
+    /**
+    * Add User Data to register by name phone number password and age to csv 
+    * checking for user to input correctly and no blank text field
+    */
     public void addRecipent() {
         Stage stage = new Stage();
         stage.setTitle("ADD USER");
@@ -187,6 +191,11 @@ public class MainMenuMoh {
     }
 
     ///////////////// ADD VC ////////////////////
+    /**
+    * Add VC to register vaccination by name, phone number, password , capacity per day to csv 
+    * checking for user to input correctly and no blank text field
+    */
+
     public void addVC() {
         Stage stage = new Stage();
         stage.setTitle("ADD USER");
@@ -263,6 +272,10 @@ public class MainMenuMoh {
     }
 
     ////////////// DISTRIBUTE VACCINE //////////////////////
+    /**
+    *Distribute vaccines and recipients to VCs
+     * error checking if user input wrong ID and no blank text field
+    */
     public void distributeVaccine() {
         Stage stage = new Stage();
         stage.setTitle("Distribute Vaccine");
@@ -328,6 +341,10 @@ public class MainMenuMoh {
     }
 
     ////////////// VACCINATION STATISTIC /////////////////////
+    /**
+    *View various statistics combining all VCs such as total vaccination
+    */
+    
     public void vacinationStatistic() {
         Stage stage = new Stage();
         stage.setTitle("Vacination Statistic");
@@ -358,6 +375,9 @@ public class MainMenuMoh {
     }
 
     /////////// VIEW RECIPIENT LIST ////////////
+    /**
+    * View all recipient data and vaccination status from all VCs (multi-column format)
+    */
     public void viewRecipientList() {
         Stage stage = new Stage();
         stage.setTitle("Vacination Recipient Statistic");
