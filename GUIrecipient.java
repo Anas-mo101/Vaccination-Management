@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
 public class GUIrecipient {
-    Csvreader csv = new Csvreader();
 
     private final int NAME_INDEX = 3;
     private final int FSTSTATUS_INDEX = 4;
@@ -20,6 +19,7 @@ public class GUIrecipient {
     private final int FIRSTVAC_INDEX = 6;
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
+    private final int VCASSIGNED_INDEX = 9;
     private final int AGE_INDEX = 11;
 
     Stage mainStage = new Stage();
@@ -35,7 +35,7 @@ public class GUIrecipient {
         Button buttonStatus = new Button();
         buttonStatus.setText("View Recipient Status");
         buttonStatus.setOnAction(e -> {
-            ViewStatus();
+            ViewStatus(data);
         });
 
         Button buttonExit = new Button();
@@ -57,21 +57,35 @@ public class GUIrecipient {
 
     }
 
-    public void ViewStatus() {
-        Csvreader csv = new Csvreader();
+    public void ViewStatus(String[] userData) {
         Stage stage = new Stage();
         Vaccine vac = new Vaccine();
+        // Csvreader csv = new Csvreader();
 
         stage.setTitle("VIEW RECIPIENT STATUS");
 
-        Label tfName = new Label("\tName \t ==>  " + csv.GetUserData(NAME_INDEX, getUserLine()));
-        Label tfAge = new Label("\tAge \t ==>  " + csv.GetUserData(AGE_INDEX, getUserLine()));
-        Label tfPhone = new Label("\tPhone number \t ==>  " + csv.GetUserData(PHONE_INDEX, getUserLine()));
-        Label tfVac1 = new Label("\t1st Vaccine Status \t ==>  " + csv.GetUserData(FSTSTATUS_INDEX, getUserLine())
-                + " - " + csv.GetUserData(FIRSTVAC_INDEX, getUserLine()));
+        /*
+         * Label tfName = new Label("\tName \t ==>  " + csv.GetUserData(NAME_INDEX,
+         * getUserLine())); Label tfAge = new Label("\tAge \t ==>  " +
+         * csv.GetUserData(AGE_INDEX, getUserLine())); Label tfPhone = new
+         * Label("\tPhone number \t ==>  " + csv.GetUserData(PHONE_INDEX,
+         * getUserLine())); Label tfVac1 = new Label("\t1st Vaccine Status \t ==>  " +
+         * csv.GetUserData(FSTSTATUS_INDEX, getUserLine()) + " - " +
+         * csv.GetUserData(FIRSTVAC_INDEX, getUserLine())); Label tfBatch1 = new
+         * Label("\tBatch number \t ==>  " + vac.addVacBatchNO()); Label tfVac2 = new
+         * Label("\t2nd Vaccine Status \t ==>  " + csv.GetUserData(SCNDSTATUS_INDEX,
+         * getUserLine()) + " - " + csv.GetUserData(SCNDVAC_INDEX, getUserLine()));
+         * Label tfBatch2 = new Label("\tBatch number \t ==>  " + vac.addVacBatchNO());
+         */
+
+        Label tfName = new Label("\tName \t ==>  " + userData[NAME_INDEX]);
+        Label tfAge = new Label("\tAge \t ==>  " + userData[AGE_INDEX]);
+        Label tfPhone = new Label("\tPhone number \t ==>  " + userData[PHONE_INDEX]);
+        Label tfVac1 = new Label(
+                "\t1st Vaccine Status \t ==>  " + userData[FSTSTATUS_INDEX] + " - " + userData[FIRSTVAC_INDEX]);
         Label tfBatch1 = new Label("\tBatch number \t ==>  " + vac.addVacBatchNO());
-        Label tfVac2 = new Label("\t2nd Vaccine Status \t ==>  " + csv.GetUserData(SCNDSTATUS_INDEX, getUserLine())
-                + " - " + csv.GetUserData(SCNDVAC_INDEX, getUserLine()));
+        Label tfVac2 = new Label(
+                "\t2nd Vaccine Status \t ==>  " + userData[SCNDSTATUS_INDEX] + " - " + userData[SCNDVAC_INDEX]);
         Label tfBatch2 = new Label("\tBatch number \t ==>  " + vac.addVacBatchNO());
 
         VBox vBoxMenu = new VBox();
@@ -113,5 +127,3 @@ public class GUIrecipient {
         return counter - 1;
     }
 }
-
-
