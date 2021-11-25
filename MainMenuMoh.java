@@ -241,10 +241,12 @@ public class MainMenuMoh {
         submit.setText("Submit");
         submit.setOnAction(e -> {
             try {
-                if(csv.GetUserDataByID(idFromField.getText(),ID_INDEX).equals("NOT FOUND") || csv.GetUserDataByID(idToField.getText(),ID_INDEX).equals("NOT FOUND")){
+                if(csv.GetUserDataByID(idFromField.getText(),ID_INDEX).equals("NOT FOUND") || csv.GetUserDataByID(idToField.getText(),ID_INDEX).equals("NOT FOUND")     ){
                     throw new Exception("ID out of Index");
                 }
-                csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
+                if(!csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin")){
+                    throw new Exception("Invalid Vaccination Center");
+                }
                 csv.setMultipleUserData(idFromField.getText(), idToField.getText(), assignVCField.getText(),VCASSINGED_INDEX);
                 stage.close();
                 System.out.println("succes");
