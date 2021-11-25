@@ -24,7 +24,10 @@ public class GUIrecipient {
 
     Stage mainStage = new Stage();
 
-    GUIrecipient(String[] data) {
+    private String UserName;
+
+    GUIrecipient(String[] data, String UserName) {
+        this.UserName = UserName;
         // @Override
         // public void start(Stage mainStage) throws Exception {
         mainStage.setTitle("RECIPIENT MENU");
@@ -86,6 +89,7 @@ public class GUIrecipient {
     private int getUserLine() {
 
         String data = System.getProperty("user.dir");
+        String FieldDelimiter = ",";
 
         BufferedReader br;
         int counter = 0;
@@ -94,8 +98,12 @@ public class GUIrecipient {
             br = new BufferedReader(new FileReader(data + "/users.csv"));
 
             String line;
-            while ((line = br.readLine()) != null)
+            while ((line = br.readLine()) != null) {
                 counter++;
+                String[] fields = line.split(FieldDelimiter, -1);
+                if (fields[3].equals(UserName))
+                    break;
+            }
 
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR :" + ex.getMessage());
@@ -105,4 +113,5 @@ public class GUIrecipient {
         return counter - 1;
     }
 }
+
 
