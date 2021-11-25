@@ -1,4 +1,3 @@
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -13,7 +12,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 
-public class HallSimulator extends Application {
+public class HallSimulator{
     Queue<Customer> queue = new LinkedList<Customer>();
     Queue<Customer> elderlyQueue = new LinkedList<Customer>();   
     Queue<Vaccine> vacQueue = new LinkedList<Vaccine>();
@@ -30,20 +29,21 @@ public class HallSimulator extends Application {
     Button btnTime = new Button("Submit");
     Boolean arrangeQueue = true;
     LocalDate setDate;
-
+    private String vcName;
     TableView<Customer> mainQueueTable = new TableView<Customer>();
     TableView<Customer> aboveSixtyQueueTable = new TableView<Customer>();
     TableView<Vaccine> vaccineTable = new TableView<Vaccine>();
     TableView<Customer> vaccinatedTable = new TableView<Customer>();
 
-    @Override
-    public void start(Stage stage) {
+    Stage stage = new Stage();
+
+    HallSimulator(String vcName) {
+        this.vcName = vcName;
+
         setElements();
 
         setButton.setOnAction(action -> {
             setDate();
-            
-            // setButton.setDisable(true);
         });
 
         nextButton.setOnAction(action -> {next();});
@@ -64,7 +64,7 @@ public class HallSimulator extends Application {
         root.getChildren().add(vaccinatedTable);
         Scene scene = new Scene(root, 1210, 500);
         stage.setResizable(false);
-        stage.setTitle ("Vaccination Hall Simulator");
+        stage.setTitle (vcName + " Vaccination Hall Simulator");
         stage.setScene(scene);
         stage.show();
     }
@@ -75,6 +75,7 @@ public class HallSimulator extends Application {
             noticeLbl.setText("Now click next to move queue");
             mainQueueTable.getItems().clear();
             arrangeQueue();
+            setButton.setDisable(true);
             arrangeQueue = false;
         }else{
             move();
@@ -124,7 +125,7 @@ public class HallSimulator extends Application {
     }
 
     public void arrangeQueue(){
-        queue = csv.getQueue(setDate.toString(), "VCKL"); // gets recips and puts in queue
+        queue = csv.getQueue(setDate.toString(),vcName); // gets recips and puts in queue
         if(!queue.isEmpty()){
             int queueSize = queue.size() - 1;
             for(int i=0;i<=queueSize;i++){
@@ -142,7 +143,7 @@ public class HallSimulator extends Application {
     public void setDate(){
         mainQueueTable.getItems().clear();
         setDate = datePicker.getValue();  // saves date value from date picker
-        queue = csv.getQueue(setDate.toString(), "VCKL"); // gets recips and puts in queue
+        queue = csv.getQueue(setDate.toString(), vcName); // gets recips and puts in queue
         int queueSize = queue.size() - 1;
 
         if(!queue.isEmpty()){
@@ -261,9 +262,5 @@ public class HallSimulator extends Application {
 
         vaccinatedTable.setTranslateX(765);
         vaccinatedTable.setTranslateY(20);
-    }
-
-    public static void main(String[] args){
-        launch(args);
     }
 }
