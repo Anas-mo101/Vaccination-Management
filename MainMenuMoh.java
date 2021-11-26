@@ -39,7 +39,6 @@ import javafx.geometry.Insets;
  * @author Azleen Adlina
  */
 
-
 public class MainMenuMoh {
     Csvreader csv = new Csvreader();
     private final int ID_INDEX = 0;
@@ -151,8 +150,8 @@ public class MainMenuMoh {
                 apearWindow.display("No Text Field", "Cannot leave the Text Field Empty!");
             }
             else{
-                 csv.addUser(passField.getText(), "recipient", nameField.getText(), "Pending", "Pending",
-                        phoneField.getText(), "none", ageField.getText(), "none", "none", "none");
+                csv.addUser(passField.getText(), "recipient", nameField.getText(), "Pending", "Pending",
+                    phoneField.getText(), "none", ageField.getText());
                 apearWindow.display("Succesfull", "Succesfully Updated!");
             }
             stage.close();
@@ -233,7 +232,7 @@ public class MainMenuMoh {
             }
             else {
                 csv.addUser(passField.getText(), "vcadmin", nameField.getText(), "none", "none", phoneField.getText(),
-                        capaField.getText(), "none", "none", "none", "none");
+                    capaField.getText(), "none");
                 apearWindow.display("Succesfull", "Succesfully Updated!");
             }
             stage.close();
@@ -409,7 +408,12 @@ public class MainMenuMoh {
         firstVacStatus.setCellValueFactory(new PropertyValueFactory<>("firstVacStatus"));
         secondVacDate.setCellValueFactory(new PropertyValueFactory<>("secondVacDate"));
         secondVacStatus.setCellValueFactory(new PropertyValueFactory<>("secondVacStatus"));
+        phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        assignedVC.setCellValueFactory(new PropertyValueFactory<>("assignedVC"));
+        age.setCellValueFactory(new PropertyValueFactory<>("age"));
 
+
+        
         dataTable.getColumns().addAll(id, pass, userName, age, phone, assignedVC, firstVacDate, firstVacStatus,
                 secondVacDate, secondVacStatus);
         dataTable.getItems().addAll(recipientPosition);
