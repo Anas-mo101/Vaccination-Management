@@ -132,9 +132,9 @@ public class Login extends Application {
 
             if (valPhone(tfPhonee.getText())) {
                 csv.addUser(tfPasswordd.getText(), "recipient", tfNamee.getText(), "Pending", "Pending",
-                        tfPhonee.getText(), "none", tfAgee.getText());
+                        tfPhonee.getText(), "none", tfAgee.getText(), "none", "none", "none");
                 csv = new Csvreader();
-                apearWindow.display("Succesfull", "Succesfully Updated!");
+                apearWindow.display("Succesful", "Succesfully Updated!");
 
             } else
                 apearWindow.display("Failed", "Invalid phone number!");
