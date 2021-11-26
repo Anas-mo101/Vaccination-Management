@@ -42,6 +42,8 @@ import javafx.geometry.Pos;
 
 /**
  * Provide functions that could only be done at Vaccination Center level in the form of JavaFX.
+ * 
+ * @author Chin Wei Song
  */
 public class MainMenuVaccinationCenter{
     Csvreader csv = new Csvreader();
