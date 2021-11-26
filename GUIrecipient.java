@@ -14,6 +14,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 
+/**
+ * GUIrecipient class representing the details of the customer. 1) tfName is the
+ * customer's name, 2) tfPhone is the customer's phone number, 3) tfAge is the
+ * customer's age, 4) tfBatch1, tfBatch2 are customer's vaccine batch for dose 1
+ * and 2, 5) tfVac1, tfVac2 are the customer's vaccine place and date for dose 1
+ * and 2
+ *
+ * @author Sharifah Farah Sofea
+ */
+
 public class GUIrecipient {
 
     private final int NAME_INDEX = 3;
@@ -29,6 +39,12 @@ public class GUIrecipient {
     Stage mainStage = new Stage();
 
     private String UserName;
+    
+    /**
+     * Display the details of recipient menu and the options for user to choose
+     * depends on what they want to see whether view recipient status or exit the
+     * system.
+     */
 
     GUIrecipient(String[] data, String UserName) {
         this.UserName = UserName;
@@ -68,6 +84,11 @@ public class GUIrecipient {
         mainStage.show();
 
     }
+    
+    /**
+     * Display recipient details like name, phone number, age, status, date and
+     * batch number of their first dose and second dose vaccine.
+     */
 
     public void ViewStatus(String[] userData) {
         Stage stage = new Stage();
@@ -106,6 +127,10 @@ public class GUIrecipient {
         stage.show();
     }
 
+    /**
+     * Get user data from the line in users.csv file based from their user name
+     */
+    
     private int getUserLine() {
 
         String data = System.getProperty("user.dir");
