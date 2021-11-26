@@ -24,7 +24,7 @@ import javafx.stage.*;
  * @author Anas Mohammad & Sharifah Farah Sofea
  */
 
-public class Login extends Application {
+public class Login extends Application {            // run from here
     Csvreader csv = new Csvreader();
     Label lblStatus = new Label("");
     Label lblName = new Label("Username: ");
