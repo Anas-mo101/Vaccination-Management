@@ -1,5 +1,5 @@
 TASK DISTRIBUTION
 Member1 1201302614 Anas Mohamed Elsebay Mohamed - User, Csvreader, Login
 Member2 1191100961 Chin Wei Song - MainMenuVaccinationCenter
-Member3 1191101432 Azleen Adlina binti Azrul Hardav - MOH
-Member4 1191101059 Sharifah Farah Sofea binti Syed Husin Azmi - Customer, AllMenus
+Member3 1191101432 Azleen Adlina binti Azrul Hardav - MainMenuMOH
+Member4 1191101059 Sharifah Farah Sofea binti Syed Husin Azmi - GUIrecipient, registration
