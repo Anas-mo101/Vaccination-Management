@@ -151,7 +151,7 @@ public class MainMenuMoh {
             }
             else{
                 csv.addUser(passField.getText(), "recipient", nameField.getText(), "Pending", "Pending",
-                    phoneField.getText(), "none", ageField.getText());
+                    phoneField.getText(), "none", ageField.getText(),"none","none" ,"none");
                 apearWindow.display("Succesfull", "Succesfully Updated!");
             }
             stage.close();
@@ -232,7 +232,7 @@ public class MainMenuMoh {
             }
             else {
                 csv.addUser(passField.getText(), "vcadmin", nameField.getText(), "none", "none", phoneField.getText(),
-                    capaField.getText(), "none");
+                    capaField.getText(), "none" , "none" ,"none" , "none");
                 apearWindow.display("Succesfull", "Succesfully Updated!");
             }
             stage.close();
