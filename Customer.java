@@ -74,7 +74,7 @@ public class Customer extends User {
         // writes to the file "customer.csv"
        csv.addUser(password, "recipient", custName, "Pending", "Pending", custPhone, "none", age, "none", "none",
                 "none");
-        AllMenus.RoleMenu();
+        //AllMenus.RoleMenu();
     }
 
     /**
