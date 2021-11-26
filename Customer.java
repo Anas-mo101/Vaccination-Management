@@ -72,7 +72,8 @@ public class Customer extends User {
         System.out.println(">>>>>>>>>>>>>>>>>>>>> ACCOUNT SUCCESSFULLY REGISTERED!! <<<<<<<<<<<<<<<<<<<<<");
 
         // writes to the file "customer.csv"
-        csv.addUser(password, "recipient", custName, "Pending", "Pending", custPhone, "none", age);
+       csv.addUser(password, "recipient", custName, "Pending", "Pending", custPhone, "none", age, "none", "none",
+                "none");
         AllMenus.RoleMenu();
     }
 
