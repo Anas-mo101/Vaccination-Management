@@ -40,6 +40,9 @@ import java.time.format.DateTimeParseException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+/**
+ * Provide functions that could only be done at Vaccination Center level in the form of JavaFX.
+ */
 public class MainMenuVaccinationCenter{
     Csvreader csv = new Csvreader();
     List<String> userInfo = csv.getUserInfo();
@@ -66,6 +69,10 @@ public class MainMenuVaccinationCenter{
 
     Stage mainStage = new Stage();
    
+    /**
+     * An overloaded constructor for MainMenuVaccinationCenter class by passing the user's data to it.
+     * @param data The user's data that logged in
+     */
     MainMenuVaccinationCenter(String[] data) {
         
         userData = data;       // <-- Saves user data into an array to used later
@@ -159,6 +166,9 @@ public class MainMenuVaccinationCenter{
     }
 
     //////////////////////////Print Recipient List/////////////////////////////////////////////////////////////////////////////
+    /**
+     * A class that contains all the attributes that needed in the table of recipient list.
+     */
     public class Record {
         private SimpleStringProperty f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11;
 
@@ -223,6 +233,9 @@ public class MainMenuVaccinationCenter{
 
     }
     
+    /**
+     * Create a window to show the table view of recipient list.
+     */
     public void printRecipientsList() {
 
         Stage stage = new Stage();
@@ -279,6 +292,11 @@ public class MainMenuVaccinationCenter{
         
     }
 
+    /**
+     * Read User.csv and add the recipient's data into the Observable list 
+     * which the recipient's vaccination center that assigned to him/her 
+     * is same as the user's name that logged in.
+     */
     private void readCSV() {
  
         String currentPath = System.getProperty("user.dir");
@@ -311,6 +329,11 @@ public class MainMenuVaccinationCenter{
     }
 
     //////////////////////////Set Appointment Date/////////////////////////////////////////////////////////////////////////////
+    /**
+     * Create a window to let the user to set an appointment date for a recipient 
+     * that belongs to the user by submitting the required details 
+     * in the text field that provided.
+     */
     public void setAppointmentDate() {
         
         Stage stage = new Stage();
@@ -351,6 +374,14 @@ public class MainMenuVaccinationCenter{
     
     }
 
+    /**
+     * Set an appointment date for a recipient by passing the parameters and 
+     * it will return true is the appointment date is set successfully.
+     * @param ID Recipient's ID
+     * @param Date Recipient's appointment date
+     * @param Time Recipient's appointment time
+     * @return boolean
+     */
     public boolean setAppointmentDate(String ID, String Date, String Time) {                 // set the appoinment date for recipient
         if(ID.equals("")) {
             apearWindow.display("Notification", "Please enter an ID!!");
@@ -380,6 +411,12 @@ public class MainMenuVaccinationCenter{
         return true;     
     }
 
+    /**
+     * Check the appointment time is valid or not, which means that if the appointment time 
+     * given is not in between the Vaccination Center's operating hours then it will return false.
+     * @param time Recipient's appointment time
+     * @return boolean
+     */
     public Boolean timeChecking(String time) {                      // check the time of appointment is in the VC operating hours or not 
         Boolean TargetInZone = true;                                // check the input is valid or not
         try{
@@ -396,6 +433,12 @@ public class MainMenuVaccinationCenter{
         return TargetInZone;
     }
 
+    /**
+     * Check the appointment date is valid or not, which means that if the appointment time given
+     * is not in a correct format then it will return false. 
+     * @param dateString Recipient's appointment date
+     * @return boolean
+     */
     public Boolean isDate(String dateString) {                       // check the input is valid or not
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -406,6 +449,12 @@ public class MainMenuVaccinationCenter{
         }
     }
 
+    /**
+     * Check the capacity per day of the Vaccination Center is reached or not,
+     * if yes then it will return false else it will return true.
+     * @param Date Recipient's appointment date
+     * @return boolean
+     */
     public Boolean checkCapacityDay(String Date) {                          // to check capacity reached or not 
                                                                             // calculate max capacity through whole day (From 8am - 6pm, total 10 hours)
         int CurrentCapaicty = csv.ComparenCountField(FSTVACDATE_INDEX, Date) + csv.ComparenCountField(SCNDVACDATE_INDEX, Date);
@@ -416,6 +465,11 @@ public class MainMenuVaccinationCenter{
         }
     }
 
+    /**
+     * Check the number of vaccine of the Vaccination center is still available or not, 
+     * if not then it will return false.
+     * @return boolean
+     */
     public Boolean checkTotalVacAvailable() {          // to check there is vaccine available or not
         if(totalVac_Available <= 0)
             return false;
@@ -423,6 +477,11 @@ public class MainMenuVaccinationCenter{
             return true;
     }
 
+    /**
+     * Check which dose appointment date the program should set for the recipient.
+     * @param ID Recipient's ID
+     * @return integer
+     */
     public int whichVac(String ID) {                                       // To check which Vac the recipients is taking (1st vac or 2nd vac)
         if(csv.GetUserDataByID(ID, FSTVACDATE_INDEX).equals("none"))        
             return FSTVACDATE_INDEX;
@@ -430,6 +489,11 @@ public class MainMenuVaccinationCenter{
             return SCNDVACDATE_INDEX;        
     }
 
+    /**
+     * Check which dose appointment status the program should set for the recipient.
+     * @param ID Recipient's ID
+     * @return integer
+     */
     public int whichStatus(String ID) {                                   
         if(csv.GetUserDataByID(ID, FSTSTATUS_INDEX).equals("Pending"))        
             return FSTSTATUS_INDEX;
@@ -438,6 +502,11 @@ public class MainMenuVaccinationCenter{
     }
 
     //////////////////////////Set Appointment Date for Many///////////////////////////////////////////////////////////////////
+    /**
+     * Create a window to let the user to set an appointment date for many recipients  
+     * that belongs to the user by submitting the required details at one time
+     * in the text field that provided.
+     */
     public void setAppointmentDate_Many() {
         
         Stage stage = new Stage();
@@ -483,6 +552,15 @@ public class MainMenuVaccinationCenter{
     
     }
 
+    /**
+     * Set an appointment date for many recipients by passing the parameters and 
+     * it will return true is the appointment date is set successfully.
+     * @param ID_start Recipient's ID that the user want to set from
+     * @param ID_end Recipient's ID that the user want to set to
+     * @param Date Recipient's appointment date
+     * @param Time Recipient's appointmnet time
+     * @return boolean
+     */
     public boolean setAppointmentDate_Many(String ID_start, String ID_end, String Date, String Time) {                 // set the appoinment date for recipient
         if(ID_start.equals("") || ID_end.equals("")) {
             apearWindow.display("Notification", "Please enter ID!!");
@@ -518,6 +596,10 @@ public class MainMenuVaccinationCenter{
     }
 
     //////////////////////////Set Vaccination Status/////////////////////////////////////////////////////////////////////////
+    /**
+     * Create a window to let the user to set the Vaccination status for a recipient
+     * that belongs to the user by submitting the required details in the text field that provided.
+     */
     public void setVaccineStatus() {
         
         Stage stage = new Stage();
@@ -553,6 +635,13 @@ public class MainMenuVaccinationCenter{
     
     }
 
+    /**
+     * Set an vaccination status for a recipient by passing the parameters and 
+     * it will return true is the vaccination status is set successfully.
+     * @param ID Recipient's ID
+     * @param Status Recipient's vaccination status
+     * @return boolean
+     */
     public boolean setVaccineStatus(String ID, String Status) {           // to change vaccination status
         if(ID.equals("")) {
             apearWindow.display("Notification", "Please enter an ID!!");
@@ -587,6 +676,9 @@ public class MainMenuVaccinationCenter{
     }
 
     //////////////////////////View Vaccination Center Static/////////////////////////////////////////////////////////////////
+    /**
+     * Create a window to let the user to view the Static of the Vaccination Center by showing a stacked barchart.
+     */
     public void viewVaccinationCenterStatic() {
         
         Stage stage = new Stage();
@@ -633,6 +725,11 @@ public class MainMenuVaccinationCenter{
     
     }
 
+    /**
+     * Adding the date from an array list into a XYChart
+     * @param list Array list that stored the date
+     * @param dataSeries XYChart that need to get the data
+     */
     public void addDate(ArrayList<String> list, XYChart.Series dataSeries) {           // add date from array list into XYChart
         Map<String,Integer> table = new HashMap<String, Integer>();
         for (String i : list) {
@@ -644,6 +741,9 @@ public class MainMenuVaccinationCenter{
         }
     }
 
+    /**
+     * Count the date for vaccination registered (by day).
+     */
     public void countDate_registered() {                                               // count date for Vaccination registered by day
         userInfo = csv.getUserInfo(); // to update list everytime function is called
         dateList_registered.clear();
@@ -661,6 +761,9 @@ public class MainMenuVaccinationCenter{
         }
     }
 
+    /**
+     * Count the date for total vaccination taken (by day).
+     */
     public void countDate_taken() {                                                     // count date for Total Vaccination taken by day   
         userInfo = csv.getUserInfo(); // to update list everytime function is called
         dateList_taken.clear();
