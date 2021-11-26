@@ -232,7 +232,7 @@ public class MainMenuMoh {
             }
             else {
                 csv.addUser(passField.getText(), "vcadmin", nameField.getText(), "none", "none", phoneField.getText(),
-                    capaField.getText(), "none" , "none" ,"none" , "none");
+                    capaField.getText(), "none" , "none" , "none" , "none");
                 apearWindow.display("Succesfull", "Succesfully Updated!");
             }
             stage.close();
