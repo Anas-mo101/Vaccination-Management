@@ -91,7 +91,7 @@ public class Csvreader {
      * @param Age      Age
      */
     public void addUser(String Password, String Usertype, String Username, String FstVac, String ScndVac, String Phone,
-            String CapPerHr, String Age) { // adds
+            String CapPerHr, String Age, String totalVac, String batch1, String batch2) { // adds
 
         LinkedList<Integer> list = new LinkedList<>();
 
@@ -100,7 +100,8 @@ public class Csvreader {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.csv", true));
             writer.append("\n" + Last_ID + "," + Password + "," + Usertype + "," + Username + "," + FstVac + ","
-                    + ScndVac + ",none,none," + Phone + ",none," + CapPerHr + "," + Age);
+                    + ScndVac + ",none,none," + Phone + ",none," + CapPerHr + "," + Age + "," + totalVac + "," + batch1
+                    + "," + batch2);
             writer.close();
         } catch (IOException ex) {
             System.out.println("No file found.");
