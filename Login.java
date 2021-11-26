@@ -14,6 +14,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.*;
 
+/**
+ * Login class representing the registration and sign in function. For sign in,
+ * 1) tfUsername is the user name to key in, 2) tfPassword is for password. For
+ * registration, 1) tfName is for customer's name, 2)tfPhone is the customer's
+ * phone number, 3) tfAge is the customer's age, 4) tfPassword is cutomer's
+ * password to register
+ *
+ * @author Anas Mohammad & Sharifah Farah Sofea
+ */
+
 public class Login extends Application {
     Csvreader csv = new Csvreader();
     Label lblStatus = new Label("");
@@ -107,6 +117,11 @@ public class Login extends Application {
             lblStatus.setText("Login Failed");
         }
     }
+    
+    /**
+     * Display and saves Customer's name, phone number, age and password, into
+     * "users.csv" file once customer successfully registered
+     */
 
     public void register() {
 
@@ -197,6 +212,15 @@ public class Login extends Application {
         stage.setScene(scene);
         stage.showAndWait();
     }
+    
+    /**
+     * Checking a valid phone number of customer whether it meet the requirement
+     * such as first character is 0, second character is 1 and the length of phone
+     * number is 10 digit.
+     * 
+     * @param phone number of customer in String
+     * @return boolean true or false based on requirements
+     */
 
     public boolean valPhone(String tfPhonee) {
         return tfPhonee.charAt(0) == '0' && tfPhonee.charAt(1) == '1' && tfPhonee.length() == 10;
