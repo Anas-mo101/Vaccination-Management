@@ -279,6 +279,7 @@ public class MainMenuVaccinationCenter{
         ageCol.setCellValueFactory(new PropertyValueFactory<>("f11"));
 
         tableView.setItems(dataList);
+        tableView.getColumns().clear();
         tableView.getColumns().addAll(idCol,passCol,userTypeCol,userNameCol,fstVacStatusCol,scdVacStatusCol,
                                    fstVacDateCol,scdVacDateCol,phoneCol,vcAssignedCol,ageCol);
 
@@ -308,7 +309,7 @@ public class MainMenuVaccinationCenter{
  
         try {
             br = new BufferedReader(new FileReader(currentPath + "/users.csv"));
- 
+            dataList.clear();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(FieldDelimiter, -1);
@@ -652,13 +653,14 @@ public class MainMenuVaccinationCenter{
         while(csv.GetUserDataByID(ID, VCASSINGED_INDEX).equals(userData[USERNAME_INDEX])) {      
             int WhichVac = 0;
             String Dose;
-            if(csv.GetUserDataByID(ID, SCNDSTATUS_INDEX).equals("Pending")){        
-                WhichVac = FSTSTATUS_INDEX;
-                Dose = "1st dose";
-            }
-            else {
+            
+            if(csv.GetUserDataByID(ID, FSTSTATUS_INDEX).equals("Done")){        
                 WhichVac = SCNDSTATUS_INDEX;
                 Dose = "2nd dose";
+            }
+            else {
+                WhichVac = FSTSTATUS_INDEX;
+                Dose = "1st dose";
             }
 
             if(Status.equals("AppointmentMade") || Status.equals("Done")) {
