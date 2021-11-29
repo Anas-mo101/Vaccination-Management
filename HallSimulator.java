@@ -15,8 +15,8 @@ import java.util.LinkedList;
  * Class to handle hall simulator and vaccinating recipients 
  */
 public class HallSimulator{
-    private final int FRSTVACBATCH_INDEX = 13;
-    private final int SCNDVACBATCH_INDEX = 14;
+    public final int FRSTVACBATCH_INDEX = 13;
+    public final int SCNDVACBATCH_INDEX = 14;
     private final int ID_INDEX = 0;
     private final int FSTSTATUS_INDEX = 4;
     private final int SCNDSTATUS_INDEX = 5;
