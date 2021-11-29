@@ -33,8 +33,8 @@ public class GUIrecipient {
     private final int SCNDVAC_INDEX = 7;
     private final int PHONE_INDEX = 8;
     private final int AGE_INDEX = 11;
-    private final int VAC1_INDEX = 13;
-    private final int VAC2_INDEX = 14;
+    public final int VAC1_INDEX = 13;
+    public final int VAC2_INDEX = 14;
 
     Stage mainStage = new Stage();
 
