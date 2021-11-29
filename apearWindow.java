@@ -35,7 +35,7 @@ public class apearWindow{
         gridAlert.setAlignment(Pos.CENTER);
 
         Scene sceneAlert = new Scene(gridAlert);
-
+        sceneAlert.getStylesheets().add("style.css");
         stageapear.setScene(sceneAlert);
         stageapear.showAndWait();
     }
