@@ -150,11 +150,12 @@ public class Login extends Application {            // run from here
                         tfPhonee.getText(), "none", tfAgee.getText(), "none", "none", "none");
                 csv = new Csvreader();
                 apearWindow.display("Succesful", "Succesfully Updated!");
+                stage.close();
 
             } else
                 apearWindow.display("Failed", "Invalid phone number!");
 
-            stage.close();
+            
         });
 
         tfName.setTranslateX(10);
