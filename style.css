@@ -1,47 +1,42 @@
-.root{
-    background-color: rgb(0,0,0);
-    -fx-background-color: linear-gradient(rgba(125, 169, 252, 0.418), #76a0d877);
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
-    
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+
+public class apearWindow{
+    public static void display(String title, String message){
+        Stage stageapear = new Stage();
+        stageapear.setResizable(false);
+        stageapear.setTitle(title);
+        stageapear.initModality(Modality.APPLICATION_MODAL);
+
+        Label labelMessage = new Label();
+        labelMessage.setId("layoutFont");
+        labelMessage.setText(message);
+        labelMessage.setMinSize(200, 100);
+        labelMessage.setAlignment(Pos.CENTER);
+
+        Button buttonAlert = new Button();
+        buttonAlert.setText("OK");
+        buttonAlert.setMinSize(200, 50);
+        buttonAlert.setOnAction(e -> {
+            stageapear.close();
+        });
+        buttonAlert.setAlignment(Pos.CENTER);
+
+        VBox gridAlert = new VBox();
+        gridAlert.setPadding(new Insets(5));
+        gridAlert.getChildren().addAll(labelMessage, buttonAlert);
+        gridAlert.setAlignment(Pos.CENTER);
+
+        Scene sceneAlert = new Scene(gridAlert);
+        sceneAlert.getStylesheets().add("style.css");
+        stageapear.setScene(sceneAlert);
+        stageapear.showAndWait();
+    }
 }
-
-.button {
-    background-color: rgb(0,0,0);
-    -fx-background-color:
-        linear-gradient(#eca6faaf, #d094f3),
-        radial-gradient(center 50% -40%, radius 200%, #c594fd 45%, #ce8cf5 50%);
-    -fx-background-radius: 6, 5;
-    -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: #060802;
-}
-
-.button:hover {
-    background-color: rgb(119, 0, 255);
-    -fx-background-color:
-        #6ab88a;
-    -fx-background-radius: 60px, 50px, 70px, 6px;
-    -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: #395306;
-}
-
-.label{
-    background-color: rgb(0,0,0);
-    font-size: 12px ;
-    -fx-font-size: 12px;
-
-}
-
-#labelViewStatus{
-    background-color: rgb(0,0,0);
-    font-size: 20px ;
-    -fx-font-size: 20px;
-    -fx-text-alignment: left;
-    min-width: 500px;
-    -fx-min-width: 500px;
-}
-
- 
-
