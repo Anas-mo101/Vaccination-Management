@@ -302,15 +302,14 @@ public class MainMenuMoh {
             try {
                 int idFrom_intForm = Integer.parseInt(idFromField.getText());
                 int idTo_intTo = Integer.parseInt(idToField.getText());
-                if (idFrom_intForm < 5 || idTo_intTo > 300 || idFrom_intForm > idTo_intTo) // change sepcific
+                if (idFrom_intForm < 5 || idTo_intTo > 30000 || idFrom_intForm > idTo_intTo) // change sepcific
                     throw new Exception("ID out of Index");
                 csv.GetUserDataByUsername(assignVCField.getText(), USERTYPE_INDEX).equals("vcadmin");
                 csv.setMultipleUserData(idFromField.getText(), idToField.getText(), assignVCField.getText(),
                         VCASSINGED_INDEX);
-                System.out.println("succes");
+                apearWindow.display("Succesfull", "Succesfully Updated!");
             } catch (Exception ex) {
-                apearWindow.display("Error!", "close" + ex.getMessage());
-                System.out.println("fail");
+                apearWindow.display("Error!", "" + ex.getMessage());
             }
         });
 
